@@ -353,9 +353,8 @@
     });
 </script>
 
-
-<div id="success_message"></div>
-
+<!-- Content area -->
+<div class="content">
 <div class="card">
     <div class="card-header d-flex">
         <h5 class="mb-0">Daftar Jenis Status</h5>
@@ -534,8 +533,10 @@
                 <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
                 <button type="submit" class="btn btn-primary delete_jenisStatus">Hapus</button>
             </div>
-</form>
+            </form>
         </div>
     </div>
 </div>
+</div>
+<!-- /content area -->
 @endsection
