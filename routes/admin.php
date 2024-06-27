@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\admin\BidangPendidikanController;
+use App\Http\Controllers\admin\JenisGerejaController;
 use App\Http\Controllers\admin\JenisStatusController;
 use App\Http\Controllers\admin\StatusController;
 //use Illuminate\Routing\Route;
@@ -47,3 +48,12 @@ Route::get("/status/detail", [StatusController::class, 'detail'])->name('Status.
 Route::delete("/status/hapus", [StatusController::class, 'delete'])->name('Status.delete');
 Route::post("/status/simpan-jenis-status", [StatusController::class, 'storeStatusType'])->name('Status.storeStatusType');
 //Route::get("/status/combo-jenis-status", [StatusController::class, 'getComboJenisStatus'])->name('Status.getComboJenisStatus');
+
+Route::get("/jenis-gereja", [JenisGerejaController::class, 'index'])->name('JenisGereja.index');
+Route::get("/jenis-gereja/tambah", [JenisGerejaController::class, 'create'])->name('JenisGereja.create');
+Route::post("/jenis-gereja/simpan", [JenisGerejaController::class, 'store'])->name('JenisGereja.store');
+Route::get("/jenis-gereja/edit/{id}", [JenisGerejaController::class, 'edit'])->name('JenisGereja.edit');
+Route::post("/jenis-gereja/update/{id}", [JenisGerejaController::class, 'update'])->name('JenisGereja.update');
+Route::delete("/jenis-gereja/hapus", [JenisGerejaController::class, 'delete'])->name('JenisGereja.delete');
+Route::get("/jenis-gereja/detail", [JenisGerejaController::class, 'detail'])->name('JenisGereja.detail');
+
