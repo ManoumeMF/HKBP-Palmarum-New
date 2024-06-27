@@ -20,7 +20,7 @@
             <div class="breadcrumb py-2">
                 <a href="index.html" class="breadcrumb-item"><i class="ph-house"></i></a>
                 <span class="breadcrumb-item">Pengaturan dan Konfigurasi</span>
-                <span class="breadcrumb-item">Organisasi</span>
+                <span class="breadcrumb-item">Keuangan</span>
                 <a href="{{ route('KategoriMataAnggaran.index') }}" class="breadcrumb-item active">Kategori Mata Anggaran</a>
             </div>
             <a href="#breadcrumb_elements"

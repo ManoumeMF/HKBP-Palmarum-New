@@ -154,7 +154,7 @@ $(document).on('click', '.detailBtn', function(e) {
 
     $.ajax({
         method: "GET",
-        url: "{{ route('KategoriMataAnggaran.detail') }}",
+        url: "{{ route('Sentralisasi.detail') }}",
         data: {
             id: st_id
         },
@@ -169,10 +169,8 @@ $(document).on('click', '.detailBtn', function(e) {
                 $('#editModal').modal('hide');
             } else {
                 //console.log(response.fieldEducation.nama_bidang_pendidikan)
-                $('#detail_induk_kategori_mata_anggaran').text(response.kategori_mata_anggaran.induk_kategori_anggaran);
-                $('#detail_kode_kategori_mata_anggaran').text(response.kategori_mata_anggaran.kode_kategori_anggaran);
-                $('#detail_nama_kategori_mata_anggaran').text(response.kategori_mata_anggaran.nama_kategori_Anggaran);
-                $('#detail_keterangan').text(response.kategori_mata_anggaran.keterangan);
+                $('#detail_persentasi_sentralisasi').text(response.sentralisasi.persentasi_sentralisasi);
+                $('#detail_keterangan').text(response.sentralisasi.keterangan);
             }
         }
     });
@@ -192,13 +190,13 @@ $(document).on('click', '.deleteBtn', function(e) {
 // -------------------------------------------------------------------------------------------------
 // Ajax Delete Data
 // -------------------------------------------------------------------------------------------------
-$(document).on('click', '.delete_kategori_mata_anggaran', function(e) {
+$(document).on('click', '.delete_sentralisasi', function(e) {
     e.preventDefault();
 
     var id = $('#deleting_id').val();
 
     var data = {
-        'IdKategoriMataAnggaran': id,
+        'IdSentralisasi': id,
     }
 
     $.ajaxSetup({
@@ -209,7 +207,7 @@ $(document).on('click', '.delete_kategori_mata_anggaran', function(e) {
 
     $.ajax({
         type: "DELETE",
-        url: "{{ route('KategoriMataAnggaran.delete') }}",
+        url: "{{ route('Sentralisasi.delete') }}",
         data: data,
         dataType: "json",
         success: function(response) {
@@ -224,14 +222,14 @@ $(document).on('click', '.delete_kategori_mata_anggaran', function(e) {
                         modal: true
                     }).show();*/
                 });
-                $('.delete_kategori_mata_anggaran').text('Hapus');
+                $('.delete_sentralisasi').text('Hapus');
             } else {
                 //$('#save_msgList').html("");
                 //$('#success_message').addClass('alert alert-success');
                 //$('#success_message').text(response.message);
 
                 //$('#deleteModal').find('input', 'textarea').val('');
-                $('.delete_kategori_mata_anggaran').text('Hapus');
+                $('.delete_sentralisasi').text('Hapus');
                 $('#deleteModal').modal('hide');
 
                 new Noty({
@@ -240,7 +238,7 @@ $(document).on('click', '.delete_kategori_mata_anggaran', function(e) {
                         modal: true
                     }).show();
 
-                    setTimeout("window.location='{{ route('KategoriMataAnggaran.index') }}'", 1500);
+                    setTimeout("window.location='{{ route('Sentralisasi.index') }}'", 1500);
             }
         }
     });
@@ -252,7 +250,7 @@ $(document).on('click', '.delete_kategori_mata_anggaran', function(e) {
     <div class="page-header-content d-lg-flex">
         <div class="d-flex">
             <h4 class="page-title mb-0">
-                Pengaturan dan Konfigurasi - <span class="fw-normal">Kategori Mata Anggaran</span>
+                Pengaturan dan Konfigurasi - <span class="fw-normal">Sentralisasi</span>
             </h4>
             <a href="#page_header"
                 class="btn btn-light align-self-center collapsed d-lg-none border-transparent rounded-pill p-0 ms-auto"
@@ -266,8 +264,8 @@ $(document).on('click', '.delete_kategori_mata_anggaran', function(e) {
             <div class="breadcrumb py-2">
                 <a href="index.html" class="breadcrumb-item"><i class="ph-house"></i></a>
                 <span class="breadcrumb-item">Pengaturan dan Konfigurasi</span>
-                <span class="breadcrumb-item">Keuangan</span>
-                <a href="{{ route('KategoriMataAnggaran.index') }}" class="breadcrumb-item active">Kategori Mata Anggaran</a>
+                <span class="breadcrumb-item">Organisasi</span>
+                <a href="{{ route('Sentralisasi.index') }}" class="breadcrumb-item active">Sentralisasi</a>
             </div>
             <a href="#breadcrumb_elements"
                 class="btn btn-light align-self-center collapsed d-lg-none border-transparent rounded-pill p-0 ms-auto"
@@ -285,30 +283,26 @@ $(document).on('click', '.delete_kategori_mata_anggaran', function(e) {
 <div class="content">
     <div class="card">
         <div class="card-header d-flex">
-            <h5 class="mb-0">Daftar Kategori Mata Anggaran</h5>
+            <h5 class="mb-0">Daftar Sentralisasi</h5>
             <div class="ms-auto">
-            <a class="btn btn-primary" href="{{ route("KategoriMataAnggaran.create") }}"><i
+            <a class="btn btn-primary" href="{{ route("Sentralisasi.create") }}"><i
                         class="ph-plus-circle"></i><span class="d-none d-lg-inline-block ms-2">Tambah Baru</span></a>
             </div>
         </div>
         <table id="statusTable" class="table datatable-basic table-striped">
             <thead>
                 <tr>
-                    <th>Induk Kategori Anggaran</th>
-                    <th>Kode Kategori Anggaran</th>
-                    <th>Nama Kategori Anggaran</th>
+                    <th>Persentasi Sentralisasi</th>
                     <th>Keterangan</th>
                     <th class="text-center">Tindakan</th>
                 </tr>
             </thead>
             <tbody>
-                @if (isset($kategoriMataAnggaran) && count($kategoriMataAnggaran) > 0)
-                @foreach ($kategoriMataAnggaran as $kma)
+                @if (isset($sentralisasi) && count($sentralisasi) > 0)
+                @foreach ($sentralisasi as $ss)
                 <tr>
-                    <td>{{ $kma -> induk_kategori_anggaran }}</td>
-                    <td>{{ $kma -> kode_kategori_anggaran }}</td>
-                    <td>{{ $kma -> nama_kategori_Anggaran }}</td>
-                    <td>{{ $kma -> keterangan }}</td>
+                    <td>{{ $ss -> persentasi_sentralisasi }}</td>
+                    <td>{{ $ss -> keterangan }}</td>
                     <td class="text-center">
                         <div class="d-inline-flex">
                             <div class="dropdown">
@@ -316,16 +310,16 @@ $(document).on('click', '.delete_kategori_mata_anggaran', function(e) {
                                     <i class="ph-list"></i>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-end">
-                                    <button type="button" value="{{ $kma -> id_kategori_anggaran }}"
+                                    <button type="button" value="{{ $ss -> id_sentralisasi }}"
                                         class="dropdown-item text-info detailBtn">
                                         <i class="ph-list me-2"></i>Detail
                                     </button>
-                                    <button type="button" value="{{ $kma -> id_kategori_anggaran }}"
+                                    <button type="button" value="{{ $ss -> id_sentralisasi }}"
                                         class="dropdown-item text-secondary">
-                                        <a href="{{ route('KategoriMataAnggaran.edit', $kma -> id_kategori_anggaran) }}"
+                                        <a href="{{ route('Sentralisasi.edit', $ss -> id_sentralisasi) }}"
                                             style="color:inherit"><i class="ph-pencil me-2"></i> Edit</a>
                                     </button>
-                                    <button type="button" value="{{ $kma -> id_kategori_anggaran }}"
+                                    <button type="button" value="{{ $ss -> id_sentralisasi }}"
                                         class="dropdown-item text-danger deleteBtn">
                                         <i class="ph-trash me-2"></i>Hapus
                                     </button>
@@ -351,22 +345,10 @@ $(document).on('click', '.delete_kategori_mata_anggaran', function(e) {
                 <div class="modal-body">
                     <div class="container">
                         <div class="row mb-2">
-                            <label for="detail_induk_kategori_mata_anggaran" class="col-lg-4 col-form-label">
-                                Jenis Gereja:</label>
+                            <label for="detail_persentasi_sentralisasi" class="col-lg-4 col-form-label">
+                                Persentasi Sentralisasi:</label>
                             <div class="col-lg-7">
-                                <label id="detail_induk_kategori_mata_anggaran" class="col-form-label"></label>
-                            </div>
-                        </div>
-                        <div class="row mb-2">
-                            <label for="detail_kode_kategori_mata_anggaran" class="col-lg-4 col-form-label">Keterangan:</label>
-                            <div class="col-lg-7">
-                                <label id="detail_kode_kategori_mata_anggaran" class="col-form-label"></label>
-                            </div>
-                        </div>
-                        <div class="row mb-2">
-                            <label for="detail_nama_kategori_mata_anggaran" class="col-lg-4 col-form-label">Nama :</label>
-                            <div class="col-lg-7">
-                                <label id="detail_nama_kategori_mata_anggaran" class="col-form-label"></label>
+                                <label id="detail_persentasi_sentralisasi" class="col-form-label"></label>
                             </div>
                         </div>
                         <div class="row mb-2">
@@ -384,28 +366,28 @@ $(document).on('click', '.delete_kategori_mata_anggaran', function(e) {
         </div>
     </div>
 
-    {{-- Delete Modal --}}
-    <div id="deleteModal" class="modal fade" tabindex="-1">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Hapus Data Kategori Mata Anggaran</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
-                <form id="deleteKategoriMataAnggaranForm">
-                    @csrf
-                    <div class="modal-body">
-                        <h4>Konfirmasi untuk Menghapus Data?</h4>
-                        <input type="hidden" id="deleting_id" />
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary delete_kategori_mata_anggaran">Hapus</button>
-                    </div>
-                </form>
+   {{-- Delete Modal --}}
+   <div id="deleteModal" class="modal fade" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Hapus Data Sentralisasi</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
             </div>
+            <form id="deleteJenisGerejaForm">
+                @csrf
+                <div class="modal-body">
+                    <h4>Konfirmasi untuk Menghapus Data?</h4>
+                    <input type="hidden" id="deleting_id" />
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary delete_sentralisasi">Hapus</button>
+                </div>
+            </form>
         </div>
     </div>
+</div>
 </div>
 <!-- /content area -->
 @endsection
