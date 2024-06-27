@@ -154,7 +154,7 @@ $(document).on('click', '.detailBtn', function(e) {
 
     $.ajax({
         method: "GET",
-        url: "{{ route('JenisGereja.detail') }}",
+        url: "{{ route('KategoriMataAnggaran.detail') }}",
         data: {
             id: st_id
         },
@@ -169,8 +169,10 @@ $(document).on('click', '.detailBtn', function(e) {
                 $('#editModal').modal('hide');
             } else {
                 //console.log(response.fieldEducation.nama_bidang_pendidikan)
-                $('#detail_jenis_gereja').text(response.jenis_gereja.jenis_gereja);
-                $('#detail_keterangan').text(response.jenis_gereja.keterangan);
+                $('#detail_induk_kategori_mata_anggaran').text(response.kategori_mata_anggaran.induk_kategori_anggaran);
+                $('#detail_kode_kategori_mata_anggaran').text(response.kategori_mata_anggaran.kode_kategori_anggaran);
+                $('#detail_nama_kategori_mata_anggaran').text(response.kategori_mata_anggaran.nama_kategori_Anggaran);
+                $('#detail_keterangan').text(response.kategori_mata_anggaran.keterangan);
             }
         }
     });
@@ -190,13 +192,13 @@ $(document).on('click', '.deleteBtn', function(e) {
 // -------------------------------------------------------------------------------------------------
 // Ajax Delete Data
 // -------------------------------------------------------------------------------------------------
-$(document).on('click', '.delete_jenis_gereja', function(e) {
+$(document).on('click', '.delete_kategori_mata_anggaran', function(e) {
     e.preventDefault();
 
     var id = $('#deleting_id').val();
 
     var data = {
-        'IdJenisGereja': id,
+        'IdKategoriMataAnggaran': id,
     }
 
     $.ajaxSetup({
@@ -207,7 +209,7 @@ $(document).on('click', '.delete_jenis_gereja', function(e) {
 
     $.ajax({
         type: "DELETE",
-        url: "{{ route('JenisGereja.delete') }}",
+        url: "{{ route('KategoriMataAnggaran.delete') }}",
         data: data,
         dataType: "json",
         success: function(response) {
@@ -222,14 +224,14 @@ $(document).on('click', '.delete_jenis_gereja', function(e) {
                         modal: true
                     }).show();*/
                 });
-                $('.delete_jenis_gereja').text('Hapus');
+                $('.delete_kategori_mata_anggaran').text('Hapus');
             } else {
                 //$('#save_msgList').html("");
                 //$('#success_message').addClass('alert alert-success');
                 //$('#success_message').text(response.message);
 
                 //$('#deleteModal').find('input', 'textarea').val('');
-                $('.delete_jenis_gereja').text('Hapus');
+                $('.delete_kategori_mata_anggaran').text('Hapus');
                 $('#deleteModal').modal('hide');
 
                 new Noty({
@@ -238,7 +240,7 @@ $(document).on('click', '.delete_jenis_gereja', function(e) {
                         modal: true
                     }).show();
 
-                    setTimeout("window.location='{{ route('JenisGereja.index') }}'", 1500);
+                    setTimeout("window.location='{{ route('KategoriMataAnggaran.index') }}'", 1500);
             }
         }
     });
@@ -250,7 +252,7 @@ $(document).on('click', '.delete_jenis_gereja', function(e) {
     <div class="page-header-content d-lg-flex">
         <div class="d-flex">
             <h4 class="page-title mb-0">
-                Pengaturan dan Konfigurasi - <span class="fw-normal">Jenis Gereja</span>
+                Pengaturan dan Konfigurasi - <span class="fw-normal">Kategori Mata Anggaran</span>
             </h4>
             <a href="#page_header"
                 class="btn btn-light align-self-center collapsed d-lg-none border-transparent rounded-pill p-0 ms-auto"
@@ -265,7 +267,7 @@ $(document).on('click', '.delete_jenis_gereja', function(e) {
                 <a href="index.html" class="breadcrumb-item"><i class="ph-house"></i></a>
                 <span class="breadcrumb-item">Pengaturan dan Konfigurasi</span>
                 <span class="breadcrumb-item">Organisasi</span>
-                <a href="{{ route('JenisGereja.index') }}" class="breadcrumb-item active">Jenis Gereja</a>
+                <a href="{{ route('JenisGereja.index') }}" class="breadcrumb-item active">Kategori Mata Anggaran</a>
             </div>
             <a href="#breadcrumb_elements"
                 class="btn btn-light align-self-center collapsed d-lg-none border-transparent rounded-pill p-0 ms-auto"
@@ -283,26 +285,30 @@ $(document).on('click', '.delete_jenis_gereja', function(e) {
 <div class="content">
     <div class="card">
         <div class="card-header d-flex">
-            <h5 class="mb-0">Daftar Jenis Gereja</h5>
+            <h5 class="mb-0">Daftar Kategori Mata Anggaran</h5>
             <div class="ms-auto">
-            <a class="btn btn-primary" href="{{ route("JenisGereja.create") }}"><i
+            <a class="btn btn-primary" href="{{ route("KategoriMataAnggaran.create") }}"><i
                         class="ph-plus-circle"></i><span class="d-none d-lg-inline-block ms-2">Tambah Baru</span></a>
             </div>
         </div>
         <table id="statusTable" class="table datatable-basic table-striped">
             <thead>
                 <tr>
-                    <th>Jenis Gereja</th>
+                    <th>Induk Kategori Anggaran</th>
+                    <th>Kode Kategori Anggaran</th>
+                    <th>Nama Kategori Anggaran</th>
                     <th>Keterangan</th>
                     <th class="text-center">Tindakan</th>
                 </tr>
             </thead>
             <tbody>
-                @if (isset($jenisGereja) && count($jenisGereja) > 0)
-                @foreach ($jenisGereja as $jg)
+                @if (isset($kategoriMataAnggaran) && count($kategoriMataAnggaran) > 0)
+                @foreach ($kategoriMataAnggaran as $kma)
                 <tr>
-                    <td>{{ $jg -> jenis_gereja }}</td>
-                    <td>{{ $jg -> keterangan }}</td>
+                    <td>{{ $kma -> induk_kategori_anggaran }}</td>
+                    <td>{{ $kma -> kode_kategori_anggaran }}</td>
+                    <td>{{ $kma -> nama_kategori_Anggaran }}</td>
+                    <td>{{ $kma -> keterangan }}</td>
                     <td class="text-center">
                         <div class="d-inline-flex">
                             <div class="dropdown">
@@ -310,16 +316,16 @@ $(document).on('click', '.delete_jenis_gereja', function(e) {
                                     <i class="ph-list"></i>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-end">
-                                    <button type="button" value="{{ $jg -> id_jenis_gereja }}"
+                                    <button type="button" value="{{ $kma -> id_kategori_anggaran }}"
                                         class="dropdown-item text-info detailBtn">
                                         <i class="ph-list me-2"></i>Detail
                                     </button>
-                                    <button type="button" value="{{ $jg -> id_jenis_gereja }}"
+                                    <button type="button" value="{{ $kma -> id_kategori_anggaran }}"
                                         class="dropdown-item text-secondary">
-                                        <a href="{{ route('JenisGereja.edit', $jg -> id_jenis_gereja) }}"
+                                        <a href="{{ route('KategoriMataAnggaran.edit', $kma -> id_kategori_anggaran) }}"
                                             style="color:inherit"><i class="ph-pencil me-2"></i> Edit</a>
                                     </button>
-                                    <button type="button" value="{{ $jg -> id_jenis_gereja }}"
+                                    <button type="button" value="{{ $kma -> id_kategori_anggaran }}"
                                         class="dropdown-item text-danger deleteBtn">
                                         <i class="ph-trash me-2"></i>Hapus
                                     </button>
@@ -345,10 +351,22 @@ $(document).on('click', '.delete_jenis_gereja', function(e) {
                 <div class="modal-body">
                     <div class="container">
                         <div class="row mb-2">
-                            <label for="detail_jenis_gereja" class="col-lg-4 col-form-label">
+                            <label for="detail_induk_kategori_mata_anggaran" class="col-lg-4 col-form-label">
                                 Jenis Gereja:</label>
                             <div class="col-lg-7">
-                                <label id="detail_jenis_gereja" class="col-form-label"></label>
+                                <label id="detail_induk_kategori_mata_anggaran" class="col-form-label"></label>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <label for="detail_kode_kategori_mata_anggaran" class="col-lg-4 col-form-label">Keterangan:</label>
+                            <div class="col-lg-7">
+                                <label id="detail_kode_kategori_mata_anggaran" class="col-form-label"></label>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <label for="detail_nama_kategori_mata_anggaran" class="col-lg-4 col-form-label">Nama :</label>
+                            <div class="col-lg-7">
+                                <label id="detail_nama_kategori_mata_anggaran" class="col-form-label"></label>
                             </div>
                         </div>
                         <div class="row mb-2">
@@ -371,10 +389,10 @@ $(document).on('click', '.delete_jenis_gereja', function(e) {
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Hapus Data Jenis Gereja</h5>
+                    <h5 class="modal-title">Hapus Data Kategori Mata Anggaran</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
-                <form id="deleteJenisGerejaForm">
+                <form id="deleteKategoriMataAnggaranForm">
                     @csrf
                     <div class="modal-body">
                         <h4>Konfirmasi untuk Menghapus Data?</h4>
@@ -382,7 +400,7 @@ $(document).on('click', '.delete_jenis_gereja', function(e) {
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary delete_jenis_gereja">Hapus</button>
+                        <button type="submit" class="btn btn-primary delete_kategori_mata_anggaran">Hapus</button>
                     </div>
                 </form>
             </div>

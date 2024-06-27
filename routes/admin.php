@@ -3,6 +3,7 @@
 use App\Http\Controllers\admin\BidangPendidikanController;
 use App\Http\Controllers\admin\JenisGerejaController;
 use App\Http\Controllers\admin\JenisStatusController;
+use App\Http\Controllers\admin\KategoriMataAnggaranController;
 use App\Http\Controllers\admin\StatusController;
 //use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\Route;
@@ -57,3 +58,10 @@ Route::post("/jenis-gereja/update/{id}", [JenisGerejaController::class, 'update'
 Route::delete("/jenis-gereja/hapus", [JenisGerejaController::class, 'delete'])->name('JenisGereja.delete');
 Route::get("/jenis-gereja/detail", [JenisGerejaController::class, 'detail'])->name('JenisGereja.detail');
 
+Route::get("/kategori-mata-anggaran", [KategoriMataAnggaranController::class, 'index'])->name('KategoriMataAnggaran.index');
+Route::get("/kategori-mata-anggaran/tambah", [KategoriMataAnggaranController::class, 'create'])->name('KategoriMataAnggaran.create');
+Route::post("/kategori-mata-anggaran/simpan", [KategoriMataAnggaranController::class, 'store'])->name('KategoriMataAnggaran.store');
+Route::get("/kategori-mata-anggaran/edit/{id}", [KategoriMataAnggaranController::class, 'edit'])->name('KategoriMataAnggaran.edit');
+Route::post("/kategori-mata-anggaran/update/{id}", [KategoriMataAnggaranController::class, 'update'])->name('KategoriMataAnggaran.update');
+Route::delete("/kategori-mata-anggaran/hapus", [KategoriMataAnggaranController::class, 'delete'])->name('KategoriMataAnggaran.delete');
+Route::get("/kategori-mata-anggaran/detail", [KategoriMataAnggaranController::class, 'detail'])->name('KategoriMataAnggaran.detail');
