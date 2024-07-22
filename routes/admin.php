@@ -1,11 +1,17 @@
 <?php
 
 use App\Http\Controllers\admin\BidangPendidikanController;
+<<<<<<< HEAD
 use App\Http\Controllers\admin\JenisKegiatanController;
 use App\Http\Controllers\admin\JenisMingguController;
 use App\Http\Controllers\admin\JenisRegistrasiController;
 use App\Http\Controllers\admin\JenisRppController;
+=======
+use App\Http\Controllers\admin\JenisGerejaController;
+>>>>>>> 32bf9721316cc887860537c505e646eee9667e31
 use App\Http\Controllers\admin\JenisStatusController;
+use App\Http\Controllers\admin\KategoriMataAnggaranController;
+use App\Http\Controllers\admin\SetSentralisasiController;
 use App\Http\Controllers\admin\StatusController;
 //use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\Route;
@@ -87,3 +93,26 @@ Route::get("/jenis-rpp/edit/{id}", [JenisRppController::class, 'edit'])->name('J
 Route::post("/jenis-rpp/update/{id}", [JenisRppController::class, 'update'])->name('JenisRpp.update');
 Route::get("/jenis-rpp/detail", [JenisRppController::class, 'detail'])->name('JenisRpp.detail');
 Route::delete('jenis-rpp/delete', [JenisRppController::class, 'delete'])->name('JenisRpp.delete');
+Route::get("/jenis-gereja", [JenisGerejaController::class, 'index'])->name('JenisGereja.index');
+Route::get("/jenis-gereja/tambah", [JenisGerejaController::class, 'create'])->name('JenisGereja.create');
+Route::post("/jenis-gereja/simpan", [JenisGerejaController::class, 'store'])->name('JenisGereja.store');
+Route::get("/jenis-gereja/edit/{id}", [JenisGerejaController::class, 'edit'])->name('JenisGereja.edit');
+Route::post("/jenis-gereja/update/{id}", [JenisGerejaController::class, 'update'])->name('JenisGereja.update');
+Route::delete("/jenis-gereja/hapus", [JenisGerejaController::class, 'delete'])->name('JenisGereja.delete');
+Route::get("/jenis-gereja/detail", [JenisGerejaController::class, 'detail'])->name('JenisGereja.detail');
+
+Route::get("/kategori-mata-anggaran", [KategoriMataAnggaranController::class, 'index'])->name('KategoriMataAnggaran.index');
+Route::get("/kategori-mata-anggaran/tambah", [KategoriMataAnggaranController::class, 'create'])->name('KategoriMataAnggaran.create');
+Route::post("/kategori-mata-anggaran/simpan", [KategoriMataAnggaranController::class, 'store'])->name('KategoriMataAnggaran.store');
+Route::get("/kategori-mata-anggaran/edit/{id}", [KategoriMataAnggaranController::class, 'edit'])->name('KategoriMataAnggaran.edit');
+Route::post("/kategori-mata-anggaran/update/{id}", [KategoriMataAnggaranController::class, 'update'])->name('KategoriMataAnggaran.update');
+Route::delete("/kategori-mata-anggaran/hapus", [KategoriMataAnggaranController::class, 'delete'])->name('KategoriMataAnggaran.delete');
+Route::get("/kategori-mata-anggaran/detail", [KategoriMataAnggaranController::class, 'detail'])->name('KategoriMataAnggaran.detail');
+
+Route::get("/sentralisasi", [SetSentralisasiController::class, 'index'])->name('Sentralisasi.index');
+Route::get("/sentralisasi/tambah", [SetSentralisasiController::class, 'create'])->name('Sentralisasi.create');
+Route::post("/sentralisasi/simpan", [SetSentralisasiController::class, 'store'])->name('Sentralisasi.store');
+Route::get("/sentralisasi/edit/{id}", [SetSentralisasiController::class, 'edit'])->name('Sentralisasi.edit');
+Route::post("/sentralisasi/update/{id}", [SetSentralisasiController::class, 'update'])->name('Sentralisasi.update');
+Route::delete("/sentralisasi/hapus", [SetSentralisasiController::class, 'delete'])->name('Sentralisasi.delete');
+Route::get("/sentralisasi/detail", [SetSentralisasiController::class, 'detail'])->name('Sentralisasi.detail');
