@@ -97,7 +97,7 @@ $(document).on('click', '.detailBtn', function(e) {
 
     $.ajax({
         method: "GET",
-        url: "{{ route('HubunganKeluarga.detail') }}",
+        url: "{{ route('Hubungan-Keluarga.detail') }}",
         data: {
             id: fhk_id
         },
@@ -153,7 +153,7 @@ $(document).on('click', '.delete_hubunganKeluarga', function(e) {
 
     $.ajax({
         type: "DELETE",
-        url: "{{ route('HubunganKeluarga.delete') }}",
+        url: "{{ route('Hubungan-Keluarga.delete') }}",
         data: data,
         dataType: "json",
         success: function(response) {
@@ -184,7 +184,7 @@ $(document).on('click', '.delete_hubunganKeluarga', function(e) {
                         modal: true
                     }).show();
 
-                    setTimeout("window.location='{{ route('HubunganKeluarga.index') }}'", 1500);
+                    setTimeout("window.location='{{ route('Hubungan-Keluarga.index') }}'", 1500);
             }
         }
     });
@@ -229,7 +229,7 @@ $(document).on('click', '.delete_hubunganKeluarga', function(e) {
         <div class="card-header d-flex">
             <h5 class="mb-0">Daftar Hubungan Keluarga</h5>
             <div class="ms-auto">
-                <a class="btn btn-primary" href="{{ route('HubunganKeluarga.create') }}"><i
+                <a class="btn btn-primary" href="{{ route('Hubungan-Keluarga.create') }}"><i
                         class="ph-plus-circle"></i><span class="d-none d-lg-inline-block ms-2">Tambah Baru</span></a>
             </div>
         </div>
@@ -260,7 +260,7 @@ $(document).on('click', '.delete_hubunganKeluarga', function(e) {
                                     </button>
                                     <button type="button" value="{{ $fHK -> id_hub_keluarga }}"
                                         class="dropdown-item text-secondary">
-                                        <a href="{{ route('HubunganKeluarga.edit', $fHK -> id_hub_keluarga) }}"
+                                        <a href="{{ route('Hubungan-Keluarga.edit', $fHK -> id_hub_keluarga) }}"
                                             style="color:inherit"><i class="ph-pencil me-2"></i> Edit</a>
                                     </button>
                                     <button type="button" value="{{ $fHK -> id_hub_keluarga }}"

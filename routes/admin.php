@@ -72,13 +72,13 @@ Route::delete('/pekerjaan/hapus', [PekerjaanController::class, 'delete'])->name(
 Route::get('/pekerjaan/detail',[PekerjaanController::class, 'detail'])->name('Pekerjaan.detail');
 
 // Route untuk Hubungan Keluarga
-Route::get("/hubunganKeluarga", [HubunganKeluargaController::class, 'index'])->name('HubunganKeluarga.index');
-Route::post("/hubunganKeluarga/simpan", [HubunganKeluargaController::class, 'store'])->name('HubunganKeluarga.store');
-Route::get("/hubunganKeluarga/tambah", [HubunganKeluargaController::class, 'create'])->name('HubunganKeluarga.create');
-Route::get("/hubunganKeluarga/edit/{id}", [HubunganKeluargaController::class, 'edit'])->name('HubunganKeluarga.edit');
-Route::post("/hubunganKeluarga/update/{id}", [HubunganKeluargaController::class, 'update'])->name('HubunganKeluarga.update');
-Route::delete('/hubunganKeluarga/hapus', [HubunganKeluargaController::class, 'delete'])->name('HubunganKeluarga.delete');
-Route::get('/hubunganKeluarga/detail',[HubunganKeluargaController::class, 'detail'])->name('HubunganKeluarga.detail');
+Route::get("/hubunganKeluarga", [HubunganKeluargaController::class, 'index'])->name('Hubungan-Keluarga.index');
+Route::post("/hubunganKeluarga/simpan", [HubunganKeluargaController::class, 'store'])->name('Hubungan-Keluarga.store');
+Route::get("/hubunganKeluarga/tambah", [HubunganKeluargaController::class, 'create'])->name('Hubungan-Keluarga.create');
+Route::get("/hubunganKeluarga/edit/{id}", [HubunganKeluargaController::class, 'edit'])->name('Hubungan-Keluarga.edit');
+Route::post("/hubunganKeluarga/update/{id}", [HubunganKeluargaController::class, 'update'])->name('Hubungan-Keluarga.update');
+Route::delete('/hubunganKeluarga/hapus', [HubunganKeluargaController::class, 'delete'])->name('Hubungan-Keluarga.delete');
+Route::get('/hubunganKeluarga/detail',[HubunganKeluargaController::class, 'detail'])->name('Hubungan-Keluarga.detail');
 
 // Route untuk Bank
 Route::get("/bank", [BankController::class, 'index'])->name('Bank.index');
@@ -90,10 +90,10 @@ Route::delete('/bank/hapus', [BankController::class, 'delete'])->name('Bank.dele
 Route::get('/bank/detail',[BankController::class, 'detail'])->name('Bank.detail');
 
 // Route untuk Golongan Darah
-Route::get("/golonganDarah", [GolonganDarahController::class, 'index'])->name('GolonganDarah.index');
-Route::post("/golonganDarah/simpan", [GolonganDarahController::class, 'store'])->name('GolonganDarah.store');
-Route::get("/golonganDarah/tambah", [GolonganDarahController::class, 'create'])->name('GolonganDarah.create');
-Route::get("/golonganDarah/edit/{id}", [GolonganDarahController::class, 'edit'])->name('GolonganDarah.edit');
-Route::post("/golonganDarah/update/{id}", [GolonganDarahController::class, 'update'])->name('GolonganDarah.update');
-Route::delete('/golonganDarah/hapus', [GolonganDarahController::class, 'delete'])->name('GolonganDarah.delete');
-Route::get('/golonganDarah/detail',[GolonganDarahController::class, 'detail'])->name('GolonganDarah.detail');
+Route::get("/golonganDarah", [GolonganDarahController::class, 'index'])->name('Golongan-Darah.index');
+Route::post("/golonganDarah/simpan", [GolonganDarahController::class, 'store'])->name('Golongan-Darah.store');
+Route::get("/golonganDarah/tambah", [GolonganDarahController::class, 'create'])->name('Golongan-Darah.create');
+Route::get("/golonganDarah/edit/{id}", [GolonganDarahController::class, 'edit'])->name('Golongan-Darah.edit');
+Route::post("/golonganDarah/update/{id}", [GolonganDarahController::class, 'update'])->name('Golongan-Darah.update');
+Route::delete('/golonganDarah/hapus', [GolonganDarahController::class, 'delete'])->name('Golongan-Darah.delete');
+Route::get('/golonganDarah/detail',[GolonganDarahController::class, 'detail'])->name('Golongan-Darah.detail');

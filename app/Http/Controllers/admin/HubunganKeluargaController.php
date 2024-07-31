@@ -58,9 +58,9 @@ class HubunganKeluargaController extends Controller
         $response = DB::statement('CALL insert_hubunganKeluarga(:dataHubunganKeluarga)', ['dataHubunganKeluarga' => $HubunganKeluarga]);
 
         if ($response) {
-            return redirect()->route('HubunganKeluarga.index')->with('success', 'Hubungan Keluarga Berhasil Disimpan!');
+            return redirect()->route('Hubungan-Keluarga.index')->with('success', 'Hubungan Keluarga Berhasil Disimpan!');
         } else {
-            return redirect()->route('HubunganKeluarga.create')->with('error', 'Hubungan Keluarga Gagal Disimpan!');
+            return redirect()->route('Hubungan-Keluarga.create')->with('error', 'Hubungan Keluarga Gagal Disimpan!');
         }
     }
 
@@ -100,7 +100,7 @@ class HubunganKeluargaController extends Controller
         if ($fieldHubunganKeluarga) {
            return view('admin.PengaturanDanKonfigurasi.HubunganKeluarga.edit', compact('fieldHubunganKeluarga'));
         } else {
-            return redirect()->route('HubunganKeluarga.index')->with('error', 'Hubungan Keluarga Tidak Ditemukan!');
+            return redirect()->route('Hubungan-Keluarga.index')->with('error', 'Hubungan Keluarga Tidak Ditemukan!');
         }
     }
 
@@ -118,9 +118,9 @@ class HubunganKeluargaController extends Controller
         $response = DB::statement('CALL update_hubunganKeluarga(:dataHubunganKeluarga)', ['dataHubunganKeluarga' => $HubunganKeluarga]);
     
         if ($response) {
-            return redirect()->route('HubunganKeluarga.index')->with('success', 'Hubungan Keluarga Berhasil Diubah!');
+            return redirect()->route('Hubungan-Keluarga.index')->with('success', 'Hubungan Keluarga Berhasil Diubah!');
         } else {
-            return redirect()->route('HubunganKeluarga.edit', $id)->with('error', 'Hubungan Keluarga Gagal Diubah!');
+            return redirect()->route('Hubungan-Keluarga.edit', $id)->with('error', 'Hubungan Keluarga Gagal Diubah!');
         }
     }
 

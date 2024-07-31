@@ -531,9 +531,9 @@
                                         <li class="nav-item"><a href="{{ route('Pekerjaan.index') }}" class="nav-link">Pekerjaan</a></li>
                                         <li class="nav-item"><a href="{{ route('JenisStatus.index') }}" class="nav-link">Jenis Status</a></li>
                                         <li class="nav-item"><a href="" class="nav-link">Status</a></li>
-                                        <li class="nav-item"><a href="{{ route('HubunganKeluarga.index') }}" class="nav-link">Hubungan Keluarga</a></li>
+                                        <li class="nav-item"><a href="{{ route('Hubungan-Keluarga.index') }}" class="nav-link">Hubungan Keluarga</a></li>
                                         <li class="nav-item"><a href="{{ route('Bank.index') }}" class="nav-link">Bank</a></li>
-                                        <li class="nav-item"><a href="{{ route('GolonganDarah.index') }}" class="nav-link">Golongan Darah</a></li>
+                                        <li class="nav-item"><a href="{{ route('Golongan-Darah.index') }}" class="nav-link">Golongan Darah</a></li>
                                     </ul>
                                 </li>
                                 <li class="nav-item nav-item-submenu">

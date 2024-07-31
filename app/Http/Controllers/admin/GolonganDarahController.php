@@ -58,9 +58,9 @@ class GolonganDarahController extends Controller
         $response = DB::statement('CALL insert_GolonganDarah(:dataGolonganDarah)', ['dataGolonganDarah' => $GolonganDarah]);
 
         if ($response) {
-            return redirect()->route('GolonganDarah.index')->with('success', 'Golongan Darah Berhasil Disimpan!');
+            return redirect()->route('Golongan-Darah.index')->with('success', 'Golongan Darah Berhasil Disimpan!');
         } else {
-            return redirect()->route('GolonganDarah.create')->with('error', 'Golongan Darah Gagal Disimpan!');
+            return redirect()->route('Golongan-Darah.create')->with('error', 'Golongan Darah Gagal Disimpan!');
         }
     }
 
@@ -100,7 +100,7 @@ class GolonganDarahController extends Controller
         if ($fieldGolonganDarah) {
            return view('admin.PengaturanDanKonfigurasi.GolonganDarah.edit', compact('fieldGolonganDarah'));
         } else {
-            return redirect()->route('GolonganDarah.index')->with('error', 'Golongan Darah Tidak Ditemukan!');
+            return redirect()->route('Golongan-Darah.index')->with('error', 'Golongan Darah Tidak Ditemukan!');
         }
     }
 
@@ -118,9 +118,9 @@ class GolonganDarahController extends Controller
         $response = DB::statement('CALL update_golonganDarah(:dataGolonganDarah)', ['dataGolonganDarah' => $GolonganDarah]);
     
         if ($response) {
-            return redirect()->route('GolonganDarah.index')->with('success', 'Golongan Darah Berhasil Diubah!');
+            return redirect()->route('Golongan-Darah.index')->with('success', 'Golongan Darah Berhasil Diubah!');
         } else {
-            return redirect()->route('GolonganDarah.edit', $id)->with('error', 'Golongan Darah Gagal Diubah!');
+            return redirect()->route('Golongan-Darah.edit', $id)->with('error', 'Golongan Darah Gagal Diubah!');
         }
     }
 
