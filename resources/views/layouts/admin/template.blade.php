@@ -34,7 +34,7 @@
     <script src="{{ asset('admin_resources/assets/demo/pages/form_validation_styles.js') }}"></script>
 	<script src="{{ asset('admin_resources/assets/js/vendor/notifications/noty.min.js') }}"></script>
     <script src="{{ asset('admin_resources/assets/demo/pages/extra_noty.js') }}"></script>
-    
+
 
     <script src="{{ asset('admin_resources/assets/js/vendor/tables/datatables/datatables.min.js') }}"></script>
     <script
@@ -552,13 +552,13 @@
                                         </li>
                                         <li class="nav-item"><a href="" class="nav-link">Pelayanan Ibadah</a>
                                         </li>
-                                        <li class="nav-item"><a href="" class="nav-link">Jenis Kegiatan</a>
+                                        <li class="nav-item"><a href="{{ route('JenisKegiatan.index') }}" class="nav-link">Jenis Kegiatan</a>
                                         </li>
-                                        <li class="nav-item"><a href="" class="nav-link">Jenis Minggu</a>
+                                        <li class="nav-item"><a href="{{ route('JenisMinggu.index') }}" class="nav-link">Jenis Minggu</a>
                                         </li>
-                                        <li class="nav-item"><a href="" class="nav-link">Jenis Registrasi</a>
+                                        <li class="nav-item"><a href="{{ route('JenisRegistrasi.index') }}" class="nav-link">Jenis Registrasi</a>
                                         </li>
-                                        <li class="nav-item"><a href="" class="nav-link">Jenis RPP</a>
+                                        <li class="nav-item"><a href="{{ route('JenisRpp.index') }}" class="nav-link">Jenis RPP</a>
                                         </li>
                                     </ul>
                                 </li>
@@ -634,11 +634,11 @@
             <!-- Inner content -->
             <div class="content-inner">
 
-                
+
                     @include('flash_message')
 
                     @yield('content')
-                
+
 
 
                 <!-- Footer -->
