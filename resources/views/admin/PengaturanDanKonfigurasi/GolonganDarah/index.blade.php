@@ -97,7 +97,7 @@ $(document).on('click', '.detailBtn', function(e) {
 
     $.ajax({
         method: "GET",
-        url: "{{ route('GolonganDarah.detail') }}",
+        url: "{{ route('Golongan-Darah.detail') }}",
         data: {
             id: fgd_id
         },
@@ -153,7 +153,7 @@ $(document).on('click', '.delete_golonganDarah', function(e) {
 
     $.ajax({
         type: "DELETE",
-        url: "{{ route('GolonganDarah.delete') }}",
+        url: "{{ route('Golongan-Darah.delete') }}",
         data: data,
         dataType: "json",
         success: function(response) {
@@ -184,7 +184,7 @@ $(document).on('click', '.delete_golonganDarah', function(e) {
                         modal: true
                     }).show();
 
-                    setTimeout("window.location='{{ route('GolonganDarah.index') }}'", 1500);
+                    setTimeout("window.location='{{ route('Golongan-Darah.index') }}'", 1500);
             }
         }
     });
@@ -229,7 +229,7 @@ $(document).on('click', '.delete_golonganDarah', function(e) {
         <div class="card-header d-flex">
             <h5 class="mb-0">Daftar Golongan Darah</h5>
             <div class="ms-auto">
-                <a class="btn btn-primary" href="{{ route('GolonganDarah.create') }}"><i
+                <a class="btn btn-primary" href="{{ route('Golongan-Darah.create') }}"><i
                         class="ph-plus-circle"></i><span class="d-none d-lg-inline-block ms-2">Tambah Baru</span></a>
             </div>
         </div>
@@ -260,7 +260,7 @@ $(document).on('click', '.delete_golonganDarah', function(e) {
                                     </button>
                                     <button type="button" value="{{ $fGD -> id_gol_darah }}"
                                         class="dropdown-item text-secondary">
-                                        <a href="{{ route('GolonganDarah.edit', $fGD -> id_gol_darah) }}"
+                                        <a href="{{ route('Golongan-Darah.edit', $fGD -> id_gol_darah) }}"
                                             style="color:inherit"><i class="ph-pencil me-2"></i> Edit</a>
                                     </button>
                                     <button type="button" value="{{ $fGD -> id_gol_darah }}"

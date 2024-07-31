@@ -46,7 +46,7 @@
             <div class="row">
                 <div class="col-lg-9 offset-lg-1">
                     @if (isset($fieldGolonganDarah))
-                    <form action="{{ route('GolonganDarah.update', $fieldGolonganDarah -> id_gol_darah)}}"
+                    <form action="{{ route('Golongan-Darah.update', $fieldGolonganDarah -> id_gol_darah)}}"
                         method="post" class="needs-validation" novalidate>
                         @csrf
                         <div class="row mb-3">
@@ -68,7 +68,7 @@
                             </div>
                         </div>
                         <div class="text-end">
-                            <a href="{{route('GolonganDarah.index')}}">
+                            <a href="{{route('Golongan-Darah.index')}}">
                                 <button type="submit" class="btn btn-primary">Simpan<i
                                         class="ph-check-circle ms-2"></i></button>
                             </a>

@@ -45,7 +45,7 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-lg-9 offset-lg-1">
-                    <form action="{{route('GolonganDarah.store')}}" method="post" class="needs-validation"
+                    <form action="{{route('Golongan-Darah.store')}}" method="post" class="needs-validation"
                         novalidate>
                         {{ csrf_field() }}
                         <div class="row mb-3">
@@ -66,7 +66,7 @@
                             </div>
                         </div>
                         <div class="text-end">
-                            <a href="{{route('GolonganDarah.index')}}">
+                            <a href="{{route('Golongan-Darah.index')}}">
                                 <button type="submit" class="btn btn-primary">Simpan<i
                                         class="ph-check-circle ms-2"></i></button>
                             </a>
