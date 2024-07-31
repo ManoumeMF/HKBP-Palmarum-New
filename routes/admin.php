@@ -1,7 +1,14 @@
 <?php
 
 use App\Http\Controllers\admin\BidangPendidikanController;
+<<<<<<< HEAD
+use App\Http\Controllers\admin\JenisKegiatanController;
+use App\Http\Controllers\admin\JenisMingguController;
+use App\Http\Controllers\admin\JenisRegistrasiController;
+use App\Http\Controllers\admin\JenisRppController;
+=======
 use App\Http\Controllers\admin\JenisGerejaController;
+>>>>>>> 32bf9721316cc887860537c505e646eee9667e31
 use App\Http\Controllers\admin\JenisStatusController;
 use App\Http\Controllers\admin\KategoriMataAnggaranController;
 use App\Http\Controllers\admin\SetSentralisasiController;
@@ -51,6 +58,41 @@ Route::delete("/status/hapus", [StatusController::class, 'delete'])->name('Statu
 Route::post("/status/simpan-jenis-status", [StatusController::class, 'storeStatusType'])->name('Status.storeStatusType');
 //Route::get("/status/combo-jenis-status", [StatusController::class, 'getComboJenisStatus'])->name('Status.getComboJenisStatus');
 
+// Route untuk Jenis Kegiatan
+Route::get("/jenis-kegiatan", [JenisKegiatanController::class, 'index'])->name('JenisKegiatan.index');
+Route::get("/jenis-kegiatan/tambah", [JenisKegiatanController::class, 'create'])->name('JenisKegiatan.create');
+Route::post("/jenis-kegiatan/simpan", [JenisKegiatanController::class, 'store'])->name('JenisKegiatan.store');
+Route::get("/jenis-kegiatan/edit/{id}", [JenisKegiatanController::class, 'edit'])->name('JenisKegiatan.edit');
+Route::post("/jenis-kegiatan/update/{id}", [JenisKegiatanController::class, 'update'])->name('JenisKegiatan.update');
+Route::get("/jenis-kegiatan/detail", [JenisKegiatanController::class, 'detail'])->name('JenisKegiatan.detail');
+Route::delete('jenis-kegiatan/delete', [JenisKegiatanController::class, 'delete'])->name('JenisKegiatan.delete');
+
+// Route untuk Jenis Minggu
+Route::get("/jenis-minggu", [JenisMingguController::class, 'index'])->name('JenisMinggu.index');
+Route::get("/jenis-minggu/tambah", [JenisMingguController::class, 'create'])->name('JenisMinggu.create');
+Route::post("/jenis-minggu/simpan", [JenisMingguController::class, 'store'])->name('JenisMinggu.store');
+Route::get("/jenis-minggu/edit/{id}", [JenisMingguController::class, 'edit'])->name('JenisMinggu.edit');
+Route::post("/jenis-minggu/update/{id}", [JenisMingguController::class, 'update'])->name('JenisMinggu.update');
+Route::get("/jenis-minggu/detail", [JenisMingguController::class, 'detail'])->name('JenisMinggu.detail');
+Route::delete('jenis-minggu/delete', [JenisMingguController::class, 'delete'])->name('JenisMinggu.delete');
+
+// Route untuk Jenis Registrasi
+Route::get("/jenis-registrasi", [JenisRegistrasiController::class, 'index'])->name('JenisRegistrasi.index');
+Route::get("/jenis-registrasi/tambah", [JenisRegistrasiController::class, 'create'])->name('JenisRegistrasi.create');
+Route::post("/jenis-registrasi/simpan", [JenisRegistrasiController::class, 'store'])->name('JenisRegistrasi.store');
+Route::get("/jenis-registrasi/edit/{id}", [JenisRegistrasiController::class, 'edit'])->name('JenisRegistrasi.edit');
+Route::post("/jenis-registrasi/update/{id}", [JenisRegistrasiController::class, 'update'])->name('JenisRegistrasi.update');
+Route::get("/jenis-registrasi/detail", [JenisRegistrasiController::class, 'detail'])->name('JenisRegistrasi.detail');
+Route::delete('jenis-registrasi/delete', [JenisRegistrasiController::class, 'delete'])->name('JenisRegistrasi.delete');
+
+// Route untuk Jenis Rpp
+Route::get("/jenis-rpp", [JenisRppController::class, 'index'])->name('JenisRpp.index');
+Route::get("/jenis-rpp/tambah", [JenisRppController::class, 'create'])->name('JenisRpp.create');
+Route::post("/jenis-rpp/simpan", [JenisRppController::class, 'store'])->name('JenisRpp.store');
+Route::get("/jenis-rpp/edit/{id}", [JenisRppController::class, 'edit'])->name('JenisRpp.edit');
+Route::post("/jenis-rpp/update/{id}", [JenisRppController::class, 'update'])->name('JenisRpp.update');
+Route::get("/jenis-rpp/detail", [JenisRppController::class, 'detail'])->name('JenisRpp.detail');
+Route::delete('jenis-rpp/delete', [JenisRppController::class, 'delete'])->name('JenisRpp.delete');
 Route::get("/jenis-gereja", [JenisGerejaController::class, 'index'])->name('JenisGereja.index');
 Route::get("/jenis-gereja/tambah", [JenisGerejaController::class, 'create'])->name('JenisGereja.create');
 Route::post("/jenis-gereja/simpan", [JenisGerejaController::class, 'store'])->name('JenisGereja.store');
