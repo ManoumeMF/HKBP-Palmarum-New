@@ -1,19 +1,15 @@
 <?php
 
 use App\Http\Controllers\admin\BidangPendidikanController;
-<<<<<<< HEAD
 use App\Http\Controllers\admin\JenisKegiatanController;
 use App\Http\Controllers\admin\JenisMingguController;
 use App\Http\Controllers\admin\JenisRegistrasiController;
 use App\Http\Controllers\admin\JenisRppController;
-=======
 use App\Http\Controllers\admin\JenisGerejaController;
->>>>>>> 32bf9721316cc887860537c505e646eee9667e31
 use App\Http\Controllers\admin\JenisStatusController;
 use App\Http\Controllers\admin\KategoriMataAnggaranController;
 use App\Http\Controllers\admin\SetSentralisasiController;
 use App\Http\Controllers\admin\StatusController;
-//use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\Route;
 /*
 |--------------------------------------------------------------------------
@@ -93,6 +89,8 @@ Route::get("/jenis-rpp/edit/{id}", [JenisRppController::class, 'edit'])->name('J
 Route::post("/jenis-rpp/update/{id}", [JenisRppController::class, 'update'])->name('JenisRpp.update');
 Route::get("/jenis-rpp/detail", [JenisRppController::class, 'detail'])->name('JenisRpp.detail');
 Route::delete('jenis-rpp/delete', [JenisRppController::class, 'delete'])->name('JenisRpp.delete');
+
+// Route Untuk Jenis Gereja
 Route::get("/jenis-gereja", [JenisGerejaController::class, 'index'])->name('JenisGereja.index');
 Route::get("/jenis-gereja/tambah", [JenisGerejaController::class, 'create'])->name('JenisGereja.create');
 Route::post("/jenis-gereja/simpan", [JenisGerejaController::class, 'store'])->name('JenisGereja.store');
