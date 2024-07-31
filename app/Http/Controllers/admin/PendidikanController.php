@@ -49,8 +49,8 @@ class PendidikanController extends Controller
     public function store(Request $request)
     {
         $Pendidikan = json_encode([
-            'pendidikan' => $request->get('pendidikan'),
-            'keterangan'  => $request->get('keterangan')
+            'Pendidikan' => $request->get('pendidikan'),
+            'Keterangan'  => $request->get('keterangan')
         ]);
 
         //dd($BidangPendidikan);
@@ -67,14 +67,14 @@ class PendidikanController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function detail(Request $request)
     {
         $id = $request->id;
 
-        $fieldPendidikanData = DB::select('CALL view_Pendidikan_byId(' . $id . ')');
+        $fieldPendidikanData = DB::select('CALL view_pendidikan_byId(' . $id . ')');
         $fieldPendidikan = $fieldPendidikanData[0];
 
-        //dd($fieldEducation);
+        // dd($fieldEducation);
 
         if ($fieldPendidikan) {
             return response()->json([
@@ -94,7 +94,7 @@ class PendidikanController extends Controller
      */
     public function edit(string $id)
     {
-        $fieldPendidikanData = DB::select('CALL view_Pendidikan_byId(' . $id . ')');
+        $fieldPendidikanData = DB::select('CALL view_pendidikan_byId(' . $id . ')');
         $fieldPendidikan = $fieldPendidikanData[0];
 
         if ($fieldPendidikan) {
@@ -107,12 +107,12 @@ class PendidikanController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
         $Pendidikan = json_encode([
-            'id_pendidikan' => $id,
-            'pendidikan' => $request->get('pendidikan'),
-            'keterangan' => $request->get('keterangan')
+            'IdPendidikan' => $id,
+            'Pendidikan' => $request->get('pendidikan'),
+            'Keterangan' => $request->get('keterangan')
         ]);
 
         $response = DB::statement('CALL update_pendidikan(:dataPendidikan)', ['dataPendidikan' => $Pendidikan]);
@@ -127,15 +127,15 @@ class PendidikanController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function delete(Request $request)
     {
-        $fieldPendidikanData = DB::select('CALL view_Pendidikan_byId(' . $request -> get('id_pendidikan') . ')');
+        $fieldPendidikanData = DB::select('CALL view_Pendidikan_byId(' . $request -> get('idPendidikan') . ')');
         $fieldPendidikan = $fieldPendidikanData[0];
 
         if ($fieldPendidikan) {
-            $id = $request -> get('id_pendidikan');
+            $id = $request -> get('idPendidikan');
 
-            $response = DB::select('CALL delete_Pendidikan(?)', [$id]);
+            $response = DB::select('CALL delete_pendidikan(?)', [$id]);
             
             return response()->json([
                 'status' => 200,

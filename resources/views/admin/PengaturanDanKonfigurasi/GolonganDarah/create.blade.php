@@ -40,21 +40,21 @@
     <!-- Basic layout -->
     <div class="card" style="height:100%;">
         <div class="card-header">
-            <h5 class="mb-0">Tambah Bidang Pendidikan</h5>
+            <h5 class="mb-0">Tambah Golongan Darah</h5>
         </div>
         <div class="card-body">
             <div class="row">
                 <div class="col-lg-9 offset-lg-1">
-                    <form action="{{route('BidangPendidikan.store')}}" method="post" class="needs-validation"
+                    <form action="{{route('GolonganDarah.store')}}" method="post" class="needs-validation"
                         novalidate>
                         {{ csrf_field() }}
                         <div class="row mb-3">
-                            <label class="col-lg-3 col-form-label">Bidang Pendidikan<span
+                            <label class="col-lg-3 col-form-label">Golongan Darah<span
                                     class="text-danger">*</span></label>
                             <div class="col-lg-9">
-                                <input type="text" class="form-control" placeholder="Masukkan Bidang Pendidikan"
-                                    required name="bidangPendidikan">
-                                <div class="invalid-feedback">Bidang Pendidikan Tidak Boleh Kosong.</div>
+                                <input type="text" class="form-control" placeholder="Masukkan Golongan Darah"
+                                    required name="golonganDarah">
+                                <div class="invalid-feedback">Golongan Darah Tidak Boleh Kosong.</div>
                                 <!--<div class="valid-feedback">Valid feedback</div>-->
                             </div>
                         </div>
@@ -66,7 +66,7 @@
                             </div>
                         </div>
                         <div class="text-end">
-                            <a href="{{route('BidangPendidikan.index')}}">
+                            <a href="{{route('GolonganDarah.index')}}">
                                 <button type="submit" class="btn btn-primary">Simpan<i
                                         class="ph-check-circle ms-2"></i></button>
                             </a>

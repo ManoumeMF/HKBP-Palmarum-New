@@ -91,15 +91,15 @@ document.addEventListener('DOMContentLoaded', function() {
 $(document).on('click', '.detailBtn', function(e) {
     e.preventDefault();
 
-    var fe_id = $(this).val();
+    var fp_id = $(this).val();
 
     $("#detailModal").modal('show');
 
     $.ajax({
         method: "GET",
-        url: "{{ route('BidangPendidikan.detail') }}",
+        url: "{{ route('Pekerjaan.detail') }}",
         data: {
-            id: fe_id
+            id: fp_id
         },
         success: function(response) {
             //console.log(response);
@@ -111,10 +111,10 @@ $(document).on('click', '.detailBtn', function(e) {
                 }).show();
                 $('#editModal').modal('hide');
             } else {
-                //console.log(response.fieldEducation.nama_bidang_pendidikan)
-                $('#detail_nama_bidang_pendidikan').text(response.fieldEducation
-                    .nama_bidang_pendidikan);
-                $('#detail_keterangan').text(response.fieldEducation.keterangan);
+                //console.log(response.fieldPekerjaan.pekerjaan)
+                $('#detail_pekerjaan').text(response.fieldPekerjaan
+                    .pekerjaan);
+                $('#detail_keterangan').text(response.fieldPekerjaan.keterangan);
             }
         }
     });
@@ -125,22 +125,22 @@ $(document).on('click', '.detailBtn', function(e) {
 //Ajax Form Delete Data
 //-------------------------------------------------------------------------------------------------
 $(document).on('click', '.deleteBtn', function(e) {
-    var fe_id = $(this).val();
+    var fp_id = $(this).val();
 
     $('#deleteModal').modal('show');
-    $('#deleting_id').val(fe_id);
+    $('#deleting_id').val(fp_id);
 });
 
 //-------------------------------------------------------------------------------------------------
 //Ajax Delete Data
 //-------------------------------------------------------------------------------------------------
-$(document).on('click', '.delete_bidangPendidikan', function(e) {
+$(document).on('click', '.delete_pekerjaan', function(e) {
     e.preventDefault();
 
     var id = $('#deleting_id').val();
 
     var data = {
-        'idBidangPendidikan': id,
+        'idPekerjaan': id,
     }
 
     $.ajaxSetup({
@@ -153,7 +153,7 @@ $(document).on('click', '.delete_bidangPendidikan', function(e) {
 
     $.ajax({
         type: "DELETE",
-        url: "{{ route('BidangPendidikan.delete') }}",
+        url: "{{ route('Pekerjaan.delete') }}",
         data: data,
         dataType: "json",
         success: function(response) {
@@ -168,14 +168,14 @@ $(document).on('click', '.delete_bidangPendidikan', function(e) {
                         modal: true
                     }).show();
                 });
-                $('.delete_bidangPendidikan').text('Hapus');
+                $('.delete_pekerjaan').text('Hapus');
             } else {
                 //$('#save_msgList').html("");
                 //$('#success_message').addClass('alert alert-success');
                 //$('#success_message').text(response.message);
 
                 //$('#deleteModal').find('input', 'textarea').val('');
-                $('.delete_bidangPendidikan').text('Hapus');
+                $('.delete_pekerjaan').text('Hapus');
                 $('#deleteModal').modal('hide');
 
                     new Noty({
@@ -184,7 +184,7 @@ $(document).on('click', '.delete_bidangPendidikan', function(e) {
                         modal: true
                     }).show();
 
-                    setTimeout("window.location='{{ route('BidangPendidikan.index') }}'", 1500);
+                    setTimeout("window.location='{{ route('Pekerjaan.index') }}'", 1500);
             }
         }
     });
@@ -227,26 +227,26 @@ $(document).on('click', '.delete_bidangPendidikan', function(e) {
 <div class="content">
     <div class="card">
         <div class="card-header d-flex">
-            <h5 class="mb-0">Daftar Bidang Pendidikan</h5>
+            <h5 class="mb-0">Daftar Pekerjaan</h5>
             <div class="ms-auto">
-                <a class="btn btn-primary" href="{{ route('BidangPendidikan.create') }}"><i
+                <a class="btn btn-primary" href="{{ route('Pekerjaan.create') }}"><i
                         class="ph-plus-circle"></i><span class="d-none d-lg-inline-block ms-2">Tambah Baru</span></a>
             </div>
         </div>
-        <table id="bidangPendidikanTable" class="table datatable-basic table-striped">
+        <table id="pekerjaanTable" class="table datatable-basic table-striped">
             <thead>
                 <tr>
-                    <th>Bidang Pendidikan</th>
+                    <th>Pekerjaan</th>
                     <th>Keterangan</th>
                     <th class="text-center">Tindakan</th>
                 </tr>
             </thead>
             <tbody>
-                @if (isset($fieldEducation) && count($fieldEducation) > 0)
-                @foreach ($fieldEducation as $fE)
+                @if (isset($fieldPekerjaan) && count($fieldPekerjaan) > 0)
+                @foreach ($fieldPekerjaan as $fP)
                 <tr>
-                    <td>{{ $fE -> nama_bidang_pendidikan }}</td>
-                    <td>{{ $fE -> keterangan }}</td>
+                    <td>{{ $fP -> pekerjaan }}</td>
+                    <td>{{ $fP -> keterangan }}</td>
                     <td class="text-center">
                         <div class="d-inline-flex">
                             <div class="dropdown">
@@ -254,16 +254,16 @@ $(document).on('click', '.delete_bidangPendidikan', function(e) {
                                     <i class="ph-list"></i>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-end">
-                                    <button type="button" value="{{ $fE -> id_bidang_pendidikan }}"
+                                    <button type="button" value="{{ $fP -> id_pekerjaan }}"
                                         class="dropdown-item text-info detailBtn">
                                         <i class="ph-list me-2"></i>Detail
                                     </button>
-                                    <button type="button" value="{{ $fE -> id_bidang_pendidikan }}"
+                                    <button type="button" value="{{ $fP -> id_pekerjaan }}"
                                         class="dropdown-item text-secondary">
-                                        <a href="{{ route('BidangPendidikan.edit', $fE -> id_bidang_pendidikan) }}"
+                                        <a href="{{ route('Pekerjaan.edit', $fP -> id_pekerjaan) }}"
                                             style="color:inherit"><i class="ph-pencil me-2"></i> Edit</a>
                                     </button>
-                                    <button type="button" value="{{ $fE -> id_bidang_pendidikan }}"
+                                    <button type="button" value="{{ $fP -> id_pekerjaan }}"
                                         class="dropdown-item text-danger deleteBtn">
                                         <i class="ph-trash me-2"></i>Hapus
                                     </button>
@@ -283,16 +283,16 @@ $(document).on('click', '.delete_bidangPendidikan', function(e) {
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Detail Bidang Pendidikan</h5>
+                    <h5 class="modal-title">Detail Pekerjaan</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
                     <div class="container">
                         <div class="row mb-2">
-                            <label for="detail_nama_bidang_pendidikan" class="col-lg-4 col-form-label">
-                                Bidang Pendidikan:</label>
+                            <label for="detail_pekerjaan" class="col-lg-4 col-form-label">
+                                Pekerjaan:</label>
                             <div class="col-lg-7">
-                                <label id="detail_nama_bidang_pendidikan" class="col-form-label"></label>
+                                <label id="detail_pekerjaan" class="col-form-label"></label>
                             </div>
                         </div>
                         <div class="row mb-2">
@@ -315,10 +315,10 @@ $(document).on('click', '.delete_bidangPendidikan', function(e) {
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Hapus Data Bidang Pendidikan</h5>
+                    <h5 class="modal-title">Hapus Data Pekerjaan</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
-                <form id="deleteBidangPendidikanForm">
+                <form id="deletePekerjaanForm">
                     @csrf
                     <div class="modal-body">
                         <h4>Konfirmasi untuk Menghapus Data?</h4>
@@ -326,7 +326,7 @@ $(document).on('click', '.delete_bidangPendidikan', function(e) {
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary delete_bidangPendidikan">Hapus</button>
+                        <button type="submit" class="btn btn-primary delete_pekerjaan">Hapus</button>
                     </div>
                 </form>
             </div>

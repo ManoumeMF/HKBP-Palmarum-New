@@ -49,8 +49,8 @@ class BankController extends Controller
     public function store(Request $request)
     {
         $Bank = json_encode([
-            'nama_bank' => $request->get('nama_bank'),
-            'keterangan'  => $request->get('keterangan')
+            'NamaBank' => $request->get('bank'),
+            'Keterangan'  => $request->get('keterangan')
         ]);
 
         //dd($BidangPendidikan);
@@ -67,7 +67,7 @@ class BankController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function detail(Request $request)
     {
         $id = $request->id;
 
@@ -110,9 +110,9 @@ class BankController extends Controller
     public function update(Request $request, string $id)
     {
         $Bank = json_encode([
-            'id_bank' => $id,
-            'nama_bank' => $request->get('nama_bank'),
-            'keterangan' => $request->get('keterangan')
+            'IdBank' => $id,
+            'NamaBank' => $request->get('bank'),
+            'Keterangan' => $request->get('keterangan')
         ]);
 
         $response = DB::statement('CALL update_bank(:dataBank)', ['dataBank' => $Bank]);
@@ -127,13 +127,13 @@ class BankController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function delete(Request $request)
     {
-        $fieldBankData = DB::select('CALL view_bank_byId(' . $request -> get('id_bank') . ')');
+        $fieldBankData = DB::select('CALL view_bank_byId(' . $request -> get('idBank') . ')');
             $fieldBank = $fieldBankData[0];
 
             if ($fieldBank) {
-                $id = $request -> get('id_bank');
+                $id = $request -> get('idBank');
 
                 $response = DB::select('CALL delete_bank(?)', [$id]);
                 

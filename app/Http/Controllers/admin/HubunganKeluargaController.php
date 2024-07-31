@@ -49,8 +49,8 @@ class HubunganKeluargaController extends Controller
     public function store(Request $request)
     {
         $HubunganKeluarga = json_encode([
-            'nama_hub_keluarga' => $request->get('nama_hub_keluarga'),
-            'keterangan'  => $request->get('keterangan')
+            'HubunganKeluarga' => $request->get('hubunganKeluarga'),
+            'Keterangan'  => $request->get('keterangan')
         ]);
 
         //dd($BidangHubunganKeluarga);
@@ -67,7 +67,7 @@ class HubunganKeluargaController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function detail(Request $request)
     {
         $id = $request->id;
 
@@ -110,9 +110,9 @@ class HubunganKeluargaController extends Controller
     public function update(Request $request, string $id)
     {
         $HubunganKeluarga = json_encode([
-            'id_hub_keluarga' => $id,
-            'nama_hub_keluarga' => $request->get('nama_hub_keluarga'),
-            'keterangan' => $request->get('keterangan')
+            'IdHubKeluarga' => $id,
+            'HubunganKeluarga' => $request->get('hubunganKeluarga'),
+            'Keterangan' => $request->get('keterangan')
         ]);
 
         $response = DB::statement('CALL update_hubunganKeluarga(:dataHubunganKeluarga)', ['dataHubunganKeluarga' => $HubunganKeluarga]);
@@ -127,13 +127,13 @@ class HubunganKeluargaController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function delete(Request $request)
     {
-        $fieldHubunganKeluargaData = DB::select('CALL view_hubunganKeluarga_byId(' . $request -> get('id_hub_keluarga') . ')');
+        $fieldHubunganKeluargaData = DB::select('CALL view_hubunganKeluarga_byId(' . $request -> get('idHubunganKeluarga') . ')');
         $fieldHubunganKeluarga = $fieldHubunganKeluargaData[0];
 
         if ($fieldHubunganKeluarga) {
-            $id = $request -> get('id_hub_keluarga');
+            $id = $request -> get('idHubunganKeluarga');
 
             $response = DB::select('CALL delete_hubunganKeluarga(?)', [$id]);
             

@@ -49,8 +49,8 @@ class PekerjaanController extends Controller
     public function store(Request $request)
     {
         $Pekerjaan = json_encode([
-            'Pekerjaan' => $request->get('Pekerjaan'),
-            'keterangan'  => $request->get('keterangan')
+            'Pekerjaan' => $request->get('pekerjaan'),
+            'Keterangan'  => $request->get('keterangan')
         ]);
 
         //dd($BidangPekerjaan);
@@ -67,7 +67,7 @@ class PekerjaanController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function detail(Request $request)
     {
         $id = $request->id;
 
@@ -110,9 +110,9 @@ class PekerjaanController extends Controller
     public function update(Request $request, string $id)
     {
         $Pekerjaan = json_encode([
-            'id_pekerjaan' => $id,
-            'pekerjaan' => $request->get('pekerjaan'),
-            'keterangan' => $request->get('keterangan')
+            'IdPekerjaan' => $id,
+            'Pekerjaan' => $request->get('pekerjaan'),
+            'Keterangan' => $request->get('keterangan')
         ]);
 
         $response = DB::statement('CALL update_pekerjaan(:dataPekerjaan)', ['dataPekerjaan' => $Pekerjaan]);
@@ -127,13 +127,13 @@ class PekerjaanController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function delete(Request $request)
     {
-        $fieldPekerjaanData = DB::select('CALL view_pekerjaan_byId(' . $request -> get('id_pekerjaan') . ')');
+        $fieldPekerjaanData = DB::select('CALL view_pekerjaan_byId(' . $request -> get('idPekerjaan') . ')');
         $fieldPekerjaan = $fieldPekerjaanData[0];
 
         if ($fieldPekerjaan) {
-            $id = $request -> get('id_pekerjaan');
+            $id = $request -> get('idPekerjaan');
 
             $response = DB::select('CALL delete_pekerjaan(?)', [$id]);
             

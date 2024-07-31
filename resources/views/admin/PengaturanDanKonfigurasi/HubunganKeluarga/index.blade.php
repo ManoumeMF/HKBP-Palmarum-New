@@ -91,15 +91,15 @@ document.addEventListener('DOMContentLoaded', function() {
 $(document).on('click', '.detailBtn', function(e) {
     e.preventDefault();
 
-    var fe_id = $(this).val();
+    var fhk_id = $(this).val();
 
     $("#detailModal").modal('show');
 
     $.ajax({
         method: "GET",
-        url: "{{ route('BidangPendidikan.detail') }}",
+        url: "{{ route('HubunganKeluarga.detail') }}",
         data: {
-            id: fe_id
+            id: fhk_id
         },
         success: function(response) {
             //console.log(response);
@@ -111,10 +111,10 @@ $(document).on('click', '.detailBtn', function(e) {
                 }).show();
                 $('#editModal').modal('hide');
             } else {
-                //console.log(response.fieldEducation.nama_bidang_pendidikan)
-                $('#detail_nama_bidang_pendidikan').text(response.fieldEducation
-                    .nama_bidang_pendidikan);
-                $('#detail_keterangan').text(response.fieldEducation.keterangan);
+                //console.log(response.fieldHubunganKeluarga.nama_bidang_pendidikan)
+                $('#detail_hubungan_keluarga').text(response.fieldHubunganKeluarga
+                    .nama_hub_keluarga);
+                $('#detail_keterangan').text(response.fieldHubunganKeluarga.keterangan);
             }
         }
     });
@@ -125,22 +125,22 @@ $(document).on('click', '.detailBtn', function(e) {
 //Ajax Form Delete Data
 //-------------------------------------------------------------------------------------------------
 $(document).on('click', '.deleteBtn', function(e) {
-    var fe_id = $(this).val();
+    var fhk_id = $(this).val();
 
     $('#deleteModal').modal('show');
-    $('#deleting_id').val(fe_id);
+    $('#deleting_id').val(fhk_id);
 });
 
 //-------------------------------------------------------------------------------------------------
 //Ajax Delete Data
 //-------------------------------------------------------------------------------------------------
-$(document).on('click', '.delete_bidangPendidikan', function(e) {
+$(document).on('click', '.delete_hubunganKeluarga', function(e) {
     e.preventDefault();
 
     var id = $('#deleting_id').val();
 
     var data = {
-        'idBidangPendidikan': id,
+        'idHubunganKeluarga': id,
     }
 
     $.ajaxSetup({
@@ -153,7 +153,7 @@ $(document).on('click', '.delete_bidangPendidikan', function(e) {
 
     $.ajax({
         type: "DELETE",
-        url: "{{ route('BidangPendidikan.delete') }}",
+        url: "{{ route('HubunganKeluarga.delete') }}",
         data: data,
         dataType: "json",
         success: function(response) {
@@ -168,14 +168,14 @@ $(document).on('click', '.delete_bidangPendidikan', function(e) {
                         modal: true
                     }).show();
                 });
-                $('.delete_bidangPendidikan').text('Hapus');
+                $('.delete_hubunganKeluarga').text('Hapus');
             } else {
                 //$('#save_msgList').html("");
                 //$('#success_message').addClass('alert alert-success');
                 //$('#success_message').text(response.message);
 
                 //$('#deleteModal').find('input', 'textarea').val('');
-                $('.delete_bidangPendidikan').text('Hapus');
+                $('.delete_hubunganKeluarga').text('Hapus');
                 $('#deleteModal').modal('hide');
 
                     new Noty({
@@ -184,7 +184,7 @@ $(document).on('click', '.delete_bidangPendidikan', function(e) {
                         modal: true
                     }).show();
 
-                    setTimeout("window.location='{{ route('BidangPendidikan.index') }}'", 1500);
+                    setTimeout("window.location='{{ route('HubunganKeluarga.index') }}'", 1500);
             }
         }
     });
@@ -227,26 +227,26 @@ $(document).on('click', '.delete_bidangPendidikan', function(e) {
 <div class="content">
     <div class="card">
         <div class="card-header d-flex">
-            <h5 class="mb-0">Daftar Bidang Pendidikan</h5>
+            <h5 class="mb-0">Daftar Hubungan Keluarga</h5>
             <div class="ms-auto">
-                <a class="btn btn-primary" href="{{ route('BidangPendidikan.create') }}"><i
+                <a class="btn btn-primary" href="{{ route('HubunganKeluarga.create') }}"><i
                         class="ph-plus-circle"></i><span class="d-none d-lg-inline-block ms-2">Tambah Baru</span></a>
             </div>
         </div>
-        <table id="bidangPendidikanTable" class="table datatable-basic table-striped">
+        <table id="hubunganKeluargaTable" class="table datatable-basic table-striped">
             <thead>
                 <tr>
-                    <th>Bidang Pendidikan</th>
+                    <th>Hubungan Keluarga</th>
                     <th>Keterangan</th>
                     <th class="text-center">Tindakan</th>
                 </tr>
             </thead>
             <tbody>
-                @if (isset($fieldEducation) && count($fieldEducation) > 0)
-                @foreach ($fieldEducation as $fE)
+                @if (isset($fieldHubunganKeluarga) && count($fieldHubunganKeluarga) > 0)
+                @foreach ($fieldHubunganKeluarga as $fHK)
                 <tr>
-                    <td>{{ $fE -> nama_bidang_pendidikan }}</td>
-                    <td>{{ $fE -> keterangan }}</td>
+                    <td>{{ $fHK -> nama_hub_keluarga }}</td>
+                    <td>{{ $fHK -> keterangan }}</td>
                     <td class="text-center">
                         <div class="d-inline-flex">
                             <div class="dropdown">
@@ -254,16 +254,16 @@ $(document).on('click', '.delete_bidangPendidikan', function(e) {
                                     <i class="ph-list"></i>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-end">
-                                    <button type="button" value="{{ $fE -> id_bidang_pendidikan }}"
+                                    <button type="button" value="{{ $fHK -> id_hub_keluarga }}"
                                         class="dropdown-item text-info detailBtn">
                                         <i class="ph-list me-2"></i>Detail
                                     </button>
-                                    <button type="button" value="{{ $fE -> id_bidang_pendidikan }}"
+                                    <button type="button" value="{{ $fHK -> id_hub_keluarga }}"
                                         class="dropdown-item text-secondary">
-                                        <a href="{{ route('BidangPendidikan.edit', $fE -> id_bidang_pendidikan) }}"
+                                        <a href="{{ route('HubunganKeluarga.edit', $fHK -> id_hub_keluarga) }}"
                                             style="color:inherit"><i class="ph-pencil me-2"></i> Edit</a>
                                     </button>
-                                    <button type="button" value="{{ $fE -> id_bidang_pendidikan }}"
+                                    <button type="button" value="{{ $fHK -> id_hub_keluarga }}"
                                         class="dropdown-item text-danger deleteBtn">
                                         <i class="ph-trash me-2"></i>Hapus
                                     </button>
@@ -283,16 +283,16 @@ $(document).on('click', '.delete_bidangPendidikan', function(e) {
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Detail Bidang Pendidikan</h5>
+                    <h5 class="modal-title">Detail Hubungan Keluarga</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
                     <div class="container">
                         <div class="row mb-2">
-                            <label for="detail_nama_bidang_pendidikan" class="col-lg-4 col-form-label">
-                                Bidang Pendidikan:</label>
+                            <label for="detail_hubungan_keluarga" class="col-lg-4 col-form-label">
+                                Hubungan Keluarga:</label>
                             <div class="col-lg-7">
-                                <label id="detail_nama_bidang_pendidikan" class="col-form-label"></label>
+                                <label id="detail_hubungan_keluarga" class="col-form-label"></label>
                             </div>
                         </div>
                         <div class="row mb-2">
@@ -315,10 +315,10 @@ $(document).on('click', '.delete_bidangPendidikan', function(e) {
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Hapus Data Bidang Pendidikan</h5>
+                    <h5 class="modal-title">Hapus Data Hubungan Keluarga</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
-                <form id="deleteBidangPendidikanForm">
+                <form id="deleteHubunganKeluargaForm">
                     @csrf
                     <div class="modal-body">
                         <h4>Konfirmasi untuk Menghapus Data?</h4>
@@ -326,7 +326,7 @@ $(document).on('click', '.delete_bidangPendidikan', function(e) {
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary delete_bidangPendidikan">Hapus</button>
+                        <button type="submit" class="btn btn-primary delete_hubunganKeluarga">Hapus</button>
                     </div>
                 </form>
             </div>

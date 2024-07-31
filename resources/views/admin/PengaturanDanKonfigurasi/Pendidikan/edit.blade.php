@@ -40,23 +40,23 @@
     <!-- Basic layout -->
     <div class="card" style="height:100%;">
         <div class="card-header">
-            <h5 class="mb-0">Tambah Bidang Pendidikan</h5>
+            <h5 class="mb-0">Edit Pendidikan</h5>
         </div>
         <div class="card-body">
             <div class="row">
                 <div class="col-lg-9 offset-lg-1">
-                    @if (isset($fieldEducation))
-                    <form action="{{ route('BidangPendidikan.update', $fieldEducation -> id_bidang_pendidikan)}}"
+                    @if (isset($fieldPendidikan))
+                    <form action="{{ route('Pendidikan.update', $fieldPendidikan -> id_pendidikan)}}"
                         method="post" class="needs-validation" novalidate>
                         @csrf
                         <div class="row mb-3">
-                            <label class="col-lg-3 col-form-label">Bidang Pendidikan<span
+                            <label class="col-lg-3 col-form-label">Pendidikan<span
                                     class="text-danger">*</span></label>
                             <div class="col-lg-9">
-                                <input type="text" class="form-control" placeholder="Masukkan Bidang Pendidikan"
-                                    required value="{{ $fieldEducation -> nama_bidang_pendidikan }}"
-                                    name="bidangPendidikan">
-                                <div class="invalid-feedback">Bidang Pendidikan Tidak Boleh Kosong.</div>
+                                <input type="text" class="form-control" placeholder="Masukkan Pendidikan"
+                                    required value="{{ $fieldPendidikan -> pendidikan }}"
+                                    name="pendidikan">
+                                <div class="invalid-feedback">Pendidikan Tidak Boleh Kosong.</div>
                                 <!--<div class="valid-feedback">Valid feedback</div>-->
                             </div>
                         </div>
@@ -64,11 +64,11 @@
                             <label class="col-lg-3 col-form-label">Keterangan:</label>
                             <div class="col-lg-9">
                                 <textarea rows="3" cols="3" class="form-control" placeholder="Masukkan Keterangan"
-                                    name="keterangan">{{ $fieldEducation -> keterangan }}</textarea>
+                                    name="keterangan">{{ $fieldPendidikan -> keterangan }}</textarea>
                             </div>
                         </div>
                         <div class="text-end">
-                            <a href="{{route('BidangPendidikan.index')}}">
+                            <a href="{{route('Pendidikan.index')}}">
                                 <button type="submit" class="btn btn-primary">Simpan<i
                                         class="ph-check-circle ms-2"></i></button>
                             </a>

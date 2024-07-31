@@ -49,8 +49,8 @@ class GolonganDarahController extends Controller
     public function store(Request $request)
     {
         $GolonganDarah = json_encode([
-            'golongan_darah' => $request->get('golongan_darah'),
-            'keterangan'  => $request->get('keterangan')
+            'GolonganDarah' => $request->get('golonganDarah'),
+            'Keterangan'  => $request->get('keterangan')
         ]);
 
         //dd($BidangGolonganDarah);
@@ -67,7 +67,7 @@ class GolonganDarahController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function detail(Request $request)
     {
         $id = $request->id;
 
@@ -110,9 +110,9 @@ class GolonganDarahController extends Controller
     public function update(Request $request, string $id)
     {
         $GolonganDarah = json_encode([
-            'id_gol_darah' => $id,
-            'golongan_darah' => $request->get('golongan_darah'),
-            'keterangan' => $request->get('keterangan')
+            'IdGolonganDarah' => $id,
+            'GolonganDarah' => $request->get('golonganDarah'),
+            'Keterangan' => $request->get('keterangan')
         ]);
 
         $response = DB::statement('CALL update_golonganDarah(:dataGolonganDarah)', ['dataGolonganDarah' => $GolonganDarah]);
@@ -127,13 +127,13 @@ class GolonganDarahController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function delete(Request $request)
     {
-        $fieldGolonganDarahData = DB::select('CALL view_golonganDarah_byId(' . $request -> get('id_gol_darah') . ')');
+        $fieldGolonganDarahData = DB::select('CALL view_golonganDarah_byId(' . $request -> get('idGolonganDarah') . ')');
         $fieldGolonganDarah = $fieldGolonganDarahData[0];
 
         if ($fieldGolonganDarah) {
-            $id = $request -> get('id_gol_darah');
+            $id = $request -> get('idGolonganDarah');
 
             $response = DB::select('CALL delete_golonganDarah(?)', [$id]);
             
