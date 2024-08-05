@@ -7,6 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     {{-- add CSRF Token --}}
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
     <link rel="icon" href="{{ asset('admin_resources/assets/images/icons/bank-sampah.png') }}">
     <title>Sistem Informasi Manajemen HKBP Palmarum</title>
@@ -34,7 +36,7 @@
     <script src="{{ asset('admin_resources/assets/demo/pages/form_validation_styles.js') }}"></script>
 	<script src="{{ asset('admin_resources/assets/js/vendor/notifications/noty.min.js') }}"></script>
     <script src="{{ asset('admin_resources/assets/demo/pages/extra_noty.js') }}"></script>
-    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
 
     <script src="{{ asset('admin_resources/assets/js/vendor/tables/datatables/datatables.min.js') }}"></script>
     <script
@@ -544,13 +546,13 @@
                                         </li>
                                         <li class="nav-item"><a href="" class="nav-link">Gereja</a>
                                         </li>
-                                        <li class="nav-item"><a href="" class="nav-link">Ressort</a>
+                                        <li class="nav-item"><a href="/ressort" class="nav-link">Ressort</a>
                                         </li>
-                                        <li class="nav-item"><a href="" class="nav-link">Distrik</a>
+                                        <li class="nav-item"><a href="/distrik" class="nav-link">Distrik</a>
                                         </li>
-                                        <li class="nav-item"><a href="" class="nav-link">Bank Gereja</a>
+                                        <li class="nav-item"><a href="/bank" class="nav-link">Bank Gereja</a>
                                         </li>
-                                        <li class="nav-item"><a href="" class="nav-link">Pelayanan Ibadah</a>
+                                        <li class="nav-item"><a href="/pelayanan-ibadah" class="nav-link">Pelayanan Ibadah</a>
                                         </li>
                                         <li class="nav-item"><a href="" class="nav-link">Jenis Kegiatan</a>
                                         </li>
