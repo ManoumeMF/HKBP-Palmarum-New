@@ -34,13 +34,17 @@
     <script src="{{ asset('admin_resources/assets/demo/pages/form_validation_styles.js') }}"></script>
 	<script src="{{ asset('admin_resources/assets/js/vendor/notifications/noty.min.js') }}"></script>
     <script src="{{ asset('admin_resources/assets/demo/pages/extra_noty.js') }}"></script>
+	<script src="{{ asset('admin_resources/assets/js/vendor/forms/wizards/steps.min.js') }}"></script>
+	<script src="{{ asset('admin_resources/assets/js/vendor/forms/validation/validate.min.js') }}"></script>
+	<script src="{{ asset('admin_resources/assets/js/vendor/pickers/daterangepicker.js') }}"></script>
+	<script src="{{ asset('admin_resources/assets/js/vendor/pickers/datepicker.min.js') }}"></script>
+	<script src="{{ asset('admin_resources/assets/js/vendor/uploaders/fileinput/fileinput.min.js') }}"></script>
+	<script src="{{ asset('admin_resources/assets/js/vendor/uploaders/fileinput/plugins/sortable.min.js') }}"></script>
 
 
     <script src="{{ asset('admin_resources/assets/js/vendor/tables/datatables/datatables.min.js') }}"></script>
-    <script
-        src="{{ asset('admin_resources/assets/js/vendor/tables/datatables/extensions/row_reorder.min.js') }}"></script>
-    <script
-        src="{{ asset('admin_resources/assets/js/vendor/tables/datatables/extensions/responsive.min.js') }}"></script>
+    <script src="{{ asset('admin_resources/assets/js/vendor/tables/datatables/extensions/row_reorder.min.js') }}"></script>
+    <script src="{{ asset('admin_resources/assets/js/vendor/tables/datatables/extensions/responsive.min.js') }}"></script>
     <script src="{{ asset('admin_resources/assets/js/vendor/ui/moment/moment.min.js') }}"></script>
     <script src="{{ asset('admin_resources/assets/js/vendor/pickers/datepicker.min.js') }}"></script>
     <script src="{{ asset('admin_resources/assets/js/vendor/notifications/bootbox.min.js') }}"></script>
@@ -52,11 +56,12 @@
     <script src="{{ asset('admin_resources/assets/js/vendor/forms/selects/select2.min.js') }}"></script>
     <script src="{{ asset('admin_resources/assets/js/vendor/forms/selects/bootstrap_multiselect.js') }}"></script>
     <script src="{{ asset('admin_resources/assets/demo/pages/extra_sweetalert.js') }}"></script>
-    <script src="{{ asset('admin_resources/assets/demo/pages/form_select2.js') }}"></script>
     <script src="{{ asset('admin_resources/assets/js/delete_alert.js') }}"></script>
     <script src="{{ asset('admin_resources/assets/js/vendor/notifications/noty.min.js') }}"></script>
     <script src="{{ asset('admin_resources/assets/demo/pages/components_modals.js') }}"></script>
     <script src="{{ asset('admin_resources/assets/demo/pages/extra_noty.js') }}"></script>
+    <script src="{{ asset('admin_resources/assets/demo/pages/form_wizard.js') }}"></script>
+	<script src="{{ asset('admin_resources/assets/demo/pages/uploader_bootstrap.js') }}"></script>
     <!-- /theme JS files -->
 </head>
 

@@ -15,6 +15,8 @@ use App\Http\Controllers\admin\PekerjaanController;
 use App\Http\Controllers\admin\HubunganKeluargaController;
 use App\Http\Controllers\admin\BankController;
 use App\Http\Controllers\admin\GolonganDarahController;
+use App\Http\Controllers\admin\JemaatController;
+
 //use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\Route;
 /*
@@ -150,6 +152,7 @@ Route::post("/jenis-gereja/update/{id}", [JenisGerejaController::class, 'update'
 Route::delete("/jenis-gereja/hapus", [JenisGerejaController::class, 'delete'])->name('JenisGereja.delete');
 Route::get("/jenis-gereja/detail", [JenisGerejaController::class, 'detail'])->name('JenisGereja.detail');
 
+// Route Untuk Kategori Mata Anggaran
 Route::get("/kategori-mata-anggaran", [KategoriMataAnggaranController::class, 'index'])->name('KategoriMataAnggaran.index');
 Route::get("/kategori-mata-anggaran/tambah", [KategoriMataAnggaranController::class, 'create'])->name('KategoriMataAnggaran.create');
 Route::post("/kategori-mata-anggaran/simpan", [KategoriMataAnggaranController::class, 'store'])->name('KategoriMataAnggaran.store');
@@ -158,6 +161,7 @@ Route::post("/kategori-mata-anggaran/update/{id}", [KategoriMataAnggaranControll
 Route::delete("/kategori-mata-anggaran/hapus", [KategoriMataAnggaranController::class, 'delete'])->name('KategoriMataAnggaran.delete');
 Route::get("/kategori-mata-anggaran/detail", [KategoriMataAnggaranController::class, 'detail'])->name('KategoriMataAnggaran.detail');
 
+// Route Untuk Sentralisasi
 Route::get("/sentralisasi", [SetSentralisasiController::class, 'index'])->name('Sentralisasi.index');
 Route::get("/sentralisasi/tambah", [SetSentralisasiController::class, 'create'])->name('Sentralisasi.create');
 Route::post("/sentralisasi/simpan", [SetSentralisasiController::class, 'store'])->name('Sentralisasi.store');
@@ -165,3 +169,12 @@ Route::get("/sentralisasi/edit/{id}", [SetSentralisasiController::class, 'edit']
 Route::post("/sentralisasi/update/{id}", [SetSentralisasiController::class, 'update'])->name('Sentralisasi.update');
 Route::delete("/sentralisasi/hapus", [SetSentralisasiController::class, 'delete'])->name('Sentralisasi.delete');
 Route::get("/sentralisasi/detail", [SetSentralisasiController::class, 'detail'])->name('Sentralisasi.detail');
+
+// Route Untuk Jemaat
+Route::get("/jemaat", [JemaatController::class, 'index'])->name('Jemaat.index');
+Route::get("/jemaat/tambah", [JemaatController::class, 'create'])->name('Jemaat.create');
+Route::post("/jemaat/simpan", [JemaatController::class, 'store'])->name('Jemaat.store');
+Route::get("/jemaat/edit/{id}", [JemaatController::class, 'edit'])->name('Jemaat.edit');
+Route::post("/jemaat/update/{id}", [JemaatController::class, 'update'])->name('Jemaat.update');
+Route::delete("/jemaat/hapus", [JemaatController::class, 'delete'])->name('Jemaat.delete');
+Route::get("/jemaat/detail", [JemaatController::class, 'detail'])->name('Jemaat.detail');
