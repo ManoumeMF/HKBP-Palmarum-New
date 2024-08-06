@@ -23,4 +23,12 @@ class JemaatController extends Controller
     {
         return view('admin.PengaturanDanKonfigurasi.Jemaat.create');
     }
+
+     /**
+     * Show the form for editing a current resource.
+     */
+    public function edit($id)
+    {
+        return view('admin.PengaturanDanKonfigurasi.Jemaat.edit');
+    }
 }

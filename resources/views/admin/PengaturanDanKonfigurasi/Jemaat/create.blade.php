@@ -13,6 +13,63 @@
                 // If the Select2 element is not inside a modal
                 $(this).select2();
             }
+
+        });
+
+        // jQuery button click event to add Anggota Keluarga row
+        $("#addAnggota").on("click", function () {
+
+            // Adding a row inside the tbody.
+            $("#tblAnggota tbody").append('<tr>' +
+                '<td>' +
+                'Nama Lengkap' +
+                '</td>' +
+                '<td>' +
+                'Jenis Kelamin' +
+                '</td>' +
+                '<td>' +
+                'Tanggal Lahir' +
+                '</td>' +
+                '<td>' +
+                'Hubungan Keluarga' +
+                '</td>' +
+                '<td>' +
+                'Foto' +
+                '</td>' +
+                '<td  style="text-align: center">' +
+                '<a href="#"class="btn btn-flat-danger btn-icon w-24px h-24px rounded-pill" id="delAnggota"><i class="ph-x ph-sm"></i></a>' +
+                '</td>' +
+                '</tr>');
+        });
+
+        $(document).on('click', '#delAnggota', function () {
+            $(this).closest('tr').remove();
+            return false;
+        });
+
+        // jQuery button click event to add Anggota Keluarga row
+        $("#addDokumen").on("click", function () {
+
+            // Adding a row inside the tbody.
+            $("#tblDokumen tbody").append('<tr>' +
+                '<td>' +
+                'Nama Dokumen' +
+                '</td>' +
+                '<td>' +
+                'Nama File' +
+                '</td>' +
+                '<td>' +
+                'Keterangan' +
+                '</td>' +
+                '<td  style="text-align: center">' +
+                '<a href="#"class="btn btn-flat-danger btn-icon w-24px h-24px rounded-pill" id="delDokumen"><i class="ph-x ph-sm"></i></a>' +
+                '</td>' +
+                '</tr>');
+        });
+
+        $(document).on('click', '#delDokumen', function () {
+            $(this).closest('tr').remove();
+            return false;
         });
     });
 </script>
@@ -91,6 +148,18 @@
             const dpAutoHideElement3 = document.querySelector('.datepicker-autohide3');
             if (dpAutoHideElement3) {
                 const dpAutoHide = new Datepicker(dpAutoHideElement3, {
+                    container: '.content-inner',
+                    buttonClass: 'btn',
+                    prevArrow: document.dir == 'rtl' ? '&rarr;' : '&larr;',
+                    nextArrow: document.dir == 'rtl' ? '&larr;' : '&rarr;',
+                    autohide: true,
+                    format: 'dd M yyyy'
+                });
+            }
+
+            const dpAutoHideElement4 = document.querySelector('.datepicker-autohide4');
+            if (dpAutoHideElement4) {
+                const dpAutoHide = new Datepicker(dpAutoHideElement4, {
                     container: '.content-inner',
                     buttonClass: 'btn',
                     prevArrow: document.dir == 'rtl' ? '&rarr;' : '&larr;',
@@ -526,9 +595,8 @@
                     </div>
                 </div>
 
-
                 <div class="row">
-                    <div class="col-lg-7">
+                    <div class="col-lg-9">
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="mb-3">
@@ -544,163 +612,231 @@
                                 <div class="mb-3">
                                     <label class="form-label">Keterangan: <span class="text-danger">*</span></label>
                                     <textarea rows="7" cols="3" name="keterangan" class="form-control"
-                                placeholder="Masukkan Keterangan"></textarea>
+                                        placeholder="Masukkan Keterangan"></textarea>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="col-lg-5">
+                    <div class="col-lg-3">
                         <div class="mb-3">
                             <label class="form-label">Foto Anggota Jemaat:</label>
-                            <input type="file" class="file-input" data-browse-class="btn btn-primary w-100" data-show-remove="false" data-show-caption="false" data-show-upload="false">
+                            <input type="file" class="file-input" data-browse-class="btn btn-primary w-100"
+                                data-show-remove="false" data-show-caption="false" data-show-upload="false">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="d-flex justify-content-end">
+                        <button type="button" class="btn btn-primary" id="addAnggota"><i
+                                class="ph-plus-circle"></i><span class="d-none d-lg-inline-block ms-2">Tambah Anggota
+                                Keluarga</span>
+                        </button>
+                    </div>
+                    <div>
+                        <div class="col-lg-12">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-xs mt-2" id="tblAnggota">
+                                    <thead class="text-center">
+                                        <tr>
+                                            <th class="col-md-3">Nama Lengkap</th>
+                                            <th class="col-md-2">Jenis Kelamin</th>
+                                            <th class="col-md-2">Tanggal Lahir</th>
+                                            <th class="col-md-3">Hubungan Keluarga</th>
+                                            <th class="col-md-3">Foto</th>
+                                            <th class="col-md-1">Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="text">
+
+                                    </tbody>
+                                </table>
+                                </br>
+                            </div>
                         </div>
                     </div>
                 </div>
             </fieldset>
 
-            <h6>Your experience</h6>
+            <h6>Pernikahan</h6>
             <fieldset>
                 <div class="row">
-                    <div class="col-lg-6">
+                    <div class="col-lg-4">
                         <div class="mb-3">
-                            <label class="form-label">Company: <span class="text-danger">*</span></label>
-                            <input type="text" name="experience-company" placeholder="Company name"
-                                class="form-control required">
-                        </div>
-
-                        <div class="mb-3">
-                            <label class="form-label">Position: <span class="text-danger">*</span></label>
-                            <input type="text" name="experience-position" placeholder="Company name"
-                                class="form-control required">
-                        </div>
-
-                        <div class="row">
-                            <div class="col-lg-6">
-                                <label class="form-label">From:</label>
-                                <div class="row">
-                                    <div class="col-lg-6">
-                                        <div class="mb-3">
-                                            <select name="education-from-month" class="form-select">
-                                                <option value="January" selected>January</option>
-                                                <option value="...">...</option>
-                                                <option value="December">December</option>
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-lg-6">
-                                        <div class="mb-3">
-                                            <select name="education-from-year" class="form-select">
-                                                <option value="1995" selected>1995</option>
-                                                <option value="...">...</option>
-                                                <option value="1980">1980</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="col-lg-6">
-                                <label class="form-label">To:</label>
-                                <div class="row">
-                                    <div class="col-lg-6">
-                                        <div class="mb-3">
-                                            <select name="education-to-month" class="form-select">
-                                                <option value="January" selected>January</option>
-                                                <option value="...">...</option>
-                                                <option value="December">December</option>
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-lg-6">
-                                        <div class="mb-3">
-                                            <select name="education-to-year" class="form-select">
-                                                <option value="1995" selected>1995</option>
-                                                <option value="...">...</option>
-                                                <option value="1980">1980</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
+                            <label class="form-label">Suami: <span class="text-danger">*</span></label>
+                            <div class="input-group">
+                                <select data-placeholder="Pilih Suami" class="form-control select" data-width="1%"
+                                    name="suami">
+                                    <option></option>
+                                    <option value="1">Sumatera Utara</option>
+                                    <option value="2">DKI Jakarta</option>
+                                    <option value="3">NTB</option>
+                                </select>
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                    data-bs-target="#addModalJenis"><i class="ph-plus-circle"></i>
+                                </button>
+                                <div class="invalid-feedback">Silahkan Pilih Jenis Status.</div>
                             </div>
                         </div>
                     </div>
 
-                    <div class="col-lg-6">
+                    <div class="col-lg-4">
                         <div class="mb-3">
-                            <label class="form-label">Brief description:</label>
-                            <textarea name="experience-description" rows="4" cols="4"
-                                placeholder="Tasks and responsibilities" class="form-control"></textarea>
+                            <label class="form-label">Istri: <span class="text-danger">*</span></label>
+                            <div class="input-group">
+                                <select data-placeholder="Pilih Istri" class="form-control select" data-width="1%"
+                                    name="istri">
+                                    <option></option>
+                                    <option value="1">Sumatera Utara</option>
+                                    <option value="2">DKI Jakarta</option>
+                                    <option value="3">NTB</option>
+                                </select>
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                    data-bs-target="#addModalJenis"><i class="ph-plus-circle"></i>
+                                </button>
+                                <div class="invalid-feedback">Silahkan Pilih Jenis Status.</div>
+                            </div>
                         </div>
+                    </div>
 
+                    <div class="col-lg-4">
                         <div class="mb-3">
-                            <label class="form-label">Recommendations:</label>
-                            <input type="file" class="form-control">
-                            <span class="form-text text-muted">Accepted formats: pdf, doc. Max file size 2Mb</span>
+                            <label class="form-label">Tanggal Menikah: <span class="text-danger">*</span></label>
+                            <div class="input-group">
+                                <span class="input-group-text">
+                                    <i class="ph-calendar"></i>
+                                </span>
+                                <input type="text" class="form-control datepicker-autohide4"
+                                    placeholder="Pilih Tanggal Menikah" name="tanggalMenikah">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-2">
+                        <div class="mb-3">
+                            <label class="form-label">HKBP/Non HKBP <span class="text-danger">*</span></label>
+                            <div class="form-check form-check-inline" style="padding-top: 9px; padding-bottom: 9px;">
+                                <input type="checkbox" class="form-check-input" id="cc_li_c" checked>
+                                <label class="form-check-label" for="cc_li_c">HKBP</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-5">
+                        <div class="mb-3">
+                            <label class="form-label">Gereja HKBP: <span class="text-danger">*</span></label>
+                            <div class="input-group">
+                                <select data-placeholder="Pilih Gereja HKBP" class="form-control select" data-width="1%"
+                                    name="istri">
+                                    <option></option>
+                                    <option value="1">Sumatera Utara</option>
+                                    <option value="2">DKI Jakarta</option>
+                                    <option value="3">NTB</option>
+                                </select>
+                                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                    data-bs-target="#addModalJenis"><i class="ph-plus-circle"></i>
+                                </button>
+                                <div class="invalid-feedback">Silahkan Pilih Jenis Status.</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-5">
+                        <div class="mb-3">
+                            <label class="form-label">Gereja Non HKBP: <span class="text-danger">*</span></label>
+                            <input type="text" name="gerejaNonHKBP" placeholder="Masukkan Nama Gereja Non HKBP"
+                                class="form-control">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="mb-3">
+                            <label class="form-label">Pendeta Yang Memberkati: <span
+                                    class="text-danger">*</span></label>
+                            <input type="text" name="namaPendeta" placeholder="Masukkan Nama Pendeta yang Memberkati"
+                                class="form-control">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="mb-3">
+                            <label class="form-label">Nats Pernikahan: <span class="text-danger">*</span></label>
+                            <textarea rows="3" cols="3" name="natsPernikahan" class="form-control"
+                                placeholder="Masukkan Nats Pernikahan"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="mb-3">
+                            <label class="form-label">Keterangan: <span class="text-danger">*</span></label>
+                            <textarea rows="3" cols="3" name="keteranganPernikahan" class="form-control"
+                                placeholder="Masukkan Keterangan"></textarea>
                         </div>
                     </div>
                 </div>
             </fieldset>
 
-            <h6>Additional info</h6>
+            <h6>Kelengkapan Administrasi</h6>
             <fieldset>
                 <div class="row">
                     <div class="col-lg-6">
                         <div class="mb-3">
-                            <label class="form-label">Applicant resume:</label>
-                            <input type="file" class="form-control">
-                            <span class="form-text text-muted">Accepted formats: pdf, doc. Max file size 2Mb</span>
-                        </div>
-                    </div>
-
-                    <div class="col-lg-6">
-                        <div class="mb-3">
-                            <label class="form-label">Where did you find us?</label>
-                            <select name="source" class="form-select">
-                                <option value="monster" selected>Monster.com</option>
-                                <option value="linkedin">LinkedIn</option>
-                                <option value="google">Google</option>
-                                <option value="adwords">Google AdWords</option>
-                                <option value="other">Other source</option>
+                            <label class="form-label">Nama Dokumen:</label>
+                            <select data-placeholder="Pilih Dokumen" class="form-control select" name="namaDokumen">
+                                <option></option>
+                                <option value="1">Sumatera Utara</option>
+                                <option value="2">DKI Jakarta</option>
+                                <option value="3">NTB</option>
                             </select>
                         </div>
                     </div>
+
+                    <div class="col-lg-6">
+                        <div class="mb-3">
+                            <label class="form-label">Upload Dokumen:</label>
+                            <input type="file" class="form-control" name="fileDokumen">
+                            <span class="form-text text-muted">Format Dokumen: pdf, doc. Maksimum ukuran file 5Mb</span>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="row">
-                    <div class="col-lg-6">
+                    <div class="col-lg-12">
                         <div class="mb-3">
-                            <label class="form-label">Availability:</label>
-
-                            <label class="form-check mb-1">
-                                <input type="radio" class="form-check-input" name="availability" checked>
-                                <span class="form-check-label">Immediately</span>
-                            </label>
-
-                            <label class="form-check mb-1">
-                                <input type="radio" class="form-check-input" name="availability">
-                                <span class="form-check-label">1 - 2 weeks</span>
-                            </label>
-
-                            <label class="form-check mb-1">
-                                <input type="radio" class="form-check-input" name="availability">
-                                <span class="form-check-label">3 - 4 weeks</span>
-                            </label>
-
-                            <label class="form-check">
-                                <input type="radio" class="form-check-input" name="availability">
-                                <span class="form-check-label">More than 1 month</span>
-                            </label>
+                            <label class="form-label">Keterangan:</label>
+                            <textarea name="keteranganDokumen" rows="3" cols="5" placeholder="Masukkan Keterangan"
+                                class="form-control"></textarea>
                         </div>
                     </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="d-flex justify-content-end">
+                        <button type="button" class="btn btn-primary" id="addDokumen"><i
+                                class="ph-plus-circle"></i><span class="d-none d-lg-inline-block ms-2">Tambah
+                                Dokumen</span>
+                        </button>
+                    </div>
+                    <div>
+                        <div class="col-lg-12">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-xs mt-2" id="tblDokumen">
+                                    <thead class="text-center">
+                                        <tr>
+                                            <th class="col-md-3">Nama Dokumen</th>
+                                            <th class="col-md-2">Nama File</th>
+                                            <th class="col-md-2">Keterangan</th>
+                                            <th class="col-md-1">Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="text">
 
-                    <div class="col-lg-6">
-                        <div class="mb-3">
-                            <label class="form-label">Additional information:</label>
-                            <textarea name="additional-info" rows="5" cols="5"
-                                placeholder="If you want to add any info, do it here." class="form-control"></textarea>
+                                    </tbody>
+                                </table>
+                                </br>
+                            </div>
                         </div>
                     </div>
                 </div>
