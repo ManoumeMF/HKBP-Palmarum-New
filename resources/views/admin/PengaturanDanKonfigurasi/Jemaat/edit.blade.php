@@ -14,7 +14,7 @@
                 columnDefs: [{
                     orderable: false,
                     width: 100,
-                    targets: [3]
+                    targets: [1]
                 }],
                 dom: '<"datatable-header"fl><"datatable-scroll"t><"datatable-footer"ip>',
                 language: {
@@ -148,7 +148,7 @@
                     prevArrow: document.dir == 'rtl' ? '&rarr;' : '&larr;',
                     nextArrow: document.dir == 'rtl' ? '&larr;' : '&rarr;',
                     autohide: true,
-                    format: 'yyyy-mm-dd'
+                    format: 'dd M yyyy'
                 });
             }
 
@@ -160,7 +160,7 @@
                     prevArrow: document.dir == 'rtl' ? '&rarr;' : '&larr;',
                     nextArrow: document.dir == 'rtl' ? '&larr;' : '&rarr;',
                     autohide: true,
-                    format: 'yyyy-mm-dd'
+                    format: 'dd M yyyy'
                 });
             }
 
@@ -192,7 +192,7 @@
     <div class="page-header-content d-lg-flex">
         <div class="d-flex">
             <h4 class="page-title mb-0">
-                Pengaturan dan Konfigurasi - <span class="fw-normal">Jemaat</span>
+                Data Master - <span class="fw-normal">Jemaat</span>
             </h4>
             <a href="#page_header"
                 class="btn btn-light align-self-center collapsed d-lg-none border-transparent rounded-pill p-0 ms-auto"
@@ -205,8 +205,7 @@
         <div class="d-flex">
             <div class="breadcrumb py-2">
                 <a href="index.html" class="breadcrumb-item"><i class="ph-house"></i></a>
-                <span class="breadcrumb-item">Pengaturan dan Konfigurasi</span>
-                <span class="breadcrumb-item">Data Master</span>
+                <span class="breadcrumb-item">Master</span>
                 <a href="{{ route('Status.index') }}" class="breadcrumb-item active">Jemaat</a>
             </div>
             <a href="#breadcrumb_elements"
@@ -407,7 +406,7 @@
                         </div>
                 </div>
 
-                <div class="card-body text-end">
+                <div class="card-footer text-end">
                     <a href="{{route('Jemaat.index')}}">
                         <button type="submit" class="btn btn-primary">Simpan<i
                                 class="ph-check-circle ms-2"></i></button>
@@ -436,9 +435,10 @@
                         <thead>
                             <tr>
                                 <th class="col-md-3">Nama Lengkap</th>
-                                <th class="col-md-2">Jenis Kelamin</th>
-                                <th class="col-md-2">Tanggal Lahir</th>
-                                <th class="col-md-3">Hubungan Keluarga</th>
+                                <th class="col-md-3">Tanggal Lahir</th>
+                                <th class="col-md-3">Umur</th>
+                                <th class="col-md-1">Baptis</th>
+                                <th class="col-md-1">Sidi</th>
                                 <th class="col-md-1">Aksi</th>
                             </tr>
                         </thead>
@@ -455,14 +455,15 @@
                                             <a href="user_pages_profile_tabbed.html" class="fw-semibold">James
                                                 Alexander</a>
                                             <div class="fs-sm text-muted">
-                                                Suami
+                                                Laki-laki - Suami
                                             </div>
                                         </div>
                                     </div>
                                 </td>
-                                <td>Jenis Kelamin</td>
                                 <td>Tanggal Lahir</td>
-                                <td>Hubungan Keluarga</td>
+                                <td>Umur</td>
+                                <td>Baptis</td>
+                                <td>Sidi</td>
                                 <td class="text-center">
                                     <div class="d-inline-flex">
                                         <div class="dropdown">
@@ -475,7 +476,7 @@
                                                     <i class="ph-list me-2"></i>Detail
                                                 </button>
                                                 <button type="button" value="" class="dropdown-item text-secondary">
-                                                    <a href="" style="color:inherit"><i class="ph-pencil me-2"></i>
+                                                    <a href="{{ route('Jemaat.editAnggota', 0) }}" style="color:inherit"><i class="ph-pencil me-2"></i>
                                                         Edit</a>
                                                 </button>
                                                 <button type="button" value=""
@@ -617,7 +618,7 @@
                     </div>
                 </div>
 
-                <div class="card-body text-end">
+                <div class="card-footer text-end">
                     <a href="{{route('Jemaat.index')}}">
                         <button type="submit" class="btn btn-primary">Simpan<i
                                 class="ph-check-circle ms-2"></i></button>
@@ -650,9 +651,9 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>Jenis Kelamin</td>
-                                    <td>Tanggal Lahir</td>
-                                    <td>Hubungan Keluarga</td>
+                                    <td>Nama Dokumen</td>
+                                    <td>Nama File</td>
+                                    <td>Keterangan</td>
                                     <td class="text-center">
                                         <div class="d-inline-flex">
                                             <div class="dropdown">

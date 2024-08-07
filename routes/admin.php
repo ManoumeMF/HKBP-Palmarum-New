@@ -175,6 +175,7 @@ Route::get("/jemaat", [JemaatController::class, 'index'])->name('Jemaat.index');
 Route::get("/jemaat/tambah", [JemaatController::class, 'create'])->name('Jemaat.create');
 Route::post("/jemaat/simpan", [JemaatController::class, 'store'])->name('Jemaat.store');
 Route::get("/jemaat/edit/{id}", [JemaatController::class, 'edit'])->name('Jemaat.edit');
+Route::get("/jemaat/edit-anggota/{id}", [JemaatController::class, 'editAnggota'])->name('Jemaat.editAnggota');
 Route::post("/jemaat/update/{id}", [JemaatController::class, 'update'])->name('Jemaat.update');
 Route::delete("/jemaat/hapus", [JemaatController::class, 'delete'])->name('Jemaat.delete');
 Route::get("/jemaat/detail", [JemaatController::class, 'detail'])->name('Jemaat.detail');

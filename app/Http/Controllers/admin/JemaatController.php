@@ -31,4 +31,11 @@ class JemaatController extends Controller
     {
         return view('admin.PengaturanDanKonfigurasi.Jemaat.edit');
     }
+
+
+
+    public function editAnggota($id)
+    {
+        return view('admin.PengaturanDanKonfigurasi.Jemaat.editAnggota');
+    }
 }

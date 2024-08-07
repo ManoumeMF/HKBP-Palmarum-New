@@ -193,6 +193,63 @@
     });
 </script>
 
+<script>
+    // Setup module
+// ------------------------------
+
+const DropzoneUploader = function() {
+
+
+//
+// Setup module components
+//
+
+// Dropzone file uploader
+const _componentDropzone = function() {
+    if (typeof Dropzone == 'undefined') {
+        console.warn('Warning - dropzone.min.js is not loaded.');
+        return;
+    }
+
+    // Single files
+    let dropzoneSingle = new Dropzone("#dropzone_single", {
+        url: "#",
+        paramName: "file", // The name that will be used to transfer the file
+        maxFilesize: 1, // MB
+        maxFiles: 1,
+        dictDefaultMessage: 'Drop Gambar atau upload <span>atau KLIK</span>',
+        autoProcessQueue: false,
+        addRemoveLinks: true,
+        init: function() {
+            this.on('addedfile', function(file){
+                if (this.fileTracker) {
+                this.removeFile(this.fileTracker);
+            }
+                this.fileTracker = file;
+            });
+        }
+    });
+};
+
+
+//
+// Return objects assigned to module
+//
+
+return {
+    init: function() {
+        _componentDropzone();
+    }
+}
+}();
+
+// Initialize module
+// ------------------------------
+
+document.addEventListener('DOMContentLoaded', function() {
+DropzoneUploader.init();
+});
+</script>
 
 <script>
     //-------------------------------------------------------------------------------------------------
@@ -249,7 +306,7 @@
     <div class="page-header-content d-lg-flex">
         <div class="d-flex">
             <h4 class="page-title mb-0">
-                Pengaturan dan Konfigurasi - <span class="fw-normal">Jemaat</span>
+                Data Master - <span class="fw-normal">Jemaat</span>
             </h4>
             <a href="#page_header"
                 class="btn btn-light align-self-center collapsed d-lg-none border-transparent rounded-pill p-0 ms-auto"
@@ -262,8 +319,7 @@
         <div class="d-flex">
             <div class="breadcrumb py-2">
                 <a href="index.html" class="breadcrumb-item"><i class="ph-house"></i></a>
-                <span class="breadcrumb-item">Pengaturan dan Konfigurasi</span>
-                <span class="breadcrumb-item">General</span>
+                <span class="breadcrumb-item">Jemaat</span>
                 <a href="{{ route('Status.index') }}" class="breadcrumb-item active">Status</a>
             </div>
             <a href="#breadcrumb_elements"
@@ -611,7 +667,7 @@
                             <div class="col-lg-12">
                                 <div class="mb-3">
                                     <label class="form-label">Keterangan: <span class="text-danger">*</span></label>
-                                    <textarea rows="7" cols="3" name="keterangan" class="form-control"
+                                    <textarea rows="8" cols="3" name="keterangan" class="form-control"
                                         placeholder="Masukkan Keterangan"></textarea>
                                 </div>
                             </div>
@@ -621,11 +677,13 @@
                     <div class="col-lg-3">
                         <div class="mb-3">
                             <label class="form-label">Foto Anggota Jemaat:</label>
-                            <input type="file" class="file-input" data-browse-class="btn btn-primary w-100"
-                                data-show-remove="false" data-show-caption="false" data-show-upload="false">
+                            <div class="dropzone" id="dropzone_single" style="display: flex;justify-content: center;">
+
+                            </div>
                         </div>
                     </div>
                 </div>
+                <hr>
                 <div class="row">
                     <div class="d-flex justify-content-end">
                         <button type="button" class="btn btn-primary" id="addAnggota"><i
