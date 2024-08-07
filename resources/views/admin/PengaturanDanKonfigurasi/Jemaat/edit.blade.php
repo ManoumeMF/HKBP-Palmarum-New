@@ -1,115 +1,190 @@
 @extends('layouts.admin.template')
 @section('content')
 <script>
-$(document).ready(function() {
-    // Your existing Select2 initialization
-    $('.select').each(function() {
-        if ($(this).closest('.modal').length) {
-            // If the Select2 element is inside a modal
-            $(this).select2({
-                dropdownParent: $(this).closest('.modal')
+    const DatatableBasic = function () {
+        const _componentDatatableBasic = function () {
+            if (!$().DataTable) {
+                console.warn('Warning - datatables.min.js is not loaded.');
+                return;
+            }
+
+            // Setting datatable defaults
+            $.extend($.fn.dataTable.defaults, {
+                autoWidth: false,
+                columnDefs: [{
+                    orderable: false,
+                    width: 100,
+                    targets: [3]
+                }],
+                dom: '<"datatable-header"fl><"datatable-scroll"t><"datatable-footer"ip>',
+                language: {
+                    search: '<span class="me-3">Filter:</span> <div class="form-control-feedback form-control-feedback-end flex-fill">_INPUT_<div class="form-control-feedback-icon"><i class="ph-magnifying-glass opacity-50"></i></div></div>',
+                    searchPlaceholder: 'Type to filter...',
+                    lengthMenu: '<span class="me-3">Show:</span> _MENU_',
+                    paginate: {
+                        'first': 'First',
+                        'last': 'Last',
+                        'next': document.dir == "rtl" ? '&larr;' : '&rarr;',
+                        'previous': document.dir == "rtl" ? '&rarr;' : '&larr;'
+                    }
+                }
             });
-        } else {
-            // If the Select2 element is not inside a modal
-            $(this).select2();
+
+            // Basic datatable
+            $('.datatable-basic').DataTable();
+
+            // Alternative pagination
+            $('.datatable-pagination').DataTable({
+                pagingType: "simple",
+                language: {
+                    paginate: {
+                        'next': document.dir == "rtl" ? 'Next &larr;' : 'Next &rarr;',
+                        'previous': document.dir == "rtl" ? '&rarr; Prev' : '&larr; Prev'
+                    }
+                }
+            });
+
+            // Datatable with saving state
+            $('.datatable-save-state').DataTable({
+                stateSave: true
+            });
+
+            // Scrollable datatable
+            const table = $('.datatable-scroll-y').DataTable({
+                autoWidth: true,
+                scrollY: 300
+            });
+
+            // Resize scrollable table when sidebar width changes
+            $('.sidebar-control').on('click', function () {
+                table.columns.adjust().draw();
+            });
+        };
+
+        //
+        // Return objects assigned to module
+        //
+        return {
+            init: function () {
+                _componentDatatableBasic();
+            }
         }
+    }();
+
+    // Initialize module
+    // ------------------------------
+    document.addEventListener('DOMContentLoaded', function () {
+        DatatableBasic.init();
     });
-});
 </script>
 <script>
-// Setup module
-// ------------------------------
-
-var DateTimePickers = function() {
-
-
-    //
-    // Setup module components
-    //
-
-    // Daterange picker
-    const _componentDaterange = function() {
-        if (!$().daterangepicker) {
-            console.warn('Warning - daterangepicker.js is not loaded.');
-            return;
-        }
-
-        // Basic initialization
-        $('.daterange-basic').daterangepicker({
-            parentEl: '.content-inner'
-        });
-        $('.daterange-time').daterangepicker({
-            parentEl: '.content-inner',
-            timePicker: true,
-            locale: {
-                format: 'YYYY-MM-DD'
+    $(document).ready(function () {
+        // Your existing Select2 initialization
+        $('.select').each(function () {
+            if ($(this).closest('.modal').length) {
+                // If the Select2 element is inside a modal
+                $(this).select2({
+                    dropdownParent: $(this).closest('.modal')
+                });
+            } else {
+                // If the Select2 element is not inside a modal
+                $(this).select2();
             }
         });
-        $('.daterange-increments').daterangepicker({
-            parentEl: '.content-inner',
-            timePicker: true,
-            timePickerIncrement: 10,
-            locale: {
-                format: 'YYYY-MM-DD'
+    });
+</script>
+
+<script>
+    // Setup module
+    // ------------------------------
+
+    var DateTimePickers = function () {
+        //
+        // Setup module components
+        //
+
+        // Daterange picker
+        const _componentDaterange = function () {
+            if (!$().daterangepicker) {
+                console.warn('Warning - daterangepicker.js is not loaded.');
+                return;
             }
-        });
 
-    };
-
-    // Date picker
-    const _componentDatepicker = function() {
-        if (typeof Datepicker == 'undefined') {
-            console.warn('Warning - datepicker.min.js is not loaded.');
-            return;
-        }
-
-        // Hide on selection
-        const dpAutoHideElement = document.querySelector('.datepicker-autohide');
-        if (dpAutoHideElement) {
-            const dpAutoHide = new Datepicker(dpAutoHideElement, {
-                container: '.content-inner',
-                buttonClass: 'btn',
-                prevArrow: document.dir == 'rtl' ? '&rarr;' : '&larr;',
-                nextArrow: document.dir == 'rtl' ? '&larr;' : '&rarr;',
-                autohide: true,
-                format: 'yyyy-mm-dd'
+            // Basic initialization
+            $('.daterange-basic').daterangepicker({
+                parentEl: '.content-inner'
             });
-        }
-
-        const dpAutoHideElement2 = document.querySelector('.datepicker-autohide2');
-        if (dpAutoHideElement2) {
-            const dpAutoHide = new Datepicker(dpAutoHideElement2, {
-                container: '.content-inner',
-                buttonClass: 'btn',
-                prevArrow: document.dir == 'rtl' ? '&rarr;' : '&larr;',
-                nextArrow: document.dir == 'rtl' ? '&larr;' : '&rarr;',
-                autohide: true,
-                format: 'yyyy-mm-dd'
+            $('.daterange-time').daterangepicker({
+                parentEl: '.content-inner',
+                timePicker: true,
+                locale: {
+                    format: 'YYYY-MM-DD'
+                }
             });
+            $('.daterange-increments').daterangepicker({
+                parentEl: '.content-inner',
+                timePicker: true,
+                timePickerIncrement: 10,
+                locale: {
+                    format: 'YYYY-MM-DD'
+                }
+            });
+
+        };
+
+        // Date picker
+        const _componentDatepicker = function () {
+            if (typeof Datepicker == 'undefined') {
+                console.warn('Warning - datepicker.min.js is not loaded.');
+                return;
+            }
+
+            // Hide on selection
+            const dpAutoHideElement = document.querySelector('.datepicker-autohide');
+            if (dpAutoHideElement) {
+                const dpAutoHide = new Datepicker(dpAutoHideElement, {
+                    container: '.content-inner',
+                    buttonClass: 'btn',
+                    prevArrow: document.dir == 'rtl' ? '&rarr;' : '&larr;',
+                    nextArrow: document.dir == 'rtl' ? '&larr;' : '&rarr;',
+                    autohide: true,
+                    format: 'yyyy-mm-dd'
+                });
+            }
+
+            const dpAutoHideElement2 = document.querySelector('.datepicker-autohide2');
+            if (dpAutoHideElement2) {
+                const dpAutoHide = new Datepicker(dpAutoHideElement2, {
+                    container: '.content-inner',
+                    buttonClass: 'btn',
+                    prevArrow: document.dir == 'rtl' ? '&rarr;' : '&larr;',
+                    nextArrow: document.dir == 'rtl' ? '&larr;' : '&rarr;',
+                    autohide: true,
+                    format: 'yyyy-mm-dd'
+                });
+            }
+
+        };
+
+
+        //
+        // Return objects assigned to module
+        //
+        return {
+            init: function () {
+                _componentDaterange();
+                _componentDatepicker();
+            }
         }
-
-    };
-
-
-    //
-    // Return objects assigned to module
-    //
-
-    return {
-        init: function() {
-            _componentDaterange();
-            _componentDatepicker();
-        }
-    }
-}();
+    }();
 
 
-// Initialize module
-// ------------------------------
+    // Initialize module
+    // ------------------------------
 
-document.addEventListener('DOMContentLoaded', function() {
-    DateTimePickers.init();
-});
+    document.addEventListener('DOMContentLoaded', function () {
+        DateTimePickers.init();
+    });
 </script>
 
 <!-- Page header -->
@@ -150,7 +225,7 @@ document.addEventListener('DOMContentLoaded', function() {
 <div class="content">
 
     <!-- Course overview -->
-    <div class="card">
+    <div class="card" style="min-height: 500px;">
         <div class="card-header d-lg-flex">
             <h5 class="mb-0">Edit Jemaat</h5>
         </div>
@@ -344,72 +419,77 @@ document.addEventListener('DOMContentLoaded', function() {
             </div>
 
             <div class="tab-pane fade" id="anggota_keluarga">
-                <form action="" method="post" class="needs-validation" novalidate>
-                    <div class="card-body">
-                        <div class="mt-1 mb-4">
-                            <h6>Data Anggota Keluarga</h6>
-                        </div>
-                        <div class="row">
-                            <div class="d-flex justify-content-end">
-                                <button type="button" class="btn btn-primary" id="addAnggota"><i
-                                        class="ph-plus-circle"></i><span class="d-none d-lg-inline-block ms-2">Tambah
-                                        Anggota
-                                        Keluarga</span>
-                                </button>
-                            </div>
-                            <div>
-                                <div class="col-lg-12">
-                                    <div class="table-responsive">
-                                        <table class="table table-bordered table-xs mt-2" id="tblAnggota">
-                                            <thead class="text-center">
-                                                <tr>
-                                                    <th class="col-md-3">Nama Lengkap</th>
-                                                    <th class="col-md-2">Jenis Kelamin</th>
-                                                    <th class="col-md-2">Tanggal Lahir</th>
-                                                    <th class="col-md-3">Hubungan Keluarga</th>
-                                                    <th class="col-md-3">Foto</th>
-                                                    <th class="col-md-1">Aksi</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody class="text">
-                                                <td>Nama Lengkap</td>
-                                                <td>Jenis Kelamin</td>
-                                                <td>Tanggal Lahir</td>
-                                                <td>Hubungan Keluarga</td>
-                                                <td>Foto</td>
-                                                <td style="text-align: center">
-                                                    <div class="d-inline-flex">
-                                                        <div class="dropdown">
-                                                            <a href="#" class="text-body" data-bs-toggle="dropdown">
-                                                                <i class="ph-list"></i>
-                                                            </a>
-                                                            <div class="dropdown-menu dropdown-menu-end">
-                                                                <button type="button" value=""
-                                                                    class="dropdown-item text-info detailBtn">
-                                                                    <i class="ph-list me-2"></i>Detail
-                                                                </button>
-                                                                <button type="button" value=""
-                                                                    class="dropdown-item text-secondary">
-                                                                    <a href="" style="color:inherit"><i
-                                                                            class="ph-pencil me-2"></i> Edit</a>
-                                                                </button>
-                                                                <button type="button" value=""
-                                                                    class="dropdown-item text-danger deleteBtn">
-                                                                    <i class="ph-trash me-2"></i>Hapus
-                                                                </button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                            </tbody>
-                                        </table>
-                                        </br>
-                                    </div>
-                                </div>
-                            </div>
+                <div class="card-body">
+                    <div class="mt-1 mb-4">
+                        <h6>Data Anggota Keluarga</h6>
+                    </div>
+                    <div class="row">
+                        <div class="d-flex justify-content-end">
+                            <button type="button" class="btn btn-primary" id="addAnggota"><i
+                                    class="ph-plus-circle"></i><span class="d-none d-lg-inline-block ms-2">Tambah
+                                    Anggota
+                                    Keluarga</span>
+                            </button>
                         </div>
                     </div>
-                </form>
+                    <table id="jemaatTable" class="table datatable-basic table-striped">
+                        <thead>
+                            <tr>
+                                <th class="col-md-3">Nama Lengkap</th>
+                                <th class="col-md-2">Jenis Kelamin</th>
+                                <th class="col-md-2">Tanggal Lahir</th>
+                                <th class="col-md-3">Hubungan Keluarga</th>
+                                <th class="col-md-1">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <div class="d-flex align-items-center">
+                                        <a href="user_pages_profile_tabbed.html" class="d-block me-3">
+                                            <img src="{{ asset('admin_resources/assets/images/demo/users/face1.jpg') }}"
+                                                width="40" height="40" class="rounded-circle" alt="">
+                                        </a>
+
+                                        <div class="flex-fill">
+                                            <a href="user_pages_profile_tabbed.html" class="fw-semibold">James
+                                                Alexander</a>
+                                            <div class="fs-sm text-muted">
+                                                Suami
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>Jenis Kelamin</td>
+                                <td>Tanggal Lahir</td>
+                                <td>Hubungan Keluarga</td>
+                                <td class="text-center">
+                                    <div class="d-inline-flex">
+                                        <div class="dropdown">
+                                            <a href="#" class="text-body" data-bs-toggle="dropdown">
+                                                <i class="ph-list"></i>
+                                            </a>
+                                            <div class="dropdown-menu dropdown-menu-end">
+                                                <button type="button" value=""
+                                                    class="dropdown-item text-info detailBtn">
+                                                    <i class="ph-list me-2"></i>Detail
+                                                </button>
+                                                <button type="button" value="" class="dropdown-item text-secondary">
+                                                    <a href="" style="color:inherit"><i class="ph-pencil me-2"></i>
+                                                        Edit</a>
+                                                </button>
+                                                <button type="button" value=""
+                                                    class="dropdown-item text-danger deleteBtn">
+                                                    <i class="ph-trash me-2"></i>Hapus
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
 
             <div class="tab-pane fade" id="pernikahan">
@@ -553,62 +633,57 @@ document.addEventListener('DOMContentLoaded', function() {
                     </div>
 
                     <div class="row">
-                    <div class="d-flex justify-content-end">
-                        <button type="button" class="btn btn-primary" id="addDokumen"><i
-                                class="ph-plus-circle"></i><span class="d-none d-lg-inline-block ms-2">Tambah
-                                Dokumen</span>
-                        </button>
-                    </div>
-                    <div>
-                        <div class="col-lg-12">
-                            <div class="table-responsive">
-                                <table class="table table-bordered table-xs mt-2" id="tblDokumen">
-                                    <thead class="text-center">
-                                        <tr>
-                                            <th class="col-md-3">Nama Dokumen</th>
-                                            <th class="col-md-2">Nama File</th>
-                                            <th class="col-md-2">Keterangan</th>
-                                            <th class="col-md-1">Aksi</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody class="text">
-                                                <td>Nama Dokumen</td>
-                                                <td>Nama File</td>
-                                                <td>Keterangan</td>
-                                                <td style="text-align: center">
-                                                    <div class="d-inline-flex">
-                                                        <div class="dropdown">
-                                                            <a href="#" class="text-body" data-bs-toggle="dropdown">
-                                                                <i class="ph-list"></i>
-                                                            </a>
-                                                            <div class="dropdown-menu dropdown-menu-end">
-                                                                <button type="button" value=""
-                                                                    class="dropdown-item text-info detailBtn">
-                                                                    <i class="ph-list me-2"></i>Detail
-                                                                </button>
-                                                                <button type="button" value=""
-                                                                    class="dropdown-item text-secondary">
-                                                                    <a href="" style="color:inherit"><i
-                                                                            class="ph-pencil me-2"></i> Edit</a>
-                                                                </button>
-                                                                <button type="button" value=""
-                                                                    class="dropdown-item text-danger deleteBtn">
-                                                                    <i class="ph-trash me-2"></i>Hapus
-                                                                </button>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </td>
-                                    </tbody>
-                                </table>
-                                </br>
-                            </div>
+                        <div class="d-flex justify-content-end">
+                            <button type="button" class="btn btn-primary" id="addDokumen"><i
+                                    class="ph-plus-circle"></i><span class="d-none d-lg-inline-block ms-2">Tambah
+                                    Dokumen</span>
+                            </button>
                         </div>
+                        <table id="jemaatTable" class="table datatable-basic table-striped">
+                            <thead>
+                                <tr>
+                                    <th class="col-md-3">Nama Dokumen</th>
+                                    <th class="col-md-4">Nama File</th>
+                                    <th class="col-md-4">Keterangan</th>
+                                    <th class="col-md-1" class="text-center">Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Jenis Kelamin</td>
+                                    <td>Tanggal Lahir</td>
+                                    <td>Hubungan Keluarga</td>
+                                    <td class="text-center">
+                                        <div class="d-inline-flex">
+                                            <div class="dropdown">
+                                                <a href="#" class="text-body" data-bs-toggle="dropdown">
+                                                    <i class="ph-list"></i>
+                                                </a>
+                                                <div class="dropdown-menu dropdown-menu-end">
+                                                    <button type="button" value=""
+                                                        class="dropdown-item text-info detailBtn">
+                                                        <i class="ph-list me-2"></i>Detail
+                                                    </button>
+                                                    <button type="button" value="" class="dropdown-item text-secondary">
+                                                        <a href="" style="color:inherit"><i class="ph-pencil me-2"></i>
+                                                            Edit</a>
+                                                    </button>
+                                                    <button type="button" value=""
+                                                        class="dropdown-item text-danger deleteBtn">
+                                                        <i class="ph-trash me-2"></i>Hapus
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
                     </div>
-                </div>
                 </div>
 
-                
+
             </div>
         </div>
     </div>
@@ -624,34 +699,34 @@ document.addEventListener('DOMContentLoaded', function() {
 <script src="{{ asset('admin_resources/assets/demo/pages/components_modals.js') }}"></script> --}}
 
 <script>
-function clearModalContent() {
-    var selectElement = document.querySelector('#modal_default_tab3 select');
-    selectElement.selectedIndex = 0; // Resets the select element
-    var selectElement = document.getElementById('jenisKartuIdentitas');
-    selectElement.selectedIndex = 0; // Reset the select element
+    function clearModalContent() {
+        var selectElement = document.querySelector('#modal_default_tab3 select');
+        selectElement.selectedIndex = 0; // Resets the select element
+        var selectElement = document.getElementById('jenisKartuIdentitas');
+        selectElement.selectedIndex = 0; // Reset the select element
 
-    var inputElements = document.querySelectorAll(
-        '#modal_default_tab3 input:not([type="submit"]):not([type="reset"])');
-    inputElements.forEach(function(input) {
-        if (input.type === 'file') {
-            input.value = ''; // Resets the file input
-            document.getElementById('preview').style.display = 'none'; // Hide the preview image
-        } else {
-            input.value = ''; // Resets other input elements
+        var inputElements = document.querySelectorAll(
+            '#modal_default_tab3 input:not([type="submit"]):not([type="reset"])');
+        inputElements.forEach(function (input) {
+            if (input.type === 'file') {
+                input.value = ''; // Resets the file input
+                document.getElementById('preview').style.display = 'none'; // Hide the preview image
+            } else {
+                input.value = ''; // Resets other input elements
+            }
+        });
+    }
+
+    document.querySelector('#modal_default_tab3 .btn-danger').addEventListener('click', clearModalContent);
+
+    document.addEventListener('click', function (event) {
+        var modal = document.getElementById('modal_default_tab3');
+        var isClickInsideModal = modal.contains(event.target);
+
+        if (!isClickInsideModal && window.getComputedStyle(modal).display !== 'none') {
+            clearModalContent();
         }
     });
-}
-
-document.querySelector('#modal_default_tab3 .btn-danger').addEventListener('click', clearModalContent);
-
-document.addEventListener('click', function(event) {
-    var modal = document.getElementById('modal_default_tab3');
-    var isClickInsideModal = modal.contains(event.target);
-
-    if (!isClickInsideModal && window.getComputedStyle(modal).display !== 'none') {
-        clearModalContent();
-    }
-});
 </script>
 {{--
 <script src="{{ asset('admin_resources/demo/pages/form_layouts.js')}}"></script> --}}
