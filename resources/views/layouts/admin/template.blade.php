@@ -527,13 +527,18 @@
                                     <a href="#" class="nav-link">General</a>
                                     <ul class="nav-group-sub collapse">
                                         <li class="nav-item"><a href="{{ route('BidangPendidikan.index') }}" class="nav-link">Bidang Pendidikan</a></li>
-                                        <li class="nav-item"><a href="{{ route('Pendidikan.index') }}" class="nav-link">Pendidikan</a></li>
-                                        <li class="nav-item"><a href="{{ route('Pekerjaan.index') }}" class="nav-link">Pekerjaan</a></li>
+                                        {{-- {{ route('Pendidikan.index') }} --}}
+                                        <li class="nav-item"><a href="" class="nav-link">Pendidikan</a></li>
+                                        {{-- {{ route('Pekerjaan.index') }} --}}
+                                        <li class="nav-item"><a href="" class="nav-link">Pekerjaan</a></li>
                                         <li class="nav-item"><a href="{{ route('JenisStatus.index') }}" class="nav-link">Jenis Status</a></li>
                                         <li class="nav-item"><a href="" class="nav-link">Status</a></li>
-                                        <li class="nav-item"><a href="{{ route('Hubungan-Keluarga.index') }}" class="nav-link">Hubungan Keluarga</a></li>
-                                        <li class="nav-item"><a href="{{ route('Bank.index') }}" class="nav-link">Bank</a></li>
-                                        <li class="nav-item"><a href="{{ route('Golongan-Darah.index') }}" class="nav-link">Golongan Darah</a></li>
+                                        {{-- {{ route('Hubungan-Keluarga.index') }} --}}
+                                        <li class="nav-item"><a href="" class="nav-link">Hubungan Keluarga</a></li>
+                                        {{-- {{ route('Bank.index') }} --}}
+                                        <li class="nav-item"><a href="" class="nav-link">Bank</a></li>
+                                        {{-- {{ route('Golongan-Darah.index') }} --}}
+                                        <li class="nav-item"><a href="" class="nav-link">Golongan Darah</a></li>
                                     </ul>
                                 </li>
                                 <li class="nav-item nav-item-submenu">

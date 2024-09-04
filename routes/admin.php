@@ -14,6 +14,7 @@ use App\Http\Controllers\admin\StatusController;
 use App\Http\Controllers\admin\PekerjaanController;
 use App\Http\Controllers\admin\HubunganKeluargaController;
 use App\Http\Controllers\admin\BankController;
+use App\Http\Controllers\admin\GerejaController;
 use App\Http\Controllers\admin\GolonganDarahController;
 //use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\Route;
@@ -165,3 +166,14 @@ Route::get("/sentralisasi/edit/{id}", [SetSentralisasiController::class, 'edit']
 Route::post("/sentralisasi/update/{id}", [SetSentralisasiController::class, 'update'])->name('Sentralisasi.update');
 Route::delete("/sentralisasi/hapus", [SetSentralisasiController::class, 'delete'])->name('Sentralisasi.delete');
 Route::get("/sentralisasi/detail", [SetSentralisasiController::class, 'detail'])->name('Sentralisasi.detail');
+
+
+// Route untuk Gereja
+Route::get("/gereja", [GerejaController::class, 'index'])->name('Gereja.index');
+Route::get("/gereja/tambah", [GerejaController::class, 'create'])->name('Gereja.create');
+Route::post("/gereja/simpan", [GerejaController::class, 'store'])->name('Gereja.store');
+Route::get("/gereja/edit/{id}", [GerejaController::class, 'edit'])->name('Gereja.edit');
+Route::post("/gereja/update/{id}", [GerejaController::class, 'update'])->name('Gereja.update');
+Route::get("/gereja/detail", [GerejaController::class, 'detail'])->name('Gereja.detail');
+Route::delete("/gereja/hapus", [GerejaController::class, 'delete'])->name('Gereja.delete');
+Route::post("/gereja/simpan-jenis-gereja", [GerejaController::class, 'storeGerejaType'])->name('Gereja.storeGerejaType');

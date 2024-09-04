@@ -49,11 +49,21 @@
                     <form action="{{route('Sentralisasi.store')}}" method="post" class="needs-validation" novalidate>
                         {{ csrf_field() }}
                         <div class="row mb-3">
-                            <label class="col-lg-3 col-form-label">Persentasi Sentralisasi
+                            <label class="col-lg-3 col-form-label">Persentasi Pusat
                                 <span class="text-danger">*</span></label>
                             <div class="col-lg-9">
-                                <input type="number" class="form-control" placeholder="Masukkan Persentasi Sentralisasi" required 
-                                name="PersentasiSentralisasi">
+                                <input type="number" class="form-control" placeholder="Masukkan Persentasi Pusat" required 
+                                name="PersentasiPusat">
+                                <div class="invalid-feedback">Persentasi Sentralisasi Tidak Boleh Kosong.</div>
+                                <!--<div class="valid-feedback">Valid feedback</div>-->
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label class="col-lg-3 col-form-label">Persentasi Gereja
+                                <span class="text-danger">*</span></label>
+                            <div class="col-lg-9">
+                                <input type="number" class="form-control" placeholder="Masukkan Persentasi Gereja" required 
+                                name="PersentasiGereja">
                                 <div class="invalid-feedback">Persentasi Sentralisasi Tidak Boleh Kosong.</div>
                                 <!--<div class="valid-feedback">Valid feedback</div>-->
                             </div>
