@@ -31,7 +31,8 @@ class SetSentralisasiController extends Controller
     public function store(Request $request){
 
         $sentralisasi = json_encode([
-            'PersentasiSentralisasi' => $request->get('PersentasiSentralisasi'),
+            'PersentasiPusat' => $request->get('PersentasiPusat'),
+            'PersentasiGereja' => $request->get('PersentasiGereja'),
             'Keterangan' => $request->get('Keterangan'),
         ]);
 
@@ -61,7 +62,8 @@ public function update(Request $request, $id)
 {
     $SetSentralisasi = json_encode([
         'IdSentralisasi' => $id,
-        'PersentasiSentralisasi' => $request->get('PersentasiSentralisasi'),
+        'PersentasiPusat' => $request->get('PersentasiPusat'),
+        'PersentasiGereja' => $request->get('PersentasiGereja'),
         'Keterangan'  => $request->get('Keterangan')
     ]);
 

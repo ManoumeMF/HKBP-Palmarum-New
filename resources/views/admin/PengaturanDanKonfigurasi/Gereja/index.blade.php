@@ -88,63 +88,63 @@ document.addEventListener('DOMContentLoaded', function() {
 //-------------------------------------------------------------------------------------------------
 //Ajax Form Store Data
 //-------------------------------------------------------------------------------------------------
-// $(document).on('click', '.tambah_status', function(e) {
-//     e.preventDefault();
-//     var data = {
-//         'jenisStatus': $("select[name='jenisStatus']").val(),
-//         'namaStatus': $("input[name='namaStatus']").val(),
-//         'keterangan': $("textarea[name='keterangan']").val(),
-//     }
+$(document).on('click', '.tambah_status', function(e) {
+    e.preventDefault();
+    var data = {
+        'jenisStatus': $("select[name='jenisStatus']").val(),
+        'namaStatus': $("input[name='namaStatus']").val(),
+        'keterangan': $("textarea[name='keterangan']").val(),
+    }
 
-//     $.ajaxSetup({
-//         headers: {
-//             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-//         }
-//     });
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
 
-//     console.log(data);
+    console.log(data);
 
-//     $.ajax({
-//         method: "POST",
-//         url: "{{ route('Status.store') }}",
-//         data: data,
-//         dataType: "json",
-//         contentType: false,
-//         cache: false,
-//         processData: false,
-//         success: function(response) {
-//             console.log(response);
-//             if (response.status == 400) {
-//                 console.log(response);
-//                 $.each(response.errors, function(key, err_value) {
-//                     new Noty({
-//                         text: err_value,
-//                         type: 'error',
-//                         modal: true
-//                     }).show();
-//                 });
-//                 $('.tambah_status').text('Simpan');
-//             } else {
-//                 console.log(response);
-//                 $('#addModal').find('input', 'textarea', 'select').val('');
-//                 $('.tambah_status').text('Simpan');
-//                 $('#addModal').modal('hide');
+    $.ajax({
+        method: "POST",
+        url: "{{ route('Status.store') }}",
+        data: data,
+        dataType: "json",
+        contentType: false,
+        cache: false,
+        processData: false,
+        success: function(response) {
+            console.log(response);
+            if (response.status == 400) {
+                console.log(response);
+                $.each(response.errors, function(key, err_value) {
+                    new Noty({
+                        text: err_value,
+                        type: 'error',
+                        modal: true
+                    }).show();
+                });
+                $('.tambah_status').text('Simpan');
+            } else {
+                console.log(response);
+                $('#addModal').find('input', 'textarea', 'select').val('');
+                $('.tambah_status').text('Simpan');
+                $('#addModal').modal('hide');
 
-//                 if (document.readyState === 'complete') {
-//                     new Noty({
-//                         text: response.message,
-//                         type: 'success',
-//                         modal: true
-//                     }).show();
-//                 }
-//             }
-//         }
-//     });
-// });
+                if (document.readyState === 'complete') {
+                    new Noty({
+                        text: response.message,
+                        type: 'success',
+                        modal: true
+                    }).show();
+                }
+            }
+        }
+    });
+});
 
-// -------------------------------------------------------------------------------------------------
-// Ajax Form Detail Data
-// -------------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------
+//Ajax Form Detail Data
+//-------------------------------------------------------------------------------------------------
 $(document).on('click', '.detailBtn', function(e) {
     e.preventDefault();
 
@@ -154,7 +154,7 @@ $(document).on('click', '.detailBtn', function(e) {
 
     $.ajax({
         method: "GET",
-        url: "{{ route('Sentralisasi.detail') }}",
+        url: "{{ route('Gereja.detail') }}",
         data: {
             id: st_id
         },
@@ -169,18 +169,26 @@ $(document).on('click', '.detailBtn', function(e) {
                 $('#editModal').modal('hide');
             } else {
                 //console.log(response.fieldEducation.nama_bidang_pendidikan)
-                $('#detail_persentasi_pusat').text(response.sentralisasi.persentasi_pusat);
-                $('#detail_persentasi_gereja').text(response.sentralisasi.persentasi_gereja);
-                $('#detail_keterangan').text(response.sentralisasi.keterangan);
+                $('#detail_nama_gereja').text(response.gereja.nama_gereja);
+                $('#detail_kode_gereja').text(response.gereja.kode_gereja);
+                $('#detail_nama_resort').text(response.gereja.nama_ressort);
+                $('#detail_jenis_gereja').text(response.gereja.jenis_gereja);
+                $('#detail_alamat').text(response.gereja.alamat);
+                $('#detail_nama_pendeta').text(response.gereja.nama_pendeta);
+                $('#detail_tgl_berdiri').text(response.gereja.tgl_berdiri);
+                $('#detail_subdis_name').text(response.gereja.subdis_name);
+                $('#detail_dis_name').text(response.gereja.dis_name);
+                $('#detail_city_name').text(response.gereja.city_name);
+                $('#detail_prov_name').text(response.gereja.prov_name);
             }
         }
     });
     //$('.detail-btn-close').find('input', 'textarea').val('');
 });
 
-// -------------------------------------------------------------------------------------------------
-// Ajax Form Delete Data
-// -------------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------
+//Ajax Form Delete Data
+//-------------------------------------------------------------------------------------------------
 $(document).on('click', '.deleteBtn', function(e) {
     var st_id = $(this).val();
 
@@ -188,16 +196,16 @@ $(document).on('click', '.deleteBtn', function(e) {
     $('#deleting_id').val(st_id);
 });
 
-// -------------------------------------------------------------------------------------------------
-// Ajax Delete Data
-// -------------------------------------------------------------------------------------------------
-$(document).on('click', '.delete_sentralisasi', function(e) {
+//-------------------------------------------------------------------------------------------------
+//Ajax Delete Data
+//-------------------------------------------------------------------------------------------------
+$(document).on('click', '.delete_gereja', function(e) {
     e.preventDefault();
 
     var id = $('#deleting_id').val();
 
     var data = {
-        'IdSentralisasi': id,
+        'id_gereja': id,
     }
 
     $.ajaxSetup({
@@ -208,7 +216,7 @@ $(document).on('click', '.delete_sentralisasi', function(e) {
 
     $.ajax({
         type: "DELETE",
-        url: "{{ route('Sentralisasi.delete') }}",
+        url: "{{ route('Gereja.delete') }}",
         data: data,
         dataType: "json",
         success: function(response) {
@@ -223,14 +231,14 @@ $(document).on('click', '.delete_sentralisasi', function(e) {
                         modal: true
                     }).show();*/
                 });
-                $('.delete_sentralisasi').text('Hapus');
+                $('.delete_gereja').text('Hapus');
             } else {
                 //$('#save_msgList').html("");
                 //$('#success_message').addClass('alert alert-success');
                 //$('#success_message').text(response.message);
 
                 //$('#deleteModal').find('input', 'textarea').val('');
-                $('.delete_sentralisasi').text('Hapus');
+                $('.delete_gereja').text('Hapus');
                 $('#deleteModal').modal('hide');
 
                 new Noty({
@@ -239,7 +247,7 @@ $(document).on('click', '.delete_sentralisasi', function(e) {
                         modal: true
                     }).show();
 
-                    setTimeout("window.location='{{ route('Sentralisasi.index') }}'", 1500);
+                    setTimeout("window.location='{{ route('Gereja.index') }}'", 1500);
             }
         }
     });
@@ -251,7 +259,7 @@ $(document).on('click', '.delete_sentralisasi', function(e) {
     <div class="page-header-content d-lg-flex">
         <div class="d-flex">
             <h4 class="page-title mb-0">
-                Pengaturan dan Konfigurasi - <span class="fw-normal">Sentralisasi</span>
+                Pengaturan dan Konfigurasi - <span class="fw-normal">Gereja</span>
             </h4>
             <a href="#page_header"
                 class="btn btn-light align-self-center collapsed d-lg-none border-transparent rounded-pill p-0 ms-auto"
@@ -266,7 +274,7 @@ $(document).on('click', '.delete_sentralisasi', function(e) {
                 <a href="index.html" class="breadcrumb-item"><i class="ph-house"></i></a>
                 <span class="breadcrumb-item">Pengaturan dan Konfigurasi</span>
                 <span class="breadcrumb-item">Organisasi</span>
-                <a href="{{ route('Sentralisasi.index') }}" class="breadcrumb-item active">Sentralisasi</a>
+                <a href="{{ route('Gereja.index') }}" class="breadcrumb-item active">Gereja</a>
             </div>
             <a href="#breadcrumb_elements"
                 class="btn btn-light align-self-center collapsed d-lg-none border-transparent rounded-pill p-0 ms-auto"
@@ -284,28 +292,32 @@ $(document).on('click', '.delete_sentralisasi', function(e) {
 <div class="content">
     <div class="card">
         <div class="card-header d-flex">
-            <h5 class="mb-0">Daftar Sentralisasi</h5>
+            <h5 class="mb-0">Daftar Status</h5>
             <div class="ms-auto">
-            <a class="btn btn-primary" href="{{ route("Sentralisasi.create") }}"><i
+            <a class="btn btn-primary" href="{{ route('Gereja.create') }}"><i
                         class="ph-plus-circle"></i><span class="d-none d-lg-inline-block ms-2">Tambah Baru</span></a>
             </div>
         </div>
         <table id="statusTable" class="table datatable-basic table-striped">
             <thead>
                 <tr>
-                    <th>Persentasi Pusat</th>
-                    <th>Persentasi Gereja</th>
-                    <th>Keterangan</th>
+                    <th>Nama Gereja</th>
+                    <th>Nama Resort</th>
+                    <th>Jenis Gereja</th>
+                    <th>Kode Gereja</th>
+                    <th>Nama Pendeta</th>
                     <th class="text-center">Tindakan</th>
                 </tr>
             </thead>
             <tbody>
-                @if (isset($sentralisasi) && count($sentralisasi) > 0)
-                @foreach ($sentralisasi as $ss)
+                @if (isset($gereja) && count($gereja) > 0)
+                @foreach ($gereja as $gr)
                 <tr>
-                    <td>{{ $ss -> persentasi_pusat }}</td>
-                    <td>{{ $ss -> persentasi_gereja }}</td>
-                    <td>{{ $ss -> keterangan }}</td>
+                    <td>{{ $gr -> nama_gereja }}</td>
+                    <td>{{ $gr -> nama_ressort }}</td>
+                    <td>{{ $gr -> jenis_gereja }}</td>
+                    <td>{{ $gr -> kode_gereja }}</td>
+                    <td>{{ $gr -> nama_pendeta }}</td>
                     <td class="text-center">
                         <div class="d-inline-flex">
                             <div class="dropdown">
@@ -313,16 +325,16 @@ $(document).on('click', '.delete_sentralisasi', function(e) {
                                     <i class="ph-list"></i>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-end">
-                                    <button type="button" value="{{ $ss -> id_sentralisasi }}"
+                                    <button type="button" value="{{ $gr -> id_gereja }}"
                                         class="dropdown-item text-info detailBtn">
                                         <i class="ph-list me-2"></i>Detail
                                     </button>
-                                    <button type="button" value="{{ $ss -> id_sentralisasi }}"
+                                    <button type="button" value="{{ $gr -> id_gereja }}"
                                         class="dropdown-item text-secondary">
-                                        <a href="{{ route('Sentralisasi.edit', $ss -> id_sentralisasi) }}"
+                                        <a href="{{ route('Gereja.edit', $gr -> id_gereja) }}"
                                             style="color:inherit"><i class="ph-pencil me-2"></i> Edit</a>
                                     </button>
-                                    <button type="button" value="{{ $ss -> id_sentralisasi }}"
+                                    <button type="button" value="{{ $gr -> id_gereja }}"
                                         class="dropdown-item text-danger deleteBtn">
                                         <i class="ph-trash me-2"></i>Hapus
                                     </button>
@@ -342,29 +354,77 @@ $(document).on('click', '.delete_sentralisasi', function(e) {
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">Detail Status</h5>
+                    <h5 class="modal-title">Detail Gereja</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
+                
                 <div class="modal-body">
                     <div class="container">
                         <div class="row mb-2">
-                            <label for="detail_persentasi_pusat" class="col-lg-4 col-form-label">
-                                Persentasi Pusat:</label>
+                            <label for="detail_nama_gereja" class="col-lg-4 col-form-label">Nama Gereja:</label>
                             <div class="col-lg-7">
-                                <label id="detail_persentasi_pusat" class="col-form-label"></label>
+                                <label id="detail_nama_gereja" class="col-form-label"></label>
+                            </div>
+                        </div>
+                        
+                        <div class="row mb-2">
+                            <label for="detail_kode_gereja" class="col-lg-4 col-form-label">Kode Gereja:</label>
+                            <div class="col-lg-7">
+                                <label id="detail_kode_gereja" class="col-form-label"></label>
                             </div>
                         </div>
                         <div class="row mb-2">
-                            <label for="detail_persentasi_gereja" class="col-lg-4 col-form-label">
-                                Persentasi Gereja:</label>
+                            <label for="detail_nama_resort" class="col-lg-4 col-form-label">Nama Resort:</label>
                             <div class="col-lg-7">
-                                <label id="detail_persentasi_gereja" class="col-form-label"></label>
+                                <label id="detail_nama_resort" class="col-form-label"></label>
                             </div>
                         </div>
                         <div class="row mb-2">
-                            <label for="detail_keterangan" class="col-lg-4 col-form-label">Keterangan:</label>
+                            <label for="detail_jenis_gereja" class="col-lg-4 col-form-label">Jenis Gereja:</label>
                             <div class="col-lg-7">
-                                <label id="detail_keterangan" class="col-form-label"></label>
+                                <label id="detail_jenis_gereja" class="col-form-label"></label>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <label for="detail_alamat" class="col-lg-4 col-form-label">Alamat:</label>
+                            <div class="col-lg-7">
+                                <label id="detail_alamat" class="col-form-label"></label>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <label for="detail_nama_pendeta" class="col-lg-4 col-form-label">Nama Pendeta:</label>
+                            <div class="col-lg-7">
+                                <label id="detail_nama_pendeta" class="col-form-label"></label>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <label for="detail_tgl_berdiri" class="col-lg-4 col-form-label">Tanggal Berdiri:</label>
+                            <div class="col-lg-7">
+                                <label id="detail_tgl_berdiri" class="col-form-label"></label>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <label for="detail_subdis_name" class="col-lg-4 col-form-label">Nama Subdistrik:</label>
+                            <div class="col-lg-7">
+                                <label id="detail_subdis_name" class="col-form-label"></label>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <label for="detail_dis_name" class="col-lg-4 col-form-label">Nama Distrik:</label>
+                            <div class="col-lg-7">
+                                <label id="detail_dis_name" class="col-form-label"></label>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <label for="detail_city_name" class="col-lg-4 col-form-label">Kota:</label>
+                            <div class="col-lg-7">
+                                <label id="detail_city_name" class="col-form-label"></label>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <label for="detail_prov_name" class="col-lg-4 col-form-label">Provinsi:</label>
+                            <div class="col-lg-7">
+                                <label id="detail_prov_name" class="col-form-label"></label>
                             </div>
                         </div>
                     </div>
@@ -376,28 +436,28 @@ $(document).on('click', '.delete_sentralisasi', function(e) {
         </div>
     </div>
 
-   {{-- Delete Modal --}}
-   <div id="deleteModal" class="modal fade" tabindex="-1">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Hapus Data Sentralisasi</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+    {{-- Delete Modal --}}
+    <div id="deleteModal" class="modal fade" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Hapus Data Status</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <form id="deleteGerejaForm">
+                    @csrf
+                    <div class="modal-body">
+                        <h4>Konfirmasi untuk Menghapus Data?</h4>
+                        <input type="hidden" id="deleting_id" />
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary delete_gereja">Hapus</button>
+                    </div>
+                </form>
             </div>
-            <form id="deleteJenisGerejaForm">
-                @csrf
-                <div class="modal-body">
-                    <h4>Konfirmasi untuk Menghapus Data?</h4>
-                    <input type="hidden" id="deleting_id" />
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary delete_sentralisasi">Hapus</button>
-                </div>
-            </form>
         </div>
     </div>
-</div>
 </div>
 <!-- /content area -->
 @endsection

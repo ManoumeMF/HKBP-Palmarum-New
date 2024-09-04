@@ -14,6 +14,7 @@ use App\Http\Controllers\admin\StatusController;
 use App\Http\Controllers\admin\PekerjaanController;
 use App\Http\Controllers\admin\HubunganKeluargaController;
 use App\Http\Controllers\admin\BankController;
+use App\Http\Controllers\admin\GerejaController;
 use App\Http\Controllers\admin\GolonganDarahController;
 use App\Http\Controllers\admin\JemaatController;
 
@@ -170,6 +171,16 @@ Route::post("/sentralisasi/update/{id}", [SetSentralisasiController::class, 'upd
 Route::delete("/sentralisasi/hapus", [SetSentralisasiController::class, 'delete'])->name('Sentralisasi.delete');
 Route::get("/sentralisasi/detail", [SetSentralisasiController::class, 'detail'])->name('Sentralisasi.detail');
 
+// Route untuk Gereja
+Route::get("/gereja", [GerejaController::class, 'index'])->name('Gereja.index');
+Route::get("/gereja/tambah", [GerejaController::class, 'create'])->name('Gereja.create');
+Route::post("/gereja/simpan", [GerejaController::class, 'store'])->name('Gereja.store');
+Route::get("/gereja/edit/{id}", [GerejaController::class, 'edit'])->name('Gereja.edit');
+Route::post("/gereja/update/{id}", [GerejaController::class, 'update'])->name('Gereja.update');
+Route::get("/gereja/detail", [GerejaController::class, 'detail'])->name('Gereja.detail');
+Route::delete("/gereja/hapus", [GerejaController::class, 'delete'])->name('Gereja.delete');
+Route::post("/gereja/simpan-jenis-gereja", [GerejaController::class, 'storeGerejaType'])->name('Gereja.storeGerejaType');
+
 // Route Untuk Jemaat
 Route::get("/jemaat", [JemaatController::class, 'index'])->name('Jemaat.index');
 Route::get("/jemaat/tambah", [JemaatController::class, 'create'])->name('Jemaat.create');
@@ -179,3 +190,4 @@ Route::get("/jemaat/edit-anggota/{id}", [JemaatController::class, 'editAnggota']
 Route::post("/jemaat/update/{id}", [JemaatController::class, 'update'])->name('Jemaat.update');
 Route::delete("/jemaat/hapus", [JemaatController::class, 'delete'])->name('Jemaat.delete');
 Route::get("/jemaat/detail", [JemaatController::class, 'detail'])->name('Jemaat.detail');
+

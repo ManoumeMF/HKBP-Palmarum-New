@@ -50,12 +50,22 @@
                     <form action="{{ route('Sentralisasi.update', $sentralisasi -> id_sentralisasi)}}" method="post" class="needs-validation" novalidate>
                         {{ csrf_field() }}
                         <div class="row mb-3">
-                            <label class="col-lg-3 col-form-label">Persentasi Sentralisasi<span class="text-danger">
+                            <label class="col-lg-3 col-form-label">Persentasi Pusat<span class="text-danger">
                                     *</span></label>
                             <div class="col-lg-9">
-                                <input type="number" class="form-control" placeholder="Masukkan Persentasi Sentralisasi" required
-                                    name="PersentasiSentralisasi" value="{{ $sentralisasi -> persentasi_sentralisasi }}">
-                                <div class="invalid-feedback">Persentasi Sentralisasi Tidak Boleh Kosong.</div>
+                                <input type="number" class="form-control" placeholder="Masukkan Persentasi Pusat" required
+                                    name="PersentasiPusat" value="{{ $sentralisasi -> persentasi_pusat }}">
+                                <div class="invalid-feedback">Persentasi Pusat Tidak Boleh Kosong.</div>
+                                <!--<div class="valid-feedback">Valid feedback</div>-->
+                            </div>
+                        </div>
+                        <div class="row mb-3">
+                            <label class="col-lg-3 col-form-label">Persentasi Gereja<span class="text-danger">
+                                    *</span></label>
+                            <div class="col-lg-9">
+                                <input type="number" class="form-control" placeholder="Masukkan Persentasi Gereja" required
+                                    name="PersentasiGereja" value="{{ $sentralisasi -> persentasi_gereja }}">
+                                <div class="invalid-feedback">Persentasi Gereja Tidak Boleh Kosong.</div>
                                 <!--<div class="valid-feedback">Valid feedback</div>-->
                             </div>
                         </div>
