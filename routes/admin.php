@@ -17,6 +17,7 @@ use App\Http\Controllers\admin\BankController;
 use App\Http\Controllers\admin\GerejaController;
 use App\Http\Controllers\admin\GolonganDarahController;
 use App\Http\Controllers\admin\JemaatController;
+use App\Http\Controllers\admin\DropdownLokasiContoller;
 
 //use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\Route;
@@ -191,3 +192,10 @@ Route::post("/jemaat/update/{id}", [JemaatController::class, 'update'])->name('J
 Route::delete("/jemaat/hapus", [JemaatController::class, 'delete'])->name('Jemaat.delete');
 Route::get("/jemaat/detail", [JemaatController::class, 'detail'])->name('Jemaat.detail');
 
+<<<<<<< Updated upstream
+=======
+//Route untuk DropdownLokasi
+Route::get("/kota", [DropdownLokasiContoller::class, 'kota'])->name('DropdownLokasi.kota');
+Route::get("/kecamatan", [DropdownLokasiContoller::class, 'kecamatan'])->name('DropdownLokasi.kecamatan');
+Route::get("/kelurahan", [DropdownLokasiContoller::class, 'kelurahan'])->name('DropdownLokasi.kelurahan');
+>>>>>>> Stashed changes

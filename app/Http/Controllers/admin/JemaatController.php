@@ -21,10 +21,22 @@ class JemaatController extends Controller
      */
     public function create()
     {
-        return view('admin.PengaturanDanKonfigurasi.Jemaat.create');
+
+        $wijk = DB::select('CALL cbo_wijk()');
+        $provinces = DB::select('CALL cbo_provinces()');
+        $pendidikan = DB::select('CALL cbo_pendidikan()');
+        $bidangPendidikan = DB::select('CALL cbo_bidangPendidikan()');
+        $pekerjaan = DB::select('CALL cbo_pekerjaan()');
+        $golonganDarah = DB::select('CALL cbo_golonganDarah()');
+        $gereja = DB::select('CALL cbo_gerejaAll()');
+        $dokumen = DB::select('CALL cbo_jenisDokumen()');
+        $hubunganKeluarga = DB::select('CALL cbo_hubunganKeluarga()');
+
+
+        return view('admin.PengaturanDanKonfigurasi.Jemaat.create', compact('wijk', 'provinces', 'pendidikan', 'bidangPendidikan', 'pekerjaan', 'golonganDarah', 'gereja', 'dokumen', 'hubunganKeluarga'));
     }
 
-     /**
+    /**
      * Show the form for editing a current resource.
      */
     public function edit($id)
@@ -32,7 +44,31 @@ class JemaatController extends Controller
         return view('admin.PengaturanDanKonfigurasi.Jemaat.edit');
     }
 
+    public function store(Request $request)
+    {
+        //dd($request->dataRegistrasiJemaat);
+        $dataRegistrasi =$request->all();
 
+        dd($dataRegistrasi);
+
+        if ($dataRegistrasi) {
+            //$dataRegistrasi = json_encode($request->dataRegistrasiJemaat);
+            // Handle the data as required...
+            $response = DB::statement('CALL insert_jemaat(:dataJemaat)', ['dataJemaat' => $dataRegistrasi]);
+
+            return response()->json([
+                'status' => 200,
+                'message' => 'Jemaat Berhasil Ditambahkan!'
+            ]);
+        } else {
+            //dd($request->dataRegistrasiJemaat);
+            return response()->json([
+                'status' => 400,
+                'message' => 'Jemaat Gagal Disimpan!',
+                'data' => $dataRegistrasi
+            ]);
+        }
+    }
 
     public function editAnggota($id)
     {

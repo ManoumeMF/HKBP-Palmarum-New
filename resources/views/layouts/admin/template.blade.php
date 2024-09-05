@@ -53,7 +53,7 @@
     <script src="{{ asset('admin_resources/assets/js/delete_alert.js') }}"></script>
     <script src="{{ asset('admin_resources/assets/demo/pages/components_modals.js') }}"></script>
     <script src="{{ asset('admin_resources/assets/demo/pages/extra_noty.js') }}"></script>
-    <script src="{{ asset('admin_resources/assets/demo/pages/form_wizard.js') }}"></script>
+    <!--<script src="{{ asset('admin_resources/assets/demo/pages/form_wizard.js') }}"></script>-->
     <script src="{{ asset('admin_resources/assets/demo/pages/form_layouts.js') }}"></script>
     <script src="{{ asset('admin_resources/assets/demo/pages/extra_noty.js') }}"></script>
 

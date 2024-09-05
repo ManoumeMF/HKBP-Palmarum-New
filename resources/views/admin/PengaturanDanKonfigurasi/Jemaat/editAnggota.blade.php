@@ -491,9 +491,19 @@
                 <div class="col-lg-3">
                     <div class="mb-3">
                         <label class="form-label">Foto Anggota Jemaat:</label>
-                        <div class="dropzone" id="dropzone_single" style="display: flex;justify-content: center;">
-
-                        </div>
+                        <div style="display: flex;justify-content: center;">
+                                <div class="card-img-actions d-inline-block mb-3">
+                                    <img class="img-fluid"
+                                        src="{{ asset('admin_resources/assets/images/general/no_picture.png') }}"
+                                        width="200" height="220" alt="" id="previewFoto">
+                                    <div class="card-img-actions-overlay card-img square">
+                                        <button type="button" class="btn btn-outline-white btn-icon rounded-pill"
+                                            onclick="javascript:document.getElementById('fotoJemaat').click();">
+                                            <i class="ph-pencil"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
                     </div>
                 </div>
             </div>
