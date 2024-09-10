@@ -117,6 +117,7 @@
 
     const dataAnggota = [];
     const dataDokumen = [];
+    const reader = new FileReader();
 
     // Setup module
     // ------------------------------
@@ -219,6 +220,7 @@
                         'NamaPendeta': $("input[name='namaPendeta']").val(),
                         'NatsPernikahan': $('textarea#natsPernikahan').val(),
                         'KeteranganPernikahan': $('textarea#keteranganPernikahan').val(),
+                        'DataAnggotaJemaat': dataAnggota,
                     }
 
                     //-------------------------------------------------------------------------------------------------
@@ -230,16 +232,15 @@
                         }
                     });
 
-                    var dataRegistrasi = JSON.parse(JSON.stringify(dataRegistrasiJemaat));
+                    //var dataRegistrasi = JSON.parse(JSON.stringify(dataRegistrasiJemaat));
 
-                    dataRegistrasi.fd.append('dataAnggota', dataAnggota);
-                    dataRegistrasi.fd.append('kelengkapanDokumen', dataDokumen);
+                    //dataRegistrasi.fd.append('dataAnggota', dataAnggota);
+                    //dataRegistrasi.fd.append('kelengkapanDokumen', dataDokumen);
 
                     $.ajax({
                         method: "POST",
                         url: "{{ route('Jemaat.store') }}",
-                        data: dataRegistrasi,
-                        dataType: "json",
+                        data: JSON.parse(JSON.stringify(dataRegistrasiJemaat)),
                         success: function (response) {
                             if (response.status == 400) {
                                 console.log(response);
@@ -261,10 +262,10 @@
                                 setTimeout("window.location='{{ route('Jemaat.index') }}'", 1500);
                             }
                         }
-                        
+
                     });
 
-                    //console.log(dataRegistrasiJemaat);
+                    console.log(dataRegistrasiJemaat);
 
                     //console.log(isHKBP);
                 }
@@ -480,28 +481,40 @@
         // jQuery button click event to add Anggota Keluarga row
         $("#addAnggota").on("click", function () {
 
-            dataAnggota[index] = {
-                'gelarDepan': $("input[name='gelarDepan']").val(),
-                'namaDepan': $("input[name='namaDepan']").val(),
-                'namaBelakang': $("input[name='namaBelakang']").val(),
-                'gelarBelakang': $("input[name='namaBelakang']").val(),
-                'jenisKelamin': $('input[name="gender"]:checked').val(),
-                'tempatLahir': $("input[name='tempatLahir']").val(),
-                'tanggalLahir': $("input[name='tanggalLahir']").val(),
-                'tanggalLahir': $("input[name='tanggalLahir']").val(),
-                'pendidikan': $("#pendidikan option:selected").val(),
-                'bidangPendidikan': $("#bidangPendidikan option:selected").val(),
-                'bidangPendidikanLain': $("input[name='bidangPendidikanLain']").val(),
-                'pekerjaan': $("#pekerjaan option:selected").val(),
-                'pekerjaanLain': $("input[name='pekerjaanLain']").val(),
-                'golonganDarah': $("#golonganDarah option:selected").val(),
-                'hubunganKeluarga': $("#hubunganKeluarga option:selected").val(),
-                'nomorPonsel': $("input[name='nomorPonsel']").val(),
-                'keterangan': $('textarea#keteranganJemaat').val(),
-                'fileFoto': $('input[name="fotoJemaat"]')[0].files,
-            }
+            var fileInput = $('input[name="fotoJemaat"]')[0];
+            var fileFoto = fileInput.files[0];
 
-            index++;
+            //Read the file as a binary string
+            reader.readAsBinaryString(fileFoto);
+
+            reader.onload = function (event) {
+                var filePhotoContent = event.target.result;
+
+                var filePhotoVar = filePhotoContent;
+
+                dataAnggota[index] = {
+                    'gelarDepan': $("input[name='gelarDepan']").val(),
+                    'namaDepan': $("input[name='namaDepan']").val(),
+                    'namaBelakang': $("input[name='namaBelakang']").val(),
+                    'gelarBelakang': $("input[name='namaBelakang']").val(),
+                    'jenisKelamin': $('input[name="gender"]:checked').val(),
+                    'tempatLahir': $("input[name='tempatLahir']").val(),
+                    'tanggalLahir': $("input[name='tanggalLahir']").val(),
+                    'tanggalLahir': $("input[name='tanggalLahir']").val(),
+                    'pendidikan': $("#pendidikan option:selected").val(),
+                    'bidangPendidikan': $("#bidangPendidikan option:selected").val(),
+                    'bidangPendidikanLain': $("input[name='bidangPendidikanLain']").val(),
+                    'pekerjaan': $("#pekerjaan option:selected").val(),
+                    'pekerjaanLain': $("input[name='pekerjaanLain']").val(),
+                    'golonganDarah': $("#golonganDarah option:selected").val(),
+                    'hubunganKeluarga': $("#hubunganKeluarga option:selected").val(),
+                    'nomorPonsel': $("input[name='nomorPonsel']").val(),
+                    'keterangan': $('textarea#keteranganJemaat').val(),
+                    'fileFoto': filePhotoVar,
+                }
+
+                index++;
+            };
 
             var namaLengkap = $("input[name='gelarDepan']").val() + ' ' + $("input[name='namaDepan']").val() + ' ' + $("input[name='namaBelakang']").val() + ' ' + $("input[name='namaBelakang']").val();
             if ($('input[name="gender"]:checked').val() == "L") {
@@ -713,12 +726,11 @@
                 </div>
 
                 <div class="row">
-                <div class="col-lg-9">
+                    <div class="col-lg-9">
                         <div class="mb-3">
-                            <label class="form-label">Nama Keluarga: <span
-                                    class="text-danger">*</span></label>
-                            <input type="text" name="namaKeluarga" class="form-control"
-                                id="namaKeluarga" placeholder="Masukkan Nomor Registrasi">
+                            <label class="form-label">Nama Keluarga: <span class="text-danger">*</span></label>
+                            <input type="text" name="namaKeluarga" class="form-control" id="namaKeluarga"
+                                placeholder="Masukkan Nomor Registrasi">
                         </div>
                     </div>
                     <div class="col-lg-3">
