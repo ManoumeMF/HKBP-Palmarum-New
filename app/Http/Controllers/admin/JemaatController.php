@@ -33,7 +33,47 @@ class JemaatController extends Controller
         $hubunganKeluarga = DB::select('CALL cbo_hubunganKeluarga()');
 
 
-        return view('admin.PengaturanDanKonfigurasi.Jemaat.create', compact('wijk', 'provinces', 'pendidikan', 'bidangPendidikan', 'pekerjaan', 'golonganDarah', 'gereja', 'dokumen', 'hubunganKeluarga'));
+        return view('admin.Master.Jemaat.create', compact('wijk', 'provinces', 'pendidikan', 'bidangPendidikan', 'pekerjaan', 'golonganDarah', 'gereja', 'dokumen', 'hubunganKeluarga'));
+    }
+
+    public function createDataRegistrasi(){
+        $wijk = DB::select('CALL cbo_wijk()');
+        $provinces = DB::select('CALL cbo_provinces()');
+
+        return view('admin.Master.Jemaat.createDataRegistrasi', compact('wijk', 'provinces'));
+    }
+
+    public function storeDataRegistrasi()
+    {
+        
+    }
+
+    public function createAnggotaKeluarga()
+    {
+        $pendidikan = DB::select('CALL cbo_pendidikan()');
+        $bidangPendidikan = DB::select('CALL cbo_bidangPendidikan()');
+        $pekerjaan = DB::select('CALL cbo_pekerjaan()');
+        $golonganDarah = DB::select('CALL cbo_golonganDarah()');
+        $hubunganKeluarga = DB::select('CALL cbo_hubunganKeluarga()');
+
+        return view('admin.Master.Jemaat.createAnggotaKeluarga', compact('pendidikan', 'bidangPendidikan', 'pekerjaan', 'golonganDarah', 'hubunganKeluarga'));
+    }
+
+    public function storeAnggotaKeluarga(){
+
+        //return view('admin.Master.Jemaat.createDataRegistrasi', compact('wijk', 'provinces'));
+    }
+
+    public function createPernikahan()
+    {
+        $gereja = DB::select('CALL cbo_gerejaAll()');
+
+        return view('admin.Master.Jemaat.createPernikahan', compact('gereja'));
+    }
+
+    public function storePernikahan(){
+
+        //return view('admin.Master.Jemaat.createDataRegistrasi', compact('wijk', 'provinces'));
     }
 
     /**
