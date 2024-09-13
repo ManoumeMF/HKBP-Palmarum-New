@@ -97,6 +97,8 @@ class BankController extends Controller
         $fieldBankData = DB::select('CALL view_bank_byId(' . $id . ')');
         $fieldBank = $fieldBankData[0];
 
+        //dd($fieldBank);
+
         if ($fieldBank) {
            return view('admin.PengaturanDanKonfigurasi.Bank.edit', compact('fieldBank'));
         } else {

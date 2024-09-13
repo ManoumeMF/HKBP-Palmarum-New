@@ -15,6 +15,14 @@
                 $(this).select2();
             }
         });
+
+        $('#isKepalaKeluarga').change(function () {
+            if ($('#isKepalaKeluarga').is(":checked") == true) {
+                $('#isKepalaKeluarga').val('1');
+            } else {
+                $('#isKepalaKeluarga').val('0');
+            }
+        });
     });
 
 </script>
@@ -160,10 +168,9 @@
         </div>
         <div class="card-body">
             <div class="col-lg-12">
-                <form action="{{route('Jemaat.storeDataRegistrasi')}}" method="post" class="needs-validation"
-                    novalidate>
+                <form action="{{route('Jemaat.storeAnggotaKeluarga')}}" method="post" class="needs-validation"
+                    enctype="multipart/form-data" novalidate>
                     {{ csrf_field() }}
-                    <input type="hidden" name="idRegistrasi" value="{{ $idRegistrasi }}">
                     <div class="row">
                         <div class="col-lg-2">
                             <div class="mb-3">
@@ -344,9 +351,9 @@
                     <div class="row">
                         <div class="col-lg-9">
                             <div class="row">
-                                <div class="col-lg-6">
+                                <div class="col-lg-5">
                                     <div class="mb-3">
-                                        <label class="form-label">Hubungan Dalam:</label>
+                                        <label class="form-label">Hubungan Dalam Keluarga:</label>
                                         <div class="input-group">
                                             <select data-placeholder="Pilih Hubungan Keluarga"
                                                 class="form-control select" data-width="1%" name="hubunganKeluarga"
@@ -365,9 +372,21 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-lg-6">
+                                <div class="col-lg-3">
+                                    <div class="row mb-3">
+                                        <label class="form-label">Kepala Keluarga <span
+                                                class="text-danger">*</span></label>
+                                        <div class="form-check form-check-inline"
+                                            style="padding-top: 9px; padding-bottom: 9px; margin-left: 10px;">
+                                            <input type="checkbox" class="form-check-input" id="isKepalaKeluarga"
+                                                name="isKepalaKeluargas">
+                                            <label class="form-check-label" for="isHKBP">Ya</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
                                     <div class="mb-3">
-                                        <label class="form-label">Nomor Ponsel/WhatsApp <span
+                                        <label class="form-label">Nomor Ponsel/WhatsApp: <span
                                                 class="text-danger">*</span></label>
                                         <input type="text" name="nomorPonsel"
                                             placeholder="Masukkan Nomor Ponsel/WhatsApp" class="form-control">
@@ -408,7 +427,7 @@
                     </div>
                     <div class="row">
                         <div class="d-flex justify-content-end">
-                            <button type="button" class="btn btn-primary" id="addAnggota"><i
+                            <button type="submit" class="btn btn-primary" id="addAnggota"><i
                                     class="ph-plus-circle"></i><span class="d-none d-lg-inline-block ms-2">Tambah
                                     Anggota Keluarga</span>
                             </button>
@@ -418,18 +437,58 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="table-responsive">
-                                <table class="table table-bordered table-xs mt-2" id="tblAnggota">
-                                    <thead class="text-center">
+                                <table class="table text-nowrap" id="tblAnggota">
+                                    <thead>
                                         <tr>
-                                            <th class="col-md-3">Nama Lengkap</th>
-                                            <th class="col-md-2">Jenis Kelamin</th>
-                                            <th class="col-md-2">Tanggal Lahir</th>
-                                            <th class="col-md-3">Hubungan Keluarga</th>
-                                            <th class="col-md-1" style="width:10px;">Aksi</th>
+                                            <th style="width: 500px;">Nama Lengkap</th>
+                                            <th>Tanggal Lahir</th>
+                                            <th>Hubungan Keluarga</th>
+                                            <th>Keterangan</th>
+                                            <th style="width:10px;">Aksi</th>
                                         </tr>
                                     </thead>
                                     <tbody class="text">
-
+                                        <?php $anggotaJemaat = Session::get('anggotaJemaat'); ?>
+                                        @if (isset($anggotaJemaat) && count($anggotaJemaat) > 0)
+                                            @foreach ($anggotaJemaat as $aJ)
+                                                <tr>
+                                                    <td>
+                                                        <div class="d-flex align-items-center">
+                                                            <div
+                                                                class="d-inline-flex align-items-center justify-content-center bg-teal text-white lh-1 rounded-pill w-40px h-40px me-3">
+                                                                <img src="{{url('storage/' . $aJ->foto_jemaat)}}"
+                                                                    class="rounded-circle" width="40" height="40" alt="">
+                                                            </div>
+                                                            <div>
+                                                                <a href="#"
+                                                                    class="text-body fw-semibold letter-icon-title">{{ $aJ->nama_lengkap }}</a>
+                                                                <div class="d-flex align-items-center text-muted fs-sm">
+                                                                    @if ($aJ->jenis_kelamin == "L")
+                                                                        Laki-laki
+                                                                    @else
+                                                                        Perempuan
+                                                                    @endif
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="fw-semibold">{{ $aJ->tanggal_lahir }}</div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="fw-semibold">{{ $aJ->nama_hub_keluarga }}</div>
+                                                    </td>
+                                                    <td>
+                                                        <div class="fw-semibold">{{ $aJ->keterangan }}</div>
+                                                    </td>
+                                                    <td style="text-align: center">
+                                                        <a href="#"
+                                                            class="btn btn-flat-danger btn-icon w-24px h-24px rounded-pill"
+                                                            id="{{ $aJ->id_jemaat }}"><i class="ph-x ph-sm"></i></a>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        @endif
                                     </tbody>
                                 </table>
                                 </br>

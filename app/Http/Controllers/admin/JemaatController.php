@@ -5,6 +5,7 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class JemaatController extends Controller
 {
@@ -70,11 +71,12 @@ class JemaatController extends Controller
             $dataRegistrasi = DB::select('SELECT get_idRegistrasiJemaat(' . $noReg . ') as idReg');
             $idRegistrasi = $dataRegistrasi[0];
             //dd($idRegistrasi);
-            return redirect()->route( 'Jemaat.createAnggotaKeluarga' )->with( [ 'idRegistrasi' => $idRegistrasi ] );
+
+            $request->session()->put('idRegistrasi', $idRegistrasi);
             //return view('admin.Master.Jemaat.createAnggotaKeluarga', compact('idRegistrasi'));
-        } else {
-            return redirect()->route('Jemaat.createDataRegistrasi')->with('error', 'Registrasi Jemaat Gagal Disimpan Bidang Gagal Disimpan!');
-        }
+        } 
+
+        return redirect()->route( 'Jemaat.createAnggotaKeluarga' );
     }
 
     public function createAnggotaKeluarga()
@@ -89,9 +91,61 @@ class JemaatController extends Controller
         return view('admin.Master.Jemaat.createAnggotaKeluarga', compact('pendidikan', 'bidangPendidikan', 'pekerjaan', 'golonganDarah', 'hubunganKeluarga', 'idRegistrasi'));
     }
 
-    public function storeAnggotaKeluarga(){
+    public function storeAnggotaKeluarga(Request $request){
 
-        //return view('admin.Master.Jemaat.createDataRegistrasi', compact('wijk', 'provinces'));
+        $idRegistrasi = $request->session()->get('idRegistrasi');
+        //$idRegistrasi = $idRegs[0]['idReg'];
+        //dd( $idRegistrasi->idReg);
+
+        if ($request->hasFile('fotoJemaat')) {
+            //dd($request->file('fileSuratPerjanjian'));
+            $uploadedFile = $request->file('fotoJemaat');
+            $filePenilaian = $request->get('namaDepan') . '-' . time() . "." . $uploadedFile->getClientOriginalExtension();
+            $filePath = Storage::disk('public')->putFileAs("images/FotoJemaat", $uploadedFile, $filePenilaian);
+        }else{
+            $filePath="";
+        }
+
+         // Data yang akan dikirim ke stored procedure
+         $dataAnggotaJemaat= json_encode([
+            'IdRegistrasi' => $idRegistrasi->idReg,
+            'NamaDepan' => $request->get('namaDepan'),
+            'NamaBelakang' => $request->get('namaBelakang'),
+            'GelarDepan' => $request->get('gelarDepan'),
+            'GelarBelakang' => $request->get('gelarBelakang'),
+            'JenisKelamin' => $request->get('gender'),
+            'TempatLahir' => $request->get('tempatLahir'),
+            'TanggalLahir' => date("m/d/Y", strtotime($request->get('tanggalLahir'))),
+            'IdPendidikan' => $request->get('pendidikan'),
+            'IdBidangPendidikan' => $request->get('bidangPendidikan'),
+            'BidangPendidikanLain' => $request->get('bidangPendidikanLain'),
+            'IdPekerjaan' => $request->get('pekerjaan'),
+            'NamaLekerjaanLain' => $request->get('pekerjaanLain'),
+            'IdGolDarah' => $request->get('golonganDarah'),
+            'IdHubKeluarga' => $request->get('hubunganKeluarga'),
+            'IskepalaKeluarga' => $request->get('isKepalaKeluargas'),
+            'NoPonsel' => $request->get('nomorPonsel'),
+            'Keterangan' => $request->get('keterangan'),
+            'FotoJemaat' =>  $filePath
+        ]);
+        
+         // Memanggil stored procedure untuk insert
+         $response = DB::statement('CALL insert_jemaat(:dataAnggotaJemaat)', ['dataAnggotaJemaat' => $dataAnggotaJemaat]);
+
+         if ($response) {
+            $anggotaJemaat= DB::select('CALL view_anggotaJemaatByIdReg(:id)', ['id' => $idRegistrasi->idReg]); 
+             //Get id_registrasi jemaat yang diinput sebelumnya
+             //$noReg = $request->get('noRegistrasi');
+             //$dataRegistrasi = DB::select('SELECT get_idRegistrasiJemaat(' . $noReg . ') as idReg');
+             //$idRegistrasi = $dataRegistrasi[0];
+             //dd($idRegistrasi);
+ 
+             //$request->session()->put('idRegistrasi', $idRegistrasi);
+             //return view('admin.Master.Jemaat.createAnggotaKeluarga', compact('idRegistrasi'));
+             return redirect()->route( 'Jemaat.createAnggotaKeluarga') ->with( ['anggotaJemaat' => $anggotaJemaat]);
+         } 
+ 
+         //return redirect()->route( 'Jemaat.createAnggotaKeluarga' );
     }
 
     public function createPernikahan()
