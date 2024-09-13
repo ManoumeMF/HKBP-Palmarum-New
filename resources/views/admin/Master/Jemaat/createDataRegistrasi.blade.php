@@ -259,8 +259,8 @@
                             <div class="mb-3">
                                 <label class="form-label">Nomor Registrasi: <span class="text-danger">*</span></label>
                                 <input type="text" name="noRegistrasi" class="form-control"
-                                    placeholder="Masukkan Nomor Registrasi">
-                                <div class="invalid-feedback">Bank Tidak Boleh Kosong.</div>
+                                    placeholder="Masukkan Nomor Registrasi" required>
+                                <div class="invalid-feedback">Nomor Registrasi Tidak Boleh Kosong.</div>
                             </div>
                         </div>
 
@@ -272,7 +272,9 @@
                                         <i class="ph-calendar"></i>
                                     </span>
                                     <input type="text" class="form-control datepicker-autohide"
-                                        placeholder="Pilih Tanggal" name="tanggalRegistrasi" id="tanggalRegistrasi">
+                                        placeholder="Pilih Tanggal" name="tanggalRegistrasi" id="tanggalRegistrasi"
+                                        required>
+                                    <div class="invalid-feedback">Tanggal Registrasi Tidak Boleh Kosong.</div>
                                 </div>
                             </div>
                         </div>
@@ -286,23 +288,22 @@
                             </div>
                         </div>
                     </div>
-
                     <div class="row">
-                        <div class="col-lg-9">
+                        <div class="col-lg-8">
                             <div class="mb-3">
                                 <label class="form-label">Nama Keluarga: <span class="text-danger">*</span></label>
                                 <input type="text" name="namaKeluarga" class="form-control" id="namaKeluarga"
-                                    placeholder="Masukkan Nomor Registrasi">
+                                    placeholder="Masukkan Nomor Registrasi" required>
+                                <div class="invalid-feedback">Nama Keluarga Tidak Boleh Kosong.</div>
                             </div>
                         </div>
-                        <div class="col-lg-3">
+                        <div class="col-lg-4">
                             <div class="mb-3">
                                 <label class="form-label">Lingkungan/Lunggu/Wijk: <span
                                         class="text-danger">*</span></label>
-
                                 <div class="input-group">
                                     <select data-placeholder="Pilih Lingkungan/Lunggu/Wijk" class="form-control select"
-                                        data-width="1%" name="wijk" id="wijk">
+                                        data-width="1%" name="wijk" id="wijk" required>
                                         <option></option>
                                         @foreach ($wijk as $wK)
                                             <option value="{{ $wK->id_wijk }}">
@@ -313,21 +314,17 @@
                                     <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                                         data-bs-target="#addModalJenis"><i class="ph-plus-circle"></i>
                                     </button>
-                                    <div class="invalid-feedback">Silahkan Pilih Jenis Status.</div>
+                                    <div class="invalid-feedback">Silahkan Pilih Lingkungan/Lunggu/Wijk.</div>
                                 </div>
-
-                                <!--<div class="valid-feedback">Valid feedback</div>-->
-
                             </div>
                         </div>
                     </div>
-
                     <div class="row">
                         <div class="col-lg-3">
                             <div class="mb-3">
                                 <label class="form-label">Propinsi:</label>
                                 <select data-placeholder="Pilih Propinsi" class="form-control select" name="propinsi"
-                                    id="provinsi">
+                                    id="provinsi" required>
                                     <option></option>
                                     @foreach ($provinces as $pV)
                                         <option value="{{ $pV->prov_id }}">
@@ -335,24 +332,27 @@
                                         </option>
                                     @endforeach
                                 </select>
+                                <div class="invalid-feedback">Silahkan Pilih Propinsi.</div>
                             </div>
                         </div>
                         <div class="col-lg-3">
                             <div class="mb-3">
                                 <label class="form-label">Kota/Kabupaten:</label>
                                 <select data-placeholder="Pilih Kota/Kabupaten" class="form-control select" id="kota"
-                                    name="kotaKabupaten">
+                                    name="kotaKabupaten" required>
                                     <option></option>
                                 </select>
+                                <div class="invalid-feedback">Silahkan Pilih Kota/Kabupaten.</div>
                             </div>
                         </div>
                         <div class="col-lg-3">
                             <div class="mb-3">
                                 <label class="form-label">Kecamatan:</label>
                                 <select data-placeholder="Pilih Kecamatan" class="form-control select" name="kecamatan"
-                                    id="kecamatan">
+                                    id="kecamatan" required>
                                     <option></option>
                                 </select>
+                                <div class="invalid-feedback">Silahkan Pilih Kecamatan.</div>
                             </div>
                         </div>
                         <div class="col-lg-3">
@@ -361,9 +361,10 @@
                                 <div class="col-lg-12">
                                     <div class="input-group">
                                         <select data-placeholder="Pilih Kelurahan/Desa" class="form-control select"
-                                            name="kelurahan" id="kelurahan">
+                                            name="kelurahan" id="kelurahan" required>
                                             <option></option>
                                         </select>
+                                        <div class="invalid-feedback">Silahkan Pilih Kelurahan/Desa.</div>
                                     </div>
                                 </div>
                             </div>
@@ -375,13 +376,21 @@
                             <div class="mb-3">
                                 <label class="form-label">Alamat: <span class="text-danger">*</span></label>
                                 <textarea rows="3" cols="3" name="alamat" class="form-control" id="alamat"
-                                    placeholder="Masukkan Alamat"></textarea>
+                                    placeholder="Masukkan Alamat" required></textarea>
                             </div>
+                            <div class="invalid-feedback">Alamat Tidak Boleh Kosong.</div>
                         </div>
                     </div>
-
                     <div class="row">
-                        <div class="col-lg-12">
+                    <div class="col-lg-4">
+                            <div class="mb-3">
+                                <label class="form-label">Nomor Telepon: <span class="text-danger">*</span></label>
+                                <input type="text" name="nomorTelepon" class="form-control" id="nomorTelepon"
+                                    placeholder="Masukkan Nomor Telepon" required>
+                                <div class="invalid-feedback">Nama Keluarga Tidak Boleh Kosong.</div>
+                            </div>
+                        </div>
+                        <div class="col-lg-8">
                             <div class="mb-3">
                                 <label class="form-label">Tanggal Diwartakan: <span class="text-danger">*</span></label>
                                 <div class="input-group">
@@ -390,23 +399,20 @@
                                     </span>
                                     <input type="text" class="form-control datepicker-autohide2"
                                         name="tanggalDiwartakan" id="tanggalDiwartakan"
-                                        placeholder="Pilih Tanggal Diwartakan">
+                                        placeholder="Pilih Tanggal Diwartakan" required>
+                                        <div class="invalid-feedback">Tanggal Diwartakan Tidak Boleh Kosong.</div>
                                 </div>
                             </div>
                         </div>
                     </div>
             </div>
         </div>
-
         <div class="card-footer text-end">
             <button type="submit" class="btn btn-primary">Berikutnya <i class="ph-arrow-circle-right ms-2"></i></button>
         </div>
         </form>
     </div>
     <!-- /Data Pribadi Anggota Jemaat -->
-
-
-
 </div>
 <!-- /content area -->
 @endsection

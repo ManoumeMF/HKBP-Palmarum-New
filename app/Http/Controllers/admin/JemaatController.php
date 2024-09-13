@@ -43,9 +43,38 @@ class JemaatController extends Controller
         return view('admin.Master.Jemaat.createDataRegistrasi', compact('wijk', 'provinces'));
     }
 
-    public function storeDataRegistrasi()
+    public function storeDataRegistrasi(Request $request)
     {
+        // Data yang akan dikirim ke stored procedure
+        $dataRegistrasi= json_encode([
+            'NoRegistrasi' => $request->get('noRegistrasi'),
+            'TanggalRegistrasi' => date("m/d/Y", strtotime($request->get('tanggalRegistrasi'))),
+            'NamaKeluarga' => $request->get('namaKeluarga'),
+            'IdWijk' => $request->get('wijk'),
+            'IdJenisRegister' => "1",
+            'NoRegisterSebelumnya' => $request->get('noRegistrasiSebelumnya'),
+            'TanggalWarta' => date("m/d/Y", strtotime($request->get('tanggalDiwartakan'))),
+            'IdSubdis' => $request->get('kelurahan'),
+            'Alamat' => $request->get('alamat'),
+            'NoTelepon' => $request->get('nomorTelepon'),
+            'IdStatusRegistrasi' => "1"
+        ]);
+
         
+        // Memanggil stored procedure untuk insert
+        $response = DB::statement('CALL insert_registrasiJemaat(:dataRegistrasi)', ['dataRegistrasi' => $dataRegistrasi]);
+
+        if ($response) {
+            //Get id_registrasi jemaat yang diinput sebelumnya
+            $noReg = $request->get('noRegistrasi');
+            $dataRegistrasi = DB::select('SELECT get_idRegistrasiJemaat(' . $noReg . ') as idReg');
+            $idRegistrasi = $dataRegistrasi[0];
+            //dd($idRegistrasi);
+            return redirect()->route( 'Jemaat.createAnggotaKeluarga' )->with( [ 'idRegistrasi' => $idRegistrasi ] );
+            //return view('admin.Master.Jemaat.createAnggotaKeluarga', compact('idRegistrasi'));
+        } else {
+            return redirect()->route('Jemaat.createDataRegistrasi')->with('error', 'Registrasi Jemaat Gagal Disimpan Bidang Gagal Disimpan!');
+        }
     }
 
     public function createAnggotaKeluarga()
@@ -55,8 +84,9 @@ class JemaatController extends Controller
         $pekerjaan = DB::select('CALL cbo_pekerjaan()');
         $golonganDarah = DB::select('CALL cbo_golonganDarah()');
         $hubunganKeluarga = DB::select('CALL cbo_hubunganKeluarga()');
+        $idRegistrasi="";
 
-        return view('admin.Master.Jemaat.createAnggotaKeluarga', compact('pendidikan', 'bidangPendidikan', 'pekerjaan', 'golonganDarah', 'hubunganKeluarga'));
+        return view('admin.Master.Jemaat.createAnggotaKeluarga', compact('pendidikan', 'bidangPendidikan', 'pekerjaan', 'golonganDarah', 'hubunganKeluarga', 'idRegistrasi'));
     }
 
     public function storeAnggotaKeluarga(){
@@ -72,6 +102,18 @@ class JemaatController extends Controller
     }
 
     public function storePernikahan(){
+
+        //return view('admin.Master.Jemaat.createDataRegistrasi', compact('wijk', 'provinces'));
+    }
+
+    public function createDokumenKelengkapan()
+    {
+        $dokumen = DB::select('CALL cbo_jenisDokumen()');
+
+        return view('admin.Master.Jemaat.createDokumenKelengkapan', compact('dokumen'));
+    }
+
+    public function storeDokumenKelengkapan(){
 
         //return view('admin.Master.Jemaat.createDataRegistrasi', compact('wijk', 'provinces'));
     }

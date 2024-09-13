@@ -163,6 +163,7 @@
                 <form action="{{route('Jemaat.storeDataRegistrasi')}}" method="post" class="needs-validation"
                     novalidate>
                     {{ csrf_field() }}
+                    <input type="hidden" name="idRegistrasi" value="{{ $idRegistrasi }}">
                     <div class="row">
                         <div class="col-lg-2">
                             <div class="mb-3">
@@ -405,38 +406,36 @@
                             </div>
                         </div>
                     </div>
-                    <hr>
                     <div class="row">
                         <div class="d-flex justify-content-end">
                             <button type="button" class="btn btn-primary" id="addAnggota"><i
                                     class="ph-plus-circle"></i><span class="d-none d-lg-inline-block ms-2">Tambah
-                                    Anggota
-                                    Keluarga</span>
+                                    Anggota Keluarga</span>
                             </button>
                         </div>
-                        <div>
-                            <div class="col-lg-12">
-                                <div class="table-responsive">
-                                    <table class="table table-bordered table-xs mt-2" id="tblAnggota">
-                                        <thead class="text-center">
-                                            <tr>
-                                                <th class="col-md-3">Nama Lengkap</th>
-                                                <th class="col-md-2">Jenis Kelamin</th>
-                                                <th class="col-md-2">Tanggal Lahir</th>
-                                                <th class="col-md-3">Hubungan Keluarga</th>
-                                                <th class="col-md-1" style="width:10px;">Aksi</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody class="text">
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="table-responsive">
+                                <table class="table table-bordered table-xs mt-2" id="tblAnggota">
+                                    <thead class="text-center">
+                                        <tr>
+                                            <th class="col-md-3">Nama Lengkap</th>
+                                            <th class="col-md-2">Jenis Kelamin</th>
+                                            <th class="col-md-2">Tanggal Lahir</th>
+                                            <th class="col-md-3">Hubungan Keluarga</th>
+                                            <th class="col-md-1" style="width:10px;">Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="text">
 
-                                        </tbody>
-                                    </table>
-                                    </br>
-                                </div>
+                                    </tbody>
+                                </table>
+                                </br>
                             </div>
                         </div>
                     </div>
-
                 </form>
             </div>
         </div>

@@ -192,13 +192,14 @@ Route::post("/jemaat/update/{id}", [JemaatController::class, 'update'])->name('J
 Route::delete("/jemaat/hapus", [JemaatController::class, 'delete'])->name('Jemaat.delete');
 Route::get("/jemaat/detail", [JemaatController::class, 'detail'])->name('Jemaat.detail');
 
-Route::get("/jemaat/data-registrasi", [JemaatController::class, 'createDataRegistrasi'])->name('Jemaat.createDataRegistrasi');
+Route::get("/jemaat/tambah/data-registrasi", [JemaatController::class, 'createDataRegistrasi'])->name('Jemaat.createDataRegistrasi');
 Route::post("/jemaat/simpan-data-registrasi", [JemaatController::class, 'storeDataRegistrasi'])->name('Jemaat.storeDataRegistrasi');
-Route::get("/jemaat/data-anggota-keluarga", [JemaatController::class, 'createAnggotaKeluarga'])->name('Jemaat.createAnggotaKeluarga');
+Route::get("/jemaat/tambah/data-anggota-keluarga", [JemaatController::class, 'createAnggotaKeluarga'])->name('Jemaat.createAnggotaKeluarga');
 Route::post("/jemaat/simpan-data-angoota-keluarga", [JemaatController::class, 'storeAnggotaKeluarga'])->name('Jemaat.storeAnggotaKeluarga');
-Route::post("/jemaat/simpan-data-registrasi", [JemaatController::class, 'storeDataRegistrasi'])->name('Jemaat.storeDataRegistrasi');
-Route::get("/jemaat/data-pernikahan", [JemaatController::class, 'createPernikahan'])->name('Jemaat.createPernikahan');
+Route::get("/jemaat/tambah/data-pernikahan", [JemaatController::class, 'createPernikahan'])->name('Jemaat.createPernikahan');
 Route::post("/jemaat/simpan-data-pernikahan", [JemaatController::class, 'storeAnggotaKeluarga'])->name('Jemaat.storePernikahan');
+Route::get("/jemaat/tambah/data-kelengkapan-administrasi", [JemaatController::class, 'createDokumenKelengkapan'])->name('Jemaat.createDokumenKelengkapan');
+Route::post("/jemaat/simpan-kelengkapan-administrasi", [JemaatController::class, 'storeDokumenKelengkapan'])->name('Jemaat.storeDokumenKelengkapan');
 
 //Route untuk DropdownLokasi
 Route::get("/kota", [DropdownLokasiContoller::class, 'kota'])->name('DropdownLokasi.kota');
