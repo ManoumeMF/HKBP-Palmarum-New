@@ -585,7 +585,7 @@
                                 <span>Data Master</span>
                             </a>
                             <ul class="nav-group-sub collapse">
-                                <li class="nav-item"><a href="" class="nav-link">Jemaat</a></li>
+                                <li class="nav-item"><a href="{{ route('Jemaat.index') }}" class="nav-link">Jemaat</a></li>
                                 <li class="nav-item"><a href="" class="nav-link">Majelis</a></li>
                                 <li class="nav-item"><a href="" class="nav-link">Kegiatan</a></li>
                             </ul>

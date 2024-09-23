@@ -14,7 +14,7 @@ class JemaatController extends Controller
      */
     public function index()
     {
-        return view('admin.PengaturanDanKonfigurasi.Jemaat.index');
+        return view('admin.Master.Jemaat.index');
     }
 
     /**

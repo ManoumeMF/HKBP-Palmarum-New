@@ -229,7 +229,7 @@
         <div class="card-header d-flex">
             <h5 class="mb-0">Daftar Jemaat</h5>
             <div class="ms-auto">
-                <a class="btn btn-primary" href="{{ route('Jemaat.create') }}"><i class="ph-plus-circle"></i><span
+                <a class="btn btn-primary" href="{{ route('Jemaat.createDataRegistrasi') }}"><i class="ph-plus-circle"></i><span
                         class="d-none d-lg-inline-block ms-2">Tambah Jemaat Baru</span></a>
             </div>
         </div>
