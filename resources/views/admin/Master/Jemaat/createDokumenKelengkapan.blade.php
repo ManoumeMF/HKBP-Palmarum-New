@@ -15,6 +15,29 @@
                 $(this).select2();
             }
         });
+
+        var dataDokumenKelengkapan = {!! json_encode(Session::get('dokumenKelengkapan')) !!};
+        var fotoPath = {!! json_encode(url('storage/')) !!};
+
+        var len = dataDokumenKelengkapan.length;
+        for (var i = 0; i < len; i++) {
+            console.log(dataDokumenKelengkapan[i]["nama_jenis_dokumen"]);
+
+            $("#tblDokumen tbody").append('<tr>' +
+                '<td>' +
+                '<div class="fw-semibold">' + dataDokumenKelengkapan[i]["nama_jenis_dokumen"] + '</div>' +
+                '</td>' +
+                '<td>' +
+                '<div class="fw-semibold">  <a download="' + dataDokumenKelengkapan[i]["fileName"] + '" href="' + fotoPath + '/' + dataDokumenKelengkapan[i]["file_dokumen"] + '" title="' + dataDokumenKelengkapan[i]["fileName"] + '">' + dataDokumenKelengkapan[i]["fileName"] + '</a></div>' +
+                '</td>' +
+                '<td>' +
+                '<div class="fw-semibold">' + dataDokumenKelengkapan[i]["keterangan_dokumen"] + '</div>' +
+                '</td>' +
+                '<td  style="text-align: center">' +
+                '<a href="#"class="btn btn-flat-danger btn-icon w-24px h-24px rounded-pill" id="delAnggota"><i class="ph-x ph-sm"></i></a>' +
+                '</td>' +
+                '</tr>');
+        }
     });
 
 </script>
@@ -160,8 +183,8 @@
         </div>
         <div class="card-body">
             <div class="col-lg-12">
-                <form action="{{route('Jemaat.storeDataRegistrasi')}}" method="post" class="needs-validation"
-                    novalidate>
+                <form action="{{route('Jemaat.storeDokumenKelengkapan')}}" method="post" class="needs-validation"
+                    enctype="multipart/form-data" novalidate>
                     {{ csrf_field() }}
                     <div class="row">
                         <div class="col-lg-12">
@@ -199,7 +222,7 @@
                     </div>
                     <div class="row">
                         <div class="col-lg-12 d-flex justify-content-end">
-                            <button type="button" class="btn btn-primary" id="tblDokumen"><i
+                            <button type="submit" class="btn btn-primary" id="tblDokumen"><i
                                     class="ph-plus-circle"></i><span class="d-none d-lg-inline-block ms-2">Tambah
                                     Dokumen</span>
                             </button>
@@ -229,13 +252,15 @@
             </div>
         </div>
         <div class="card-footer d-flex align-items-start flex-wrap">
-            <div class="col-lg-6">
+            <!--<div class="col-lg-6">
                 <button type="button" class="btn btn-light"> <i
                         class="ph-arrow-circle-left me-2"></i>Sebelumnya</button>
-            </div>
+            </div>-->
             <div class="col-lg-6 ms-lg-auto text-end">
-                <button type="button" class="btn btn-primary">Berikutnya <i
-                        class="ph-arrow-circle-right ms-2"></i></button>
+                <button type="button" class="btn btn-primary">
+                    <a href="{{ route('Jemaat.finishRegistrasiJemaat') }}" style="color:inherit">Selesai <i
+                    class="ph-check-circle ms-2"></i></a>
+                </button>
             </div>
         </div>
     </div>

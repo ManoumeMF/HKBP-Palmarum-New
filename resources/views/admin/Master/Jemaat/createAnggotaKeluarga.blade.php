@@ -16,13 +16,55 @@
             }
         });
 
-        $('#isKepalaKeluarga').change(function () {
+        /*$('#isKepalaKeluarga').change(function () {
             if ($('#isKepalaKeluarga').is(":checked") == true) {
                 $('#isKepalaKeluarga').val('1');
             } else {
                 $('#isKepalaKeluarga').val('0');
             }
-        });
+        });*/
+
+
+        var dataAnggota = {!! json_encode(Session::get('anggotaJemaat')) !!};
+        var fotoPath = {!! json_encode(url('storage/')) !!};
+
+        var len = dataAnggota.length;
+        for (var i = 0; i < len; i++) {
+            //console.log(dataAnggota[i]["nama_lengkap"]);
+            if (dataAnggota[i]["jenis_kelamin"] == "L") {
+                jenisKelamin = "Laki-laki";
+            } else {
+                jenisKelamin = "Perempuan";
+            }
+
+            $("#tblAnggota tbody").append('<tr>' +
+                '<td>' +
+                '<div class="d-flex align-items-center">' +
+                '<div class="d-inline-flex align-items-center justify-content-center bg-teal text-white lh-1 rounded-pill w-40px h-40px me-3">' +
+                '<img src="' + fotoPath + '/' + dataAnggota[i]["foto_jemaat"] + '" class="rounded-circle" width="40" height="40" alt="">' +
+                '</div>' +
+                '<div>' +
+                '<a href="#" class="text-body fw-semibold letter-icon-title">' + dataAnggota[i]["nama_lengkap"] + '</a>' +
+                '<div class="d-flex align-items-center text-muted fs-sm">'
+                + jenisKelamin +
+                '</div>' +
+                '</div>' +
+                '</div>' +
+                '</td>' +
+                '<td>' +
+                '<div class="fw-semibold">' + dataAnggota[i]["tanggal_lahir"] + '</div>' +
+                '</td>' +
+                '<td>' +
+                '<div class="fw-semibold">' + dataAnggota[i]["nama_hub_keluarga"] + '</div>' +
+                '</td>' +
+                '<td>' +
+                '<div class="fw-semibold">' + dataAnggota[i]["keterangan"] + '</div>' +
+                '</td>' +
+                '<td  style="text-align: center">' +
+                '<a href="#"class="btn btn-flat-danger btn-icon w-24px h-24px rounded-pill" id="delAnggota"><i class="ph-x ph-sm"></i></a>' +
+                '</td>' +
+                '</tr>');
+        }
     });
 
 </script>
@@ -379,7 +421,7 @@
                                         <div class="form-check form-check-inline"
                                             style="padding-top: 9px; padding-bottom: 9px; margin-left: 10px;">
                                             <input type="checkbox" class="form-check-input" id="isKepalaKeluarga"
-                                                name="isKepalaKeluargas">
+                                                name="isKepalaKeluarga" value="1">
                                             <label class="form-check-label" for="isHKBP">Ya</label>
                                         </div>
                                     </div>
@@ -448,47 +490,7 @@
                                         </tr>
                                     </thead>
                                     <tbody class="text">
-                                        <?php $anggotaJemaat = Session::get('anggotaJemaat'); ?>
-                                        @if (isset($anggotaJemaat) && count($anggotaJemaat) > 0)
-                                            @foreach ($anggotaJemaat as $aJ)
-                                                <tr>
-                                                    <td>
-                                                        <div class="d-flex align-items-center">
-                                                            <div
-                                                                class="d-inline-flex align-items-center justify-content-center bg-teal text-white lh-1 rounded-pill w-40px h-40px me-3">
-                                                                <img src="{{url('storage/' . $aJ->foto_jemaat)}}"
-                                                                    class="rounded-circle" width="40" height="40" alt="">
-                                                            </div>
-                                                            <div>
-                                                                <a href="#"
-                                                                    class="text-body fw-semibold letter-icon-title">{{ $aJ->nama_lengkap }}</a>
-                                                                <div class="d-flex align-items-center text-muted fs-sm">
-                                                                    @if ($aJ->jenis_kelamin == "L")
-                                                                        Laki-laki
-                                                                    @else
-                                                                        Perempuan
-                                                                    @endif
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="fw-semibold">{{ $aJ->tanggal_lahir }}</div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="fw-semibold">{{ $aJ->nama_hub_keluarga }}</div>
-                                                    </td>
-                                                    <td>
-                                                        <div class="fw-semibold">{{ $aJ->keterangan }}</div>
-                                                    </td>
-                                                    <td style="text-align: center">
-                                                        <a href="#"
-                                                            class="btn btn-flat-danger btn-icon w-24px h-24px rounded-pill"
-                                                            id="{{ $aJ->id_jemaat }}"><i class="ph-x ph-sm"></i></a>
-                                                    </td>
-                                                </tr>
-                                            @endforeach
-                                        @endif
+
                                     </tbody>
                                 </table>
                                 </br>
@@ -500,13 +502,15 @@
         </div>
 
         <div class="card-footer d-flex align-items-start flex-wrap">
-            <div class="col-lg-6">
+            <!--<div class="col-lg-6">
                 <button type="button" class="btn btn-light"> <i
                         class="ph-arrow-circle-left me-2"></i>Sebelumnya</button>
-            </div>
+            </div>-->
             <div class="col-lg-6 ms-lg-auto text-end">
-                <button type="button" class="btn btn-primary">Berikutnya <i
-                        class="ph-arrow-circle-right ms-2"></i></button>
+                <button type="button" class="btn btn-primary">
+                    <a href="{{ route('Jemaat.createPernikahan') }}" style="color:inherit">Berikutnya <i
+                    class="ph-arrow-circle-right ms-2"></i></a>
+                </button>
             </div>
         </div>
     </div>

@@ -160,7 +160,7 @@
         </div>
         <div class="card-body">
             <div class="col-lg-12">
-                <form action="{{route('Jemaat.storeDataRegistrasi')}}" method="post" class="needs-validation"
+                <form action="{{route('Jemaat.storePernikahan')}}" method="post" class="needs-validation"
                     novalidate>
                     {{ csrf_field() }}
                     <div class="row">
@@ -172,23 +172,24 @@
                                         <i class="ph-calendar"></i>
                                     </span>
                                     <input type="text" class="form-control datepicker-autohide"
-                                        placeholder="Pilih Tanggal Menikah" name="tanggalMenikah" id="tanggalMenikah">
+                                        placeholder="Pilih Tanggal Menikah" name="tanggalMenikah" id="tanggalMenikah" required>
+                                        <div class="invalid-feedback">Silahkan Pilih Tanggal Pernikahan</div>
                                 </div>
                             </div>
                         </div>
                         <div class="col-lg-2">
-                            <div class="mb-3">
-                                <label class="form-label">HKBP/Bukan HKBP<span class="text-danger">*</span></label>
+                            <div class="mb-3"> 
+                                <label class="form-label" style="margin-right: 30px;">HKBP/Bukan HKBP</label>
                                 <div class="form-check form-check-inline"
                                     style="padding-top: 9px; padding-bottom: 9px;">
-                                    <input type="checkbox" class="form-check-input" id="isHKBP" name="isHKBP" checked>
+                                    <input type="checkbox" class="form-check-input" id="isHKBP" name="isHKBP" value="1">
                                     <label class="form-check-label" for="isHKBP">HKBP</label>
                                 </div>
                             </div>
                         </div>
                         <div class="col-lg-3">
                             <div class="mb-3">
-                                <label class="form-label">Gereja HKBP: <span class="text-danger">*</span></label>
+                                <label class="form-label">Gereja HKBP: </label>
                                 <div class="input-group">
                                     <select data-placeholder="Pilih Gereja HKBP" class="form-control select"
                                         data-width="1%" name="gerejaHKBP" id="gerejaHKBP">
@@ -208,7 +209,7 @@
                         </div>
                         <div class="col-lg-4">
                             <div class="mb-3">
-                                <label class="form-label">Gereja Non HKBP: <span class="text-danger">*</span></label>
+                                <label class="form-label">Gereja Non HKBP: </label>
                                 <input type="text" name="gerejaNonHKBP" id="gerejaNonHKBP"
                                     placeholder="Masukkan Nama Gereja Non HKBP" class="form-control">
                             </div>
@@ -217,8 +218,7 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="mb-3">
-                                <label class="form-label">Pendeta Yang Memberkati: <span
-                                        class="text-danger">*</span></label>
+                                <label class="form-label">Pendeta Yang Memberkati:</label>
                                 <input type="text" name="namaPendeta" id="namaPendeta"
                                     placeholder="Masukkan Nama Pendeta yang Memberkati" class="form-control">
                             </div>
@@ -227,7 +227,7 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="mb-3">
-                                <label class="form-label">Nats Pernikahan: <span class="text-danger">*</span></label>
+                                <label class="form-label">Nats Pernikahan: </label>
                                 <textarea rows="3" cols="3" name="natsPernikahan" class="form-control"
                                     id="natsPernikahan" placeholder="Masukkan Nats Pernikahan"></textarea>
                             </div>
@@ -236,7 +236,7 @@
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="mb-3">
-                                <label class="form-label">Keterangan: <span class="text-danger">*</span></label>
+                                <label class="form-label">Keterangan:</label>
                                 <textarea rows="3" cols="2" name="keteranganPernikahan" id="keteranganPernikahan"
                                     class="form-control" placeholder="Masukkan Keterangan"></textarea>
                             </div>
@@ -246,12 +246,12 @@
             </div>
         </div>
         <div class="card-footer d-flex align-items-start flex-wrap">
-            <div class="col-lg-6">
+            <!--<div class="col-lg-6">
                 <button type="button" class="btn btn-light"> <i
                         class="ph-arrow-circle-left me-2"></i>Sebelumnya</button>
-            </div>
+            </div>-->
             <div class="col-lg-6 ms-lg-auto text-end">
-                <button type="button" class="btn btn-primary">Berikutnya <i
+                <button type="submit" class="btn btn-primary">Berikutnya <i
                         class="ph-arrow-circle-right ms-2"></i></button>
             </div>
         </div>

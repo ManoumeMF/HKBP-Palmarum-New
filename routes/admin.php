@@ -184,8 +184,6 @@ Route::post("/gereja/simpan-jenis-gereja", [GerejaController::class, 'storeGerej
 
 // Route Untuk Jemaat
 Route::get("/jemaat", [JemaatController::class, 'index'])->name('Jemaat.index');
-Route::get("/jemaat/tambah", [JemaatController::class, 'create'])->name('Jemaat.create');
-Route::post("/jemaat/simpan", [JemaatController::class, 'store'])->name('Jemaat.store');
 Route::get("/jemaat/edit/{id}", [JemaatController::class, 'edit'])->name('Jemaat.edit');
 Route::get("/jemaat/edit-anggota/{id}", [JemaatController::class, 'editAnggota'])->name('Jemaat.editAnggota');
 Route::post("/jemaat/update/{id}", [JemaatController::class, 'update'])->name('Jemaat.update');
@@ -195,11 +193,12 @@ Route::get("/jemaat/detail", [JemaatController::class, 'detail'])->name('Jemaat.
 Route::get("/jemaat/tambah/data-registrasi", [JemaatController::class, 'createDataRegistrasi'])->name('Jemaat.createDataRegistrasi');
 Route::post("/jemaat/simpan-data-registrasi", [JemaatController::class, 'storeDataRegistrasi'])->name('Jemaat.storeDataRegistrasi');
 Route::get("/jemaat/tambah/data-anggota-keluarga", [JemaatController::class, 'createAnggotaKeluarga'])->name('Jemaat.createAnggotaKeluarga');
-Route::post("/jemaat/simpan-data-angoota-keluarga", [JemaatController::class, 'storeAnggotaKeluarga'])->name('Jemaat.storeAnggotaKeluarga');
+Route::post("/jemaat/simpan-data-anggota-keluarga", [JemaatController::class, 'storeAnggotaKeluarga'])->name('Jemaat.storeAnggotaKeluarga');
 Route::get("/jemaat/tambah/data-pernikahan", [JemaatController::class, 'createPernikahan'])->name('Jemaat.createPernikahan');
-Route::post("/jemaat/simpan-data-pernikahan", [JemaatController::class, 'storeAnggotaKeluarga'])->name('Jemaat.storePernikahan');
+Route::post("/jemaat/simpan-data-pernikahan", [JemaatController::class, 'storePernikahan'])->name('Jemaat.storePernikahan');
 Route::get("/jemaat/tambah/data-kelengkapan-administrasi", [JemaatController::class, 'createDokumenKelengkapan'])->name('Jemaat.createDokumenKelengkapan');
 Route::post("/jemaat/simpan-kelengkapan-administrasi", [JemaatController::class, 'storeDokumenKelengkapan'])->name('Jemaat.storeDokumenKelengkapan');
+Route::get("/jemaat/tambah/selesai", [JemaatController::class, 'finishRegistrasiJemaat'])->name('Jemaat.finishRegistrasiJemaat');
 
 //Route untuk DropdownLokasi
 Route::get("/kota", [DropdownLokasiContoller::class, 'kota'])->name('DropdownLokasi.kota');
