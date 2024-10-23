@@ -229,8 +229,9 @@
         <div class="card-header d-flex">
             <h5 class="mb-0">Daftar Jemaat</h5>
             <div class="ms-auto">
-                <a class="btn btn-primary" href="{{ route('Jemaat.createDataRegistrasi') }}"><i class="ph-plus-circle"></i><span
-                        class="d-none d-lg-inline-block ms-2">Tambah Jemaat Baru</span></a>
+                <a class="btn btn-primary" href="{{ route('Jemaat.createDataRegistrasi') }}"><i
+                        class="ph-plus-circle"></i><span class="d-none d-lg-inline-block ms-2">Tambah Jemaat
+                        Baru</span></a>
             </div>
         </div>
         <table id="bankTable" class="table datatable-basic table-striped">
@@ -246,11 +247,15 @@
                 </tr>
             </thead>
             <tbody>
-                @if (isset($fieldBank) && count($fieldBank) > 0)
-                    @foreach ($fieldBank as $fB)
+                @if (isset($jemaatTeregistrasi) && count($jemaatTeregistrasi) > 0)
+                    @foreach ($jemaatTeregistrasi as $jT)
                         <tr>
-                            <td>{{ $fB->nama_bank }}</td>
-                            <td>{{ $fB->keterangan }}</td>
+                            <td>{{ $jT->no_registrasi }}</td>
+                            <td>{{ $jT->nama_keluarga }}</td>
+                            <td>{{ $jT->nama_wijk }}</td>
+                            <td>{{ $jT->alamatLengkap }}</td>
+                            <td>{{ $jT->no_telepon }}</td>
+                            <td>{{ $jT->jumlahAnggota }}</td>
                             <td class="text-center">
                                 <div class="d-inline-flex">
                                     <div class="dropdown">
@@ -258,16 +263,16 @@
                                             <i class="ph-list"></i>
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-end">
-                                            <button type="button" value="{{ $fB->id_bank }}"
+                                            <button type="button" value="{{ $jT->id_registrasi }}"
                                                 class="dropdown-item text-info detailBtn">
                                                 <i class="ph-list me-2"></i>Detail
                                             </button>
-                                            <button type="button" value="{{ $fB->id_bank }}"
+                                            <button type="button" value="{{ $jT->id_registrasi }}"
                                                 class="dropdown-item text-secondary">
-                                                <a href="{{ route('Bank.edit', $fB->id_bank) }}" style="color:inherit"><i
+                                                <a href="{{ route('Jemaat.edit', $jT->id_registrasi) }}" style="color:inherit"><i
                                                         class="ph-pencil me-2"></i> Edit</a>
                                             </button>
-                                            <button type="button" value="{{ $fB->id_bank }}"
+                                            <button type="button" value="{{ $jT->id_registrasi }}"
                                                 class="dropdown-item text-danger deleteBtn">
                                                 <i class="ph-trash me-2"></i>Hapus
                                             </button>

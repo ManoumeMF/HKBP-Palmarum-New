@@ -14,7 +14,9 @@ class JemaatController extends Controller
      */
     public function index()
     {
-        return view('admin.Master.Jemaat.index');
+        $jemaatTeregistrasi = DB::select('CALL viewAll_jemaatTeregistrasi()');;
+
+        return view('admin.Master.Jemaat.index', compact('jemaatTeregistrasi'));
     }
 
     public function createDataRegistrasi()
@@ -230,11 +232,11 @@ class JemaatController extends Controller
      */
     public function edit($id)
     {
-        return view('admin.PengaturanDanKonfigurasi.Jemaat.edit');
+        return view('admin.Master.Jemaat.edit');
     }
 
     public function editAnggota($id)
     {
-        return view('admin.PengaturanDanKonfigurasi.Jemaat.editAnggota');
+        return view('admin.Master.Jemaat.editAnggota');
     }
 }
