@@ -17,6 +17,7 @@ use App\Http\Controllers\admin\BankController;
 use App\Http\Controllers\admin\GerejaController;
 use App\Http\Controllers\admin\GolonganDarahController;
 use App\Http\Controllers\admin\JemaatController;
+use App\Http\Controllers\admin\MajelisController;
 use App\Http\Controllers\admin\DropdownLokasiContoller;
 
 //use Illuminate\Routing\Route;
@@ -200,7 +201,18 @@ Route::get("/jemaat/tambah/data-kelengkapan-administrasi", [JemaatController::cl
 Route::post("/jemaat/simpan-kelengkapan-administrasi", [JemaatController::class, 'storeDokumenKelengkapan'])->name('Jemaat.storeDokumenKelengkapan');
 Route::get("/jemaat/tambah/selesai", [JemaatController::class, 'finishRegistrasiJemaat'])->name('Jemaat.finishRegistrasiJemaat');
 
+//Route untuk Majelis
+Route::get("/majelis", [MajelisController::class, 'index'])->name('Majelis.index');
+Route::get("/majelis/tambah", [MajelisController::class, 'create'])->name('Majelis.create');
+Route::post("/majelis/simpan", [MajelisController::class, 'store'])->name('Majelis.store');
+Route::get("/majelis/edit/{id}", [MajelisController::class, 'edit'])->name('Majelis.edit');
+Route::post("/majelis/update/{id}", [MajelisController::class, 'update'])->name('Majelis.update');
+Route::get("/majelis/detail", [MajelisController::class, 'detail'])->name('Majelis.detail');
+
+
 //Route untuk DropdownLokasi
 Route::get("/kota", [DropdownLokasiContoller::class, 'kota'])->name('DropdownLokasi.kota');
 Route::get("/kecamatan", [DropdownLokasiContoller::class, 'kecamatan'])->name('DropdownLokasi.kecamatan');
 Route::get("/kelurahan", [DropdownLokasiContoller::class, 'kelurahan'])->name('DropdownLokasi.kelurahan');	
+Route::get("/jemaat-combobox", [DropdownLokasiContoller::class, 'jemaat_combobox'])->name('DropdownLokasi.jemaat_combobox');	
+

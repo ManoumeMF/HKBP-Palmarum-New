@@ -2,54 +2,67 @@
 
 @section('content')
 <script>
-//-------------------------------------------------------------------------------------------------
-//Ajax Form Store Data
-//-------------------------------------------------------------------------------------------------
-$(document).on('click', '.tambah_jenisStatus', function(e) {
-    e.preventDefault();
-    var data = {
-        'jenisStatusModal': $("input[name='jenisStatusModal']").val(),
-        'jenisKeteranganModal': $("textarea[name='keteranganModal']").val(),
-    }
-
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
-
-    console.log(data);
-
-    $.ajax({
-        method: "POST",
-        url: "{{ route('Status.storeStatusType') }}",
-        data: data,
-        dataType: "json",
-        success: function(response) {
-            //console.log(response);
-            if (response.status == 400) {
-                //console.log(response);
-                $.each(response.errors, function(key, err_value) {
-                    //$('#save_msgList').append('<li>' + err_value + '</li>');
-                    /*new Noty({
-                        text: err_value,
-                        type: 'error',
-                        modal: true
-                    }).show();*/
+    $(document).ready(function () {
+        // Your existing Select2 initialization
+        $('.select').each(function () {
+            if ($(this).closest('.modal').length) {
+                // If the Select2 element is inside a modal
+                $(this).select2({
+                    dropdownParent: $(this).closest('.modal')
                 });
-                $('.tambah_jenisStatus').text('Simpan');
             } else {
-                //console.log(response);
-                location.reload();
-                $('#addModalJenis').find("input[name='jenisStatusModal']").val('');
-                $('#addModalJenis').find("textarea[name='keteranganModal']").val('');
-                $('.tambah_jenisStatus').text('Simpan');
-                $('#addModalJenis').modal('hide');
+                // If the Select2 element is not inside a modal
+                $(this).select2();
             }
-        }
-    });
-});
+        });
+        //-------------------------------------------------------------------------------------------------
+        //Ajax Form Store Data
+        //-------------------------------------------------------------------------------------------------
+        $(document).on('click', '.tambah_jenisStatus', function (e) {
+            e.preventDefault();
+            var data = {
+                'jenisStatusModal': $("input[name='jenisStatusModal']").val(),
+                'jenisKeteranganModal': $("textarea[name='keteranganModal']").val(),
+            }
 
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                }
+            });
+
+            console.log(data);
+
+            $.ajax({
+                method: "POST",
+                url: "{{ route('Status.storeStatusType') }}",
+                data: data,
+                dataType: "json",
+                success: function (response) {
+                    //console.log(response);
+                    if (response.status == 400) {
+                        //console.log(response);
+                        $.each(response.errors, function (key, err_value) {
+                            //$('#save_msgList').append('<li>' + err_value + '</li>');
+                            /*new Noty({
+                                text: err_value,
+                                type: 'error',
+                                modal: true
+                            }).show();*/
+                        });
+                        $('.tambah_jenisStatus').text('Simpan');
+                    } else {
+                        //console.log(response);
+                        location.reload();
+                        $('#addModalJenis').find("input[name='jenisStatusModal']").val('');
+                        $('#addModalJenis').find("textarea[name='keteranganModal']").val('');
+                        $('.tambah_jenisStatus').text('Simpan');
+                        $('#addModalJenis').modal('hide');
+                    }
+                }
+            });
+        });
+    });
 </script>
 <!-- Page header -->
 <div class="page-header page-header-light shadow">
@@ -107,7 +120,7 @@ $(document).on('click', '.tambah_jenisStatus', function(e) {
                                         data-width="1%" name="jenisStatus" required>
                                         <option></option>
                                         @foreach ($statusType as $sT)
-                                        <option value="{{ $sT->id_jenis_status }}">{{ $sT->jenis_status }}</option>
+                                            <option value="{{ $sT->id_jenis_status }}">{{ $sT->jenis_status }}</option>
                                         @endforeach
                                     </select>
                                     <button type="button" class="btn btn-primary" data-bs-toggle="modal"
@@ -131,7 +144,8 @@ $(document).on('click', '.tambah_jenisStatus', function(e) {
                         <div class="row mb-3">
                             <label class="col-lg-3 col-form-label">Keterangan</label>
                             <div class="col-lg-9">
-                                <textarea rows="3" cols="3" class="form-control" placeholder="Masukkan Keterangan" name="keterangan"></textarea>
+                                <textarea rows="3" cols="3" class="form-control" placeholder="Masukkan Keterangan"
+                                    name="keterangan"></textarea>
                             </div>
                         </div>
                         <div class="text-end">
@@ -173,7 +187,8 @@ $(document).on('click', '.tambah_jenisStatus', function(e) {
                         <div class="row mb-2">
                             <label class="col-lg-4 col-form-label">Keterangan</label>
                             <div class="col-lg-7">
-                                <textarea rows="3" cols="3" name="keteranganModal" class="form-control" placeholder="Masukkan Keterangan"></textarea>
+                                <textarea rows="3" cols="3" name="keteranganModal" class="form-control"
+                                    placeholder="Masukkan Keterangan"></textarea>
                             </div>
                         </div>
                     </div>

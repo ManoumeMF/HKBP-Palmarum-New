@@ -14,7 +14,7 @@ class DropdownLokasiContoller extends Controller
     {
         $id = $request->idProvinsi;
 
-        $kota = DB::select('CALL cbo_cities('  . $id . ')'); 
+        $kota = DB::select('CALL cbo_cities(' . $id . ')');
 
         return response()->json($kota);
     }
@@ -23,7 +23,7 @@ class DropdownLokasiContoller extends Controller
     {
         $idK = $request->idKota;
 
-        $kecamatan = DB::select('CALL cbo_kecamatan('  . $idK . ')'); 
+        $kecamatan = DB::select('CALL cbo_kecamatan(' . $idK . ')');
 
         return response()->json($kecamatan);
     }
@@ -32,10 +32,17 @@ class DropdownLokasiContoller extends Controller
     {
         $idKl = $request->idKelurahan;
 
-        $kelurahan = DB::select('CALL cbo_subdistricts('  . $idKl . ')'); 
+        $kelurahan = DB::select('CALL cbo_subdistricts(' . $idKl . ')');
 
         return response()->json($kelurahan);
     }
 
-    
+    public function jemaat_combobox(Request $request)
+    {
+        $id = $request->idJemaat;
+
+        $jemaat = DB::select('CALL cbo_jemaatByIdRegistrasi(' . $id . ')');
+
+        return response()->json($jemaat);
+    }
 }
