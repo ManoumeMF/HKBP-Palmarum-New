@@ -14,7 +14,8 @@ class JemaatController extends Controller
      */
     public function index()
     {
-        $jemaatTeregistrasi = DB::select('CALL viewAll_jemaatTeregistrasi()');;
+        $jemaatTeregistrasi = DB::select('CALL viewAll_jemaatTeregistrasi()');
+        ;
 
         return view('admin.Master.Jemaat.index', compact('jemaatTeregistrasi'));
     }
@@ -91,7 +92,7 @@ class JemaatController extends Controller
             //dd($request->file('fileSuratPerjanjian'));
             $uploadedFile = $request->file('fotoJemaat');
             $filePenilaian = $request->get('namaDepan') . '-' . time() . "." . $uploadedFile->getClientOriginalExtension();
-            $filePath = Storage::disk('public')->putFileAs("images/FotoJemaat", $uploadedFile, $filePenilaian);
+            $filePath =  Storage::disk('biznet')->putFileAs("images/fotoJemaat", $uploadedFile, $filePenilaian);
         } else {
             $filePath = "";
         }
@@ -192,7 +193,7 @@ class JemaatController extends Controller
             //dd($request->file('fileSuratPerjanjian'));
             $uploadedFile = $request->file('fileDokumen');
             $filePenilaian = 'Dokumen Kelengkapan' . '-' . time() . "." . $uploadedFile->getClientOriginalExtension();
-            $filePath = Storage::disk('public')->putFileAs("documents/Jemaat/DokumenKelengkapan", $uploadedFile, $filePenilaian);
+            $filePath = Storage::disk('biznet')->putFileAs("documents/Jemaat/DokumenKelengkapan", $uploadedFile, $filePenilaian);
         } else {
             $filePath = "";
         }
@@ -232,11 +233,49 @@ class JemaatController extends Controller
      */
     public function edit($id)
     {
-        return view('admin.Master.Jemaat.edit');
+        $wijk = DB::select('CALL cbo_wijk()');
+        $provinces = DB::select('CALL cbo_provinces()');
+
+        $registrasiJemaatData = DB::select('CALL view_registrasiJemaat_byId(' . $id . ')');
+        $anggotaJemaat = DB::select('CALL view_allJemaatByRegistrasiId(' . $id . ')');
+
+        if ($registrasiJemaatData) {
+
+            $registrasiJemaat = $registrasiJemaatData[0];
+
+            $kota = DB::select('CALL cbo_cities(' . $registrasiJemaat->prov_id . ')');
+            $kecamatan = DB::select('CALL cbo_kecamatan(' . $registrasiJemaat->city_id . ')');
+            $kelurahan = DB::select('CALL cbo_subdistricts(' . $registrasiJemaat->dis_id . ')');
+
+
+            return view('admin.Master.Jemaat.edit', compact('registrasiJemaat', 'wijk', 'provinces','kota','kecamatan','kelurahan', 'anggotaJemaat'));
+        } else {
+            return redirect()->route('Jemaat.index')->with('error', 'Data Jemaat Tidak Ditemukan!');
+        }
+
+
     }
 
     public function editAnggota($id)
     {
         return view('admin.Master.Jemaat.editAnggota');
+    }
+
+    public function detail($id)
+    {
+        $registrasiJemaatData = DB::select('CALL view_registrasiJemaat_byId(' . $id . ')');
+        $anggotaJemaat = DB::select('CALL view_allJemaatByRegistrasiId(' . $id . ')');
+
+        if ($registrasiJemaatData) {
+
+            $registrasiJemaat = $registrasiJemaatData[0];
+
+
+            return view('admin.Master.Jemaat.detail', compact('registrasiJemaat', 'anggotaJemaat'));
+        } else {
+            return redirect()->route('Jemaat.index')->with('error', 'Data Jemaat Tidak Ditemukan!');
+        }
+
+
     }
 }

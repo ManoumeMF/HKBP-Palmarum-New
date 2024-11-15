@@ -148,13 +148,12 @@
                     prevArrow: document.dir == 'rtl' ? '&rarr;' : '&larr;',
                     nextArrow: document.dir == 'rtl' ? '&larr;' : '&rarr;',
                     autohide: true,
-                    format: 'dd M yyyy'
                 });
             }
 
             const dpAutoHideElement2 = document.querySelector('.datepicker-autohide2');
             if (dpAutoHideElement2) {
-                const dpAutoHide = new Datepicker(dpAutoHideElement2, {
+                const dpAutoHide2 = new Datepicker(dpAutoHideElement2, {
                     container: '.content-inner',
                     buttonClass: 'btn',
                     prevArrow: document.dir == 'rtl' ? '&rarr;' : '&larr;',
@@ -172,7 +171,6 @@
         //
         return {
             init: function () {
-                _componentDaterange();
                 _componentDatepicker();
             }
         }
@@ -261,9 +259,9 @@
         <div class="tab-content">
             <div class="tab-pane fade show active" id="data-registrasi">
                 <div class="card-body">
-                    <div class="mt-1 mb-4">
+                    <!--<div class="mt-1 mb-4">
                         <h6>Data Registrasi</h6>
-                    </div>
+                    </div>-->
 
                     <form action="" method="post" class="needs-validation" novalidate>
                         <div class="row">
@@ -271,7 +269,9 @@
                                 <div class="mb-3">
                                     <label class="form-label">Nomor Registrasi: <span
                                             class="text-danger">*</span></label>
-                                    <input type="text" name="name" class="form-control" placeholder="John Doe">
+                                    <input type="text" name="name" class="form-control"
+                                        placeholder="Masukkan Nomor Registrasi"
+                                        value="{{ $registrasiJemaat->no_registrasi }}">
                                     <div class="invalid-feedback">Bank Tidak Boleh Kosong.</div>
                                 </div>
                             </div>
@@ -283,34 +283,45 @@
                                         <span class="input-group-text">
                                             <i class="ph-calendar"></i>
                                         </span>
-                                        <input type="text" class="form-control datepicker-autohide "
-                                            placeholder="Pilih Tanggal">
+                                        <input type="text" class="form-control datepicker-autohide"
+                                            placeholder="Pilih Tanggal" value="{{ $registrasiJemaat->tgl_registrasi }}">
                                     </div>
                                 </div>
                             </div>
-
                             <div class="col-lg-4">
                                 <div class="mb-3">
                                     <label class="form-label">Nomor Registrasi Sebelumya: <span
                                             class="text-danger">*</span></label>
-                                    <input type="text" name="name1" class="form-control" placeholder="John Doe">
+                                    <input type="text" name="name1" class="form-control" placeholder="John Doe"
+                                        value="{{ $registrasiJemaat->no_register_sebelumnya }}">
                                 </div>
                             </div>
                         </div>
 
                         <div class="row">
-                            <div class="col-lg-9">
+                            <div class="col-lg-8">
+                                <div class="mb-3">
+                                    <label class="form-label">Nama Keluarga: <span class="text-danger">*</span></label>
+                                    <input type="text" name="namaKeluarga" class="form-control" id="namaKeluarga"
+                                        value="{{ $registrasiJemaat->nama_keluarga }}"
+                                        placeholder="Masukkan Nomor Registrasi" required>
+                                    <div class="invalid-feedback">Nama Keluarga Tidak Boleh Kosong.</div>
+                                </div>
+                            </div>
+                            <div class="col-lg-4">
                                 <div class="mb-3">
                                     <label class="form-label">Lingkungan/Lunggu/Wijk: <span
                                             class="text-danger">*</span></label>
 
                                     <div class="input-group">
                                         <select data-placeholder="Pilih Lingkungan/Lunggu/Wijk"
-                                            class="form-control select" data-width="1%" name="jenisStatus">
+                                            class="form-control select" data-width="1%" name="wijk" id="wijk" required>
                                             <option></option>
-                                            <option value="1">Sumatera Utara</option>
-                                            <option value="2">DKI Jakarta</option>
-                                            <option value="3">NTB</option>
+                                            @foreach ($wijk as $wK)
+                                                <option value="{{ $wK->id_wijk }}" {{ $wK->id_wijk === $registrasiJemaat->id_wijk ? 'selected' : '' }}>
+                                                    {{ $wK->nama_wijk }}
+                                                </option>
+                                            @endforeach
                                         </select>
                                         <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                                             data-bs-target="#addModalJenis"><i class="ph-plus-circle"></i>
@@ -329,23 +340,27 @@
                                 <div class="mb-3">
                                     <label class="form-label">Propinsi:</label>
                                     <select data-placeholder="Pilih Propinsi" class="form-control select"
-                                        name="propinsi">
+                                        name="propinsi" id="provinsi" required>
                                         <option></option>
-                                        <option value="1">Sumatera Utara</option>
-                                        <option value="2">DKI Jakarta</option>
-                                        <option value="3">NTB</option>
+                                        @foreach ($provinces as $pV)
+                                            <option value="{{ $pV->prov_id }}" {{  $pV->prov_id === $registrasiJemaat->prov_id ? 'selected' : '' }}>
+                                                {{ $pV->prov_name }}
+                                            </option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
                             <div class="col-lg-3">
                                 <div class="mb-3">
                                     <label class="form-label">Kota/Kabupaten:</label>
-                                    <select data-placeholder="Pilih Kota/Kabupaten" class="form-control select"
-                                        name="kotaKabupaten">
+                                    <select data-placeholder="Pilih Kota/kabupaten" class="form-control select"
+                                        name="kota" id="kotaKabupaten" required>
                                         <option></option>
-                                        <option value="1">Sumatera Utara</option>
-                                        <option value="2">DKI Jakarta</option>
-                                        <option value="3">NTB</option>
+                                        @foreach ($kota as $kT)
+                                            <option value="{{ $kT->city_id }}" {{  $kT->city_id === $registrasiJemaat->city_id ? 'selected' : '' }}>
+                                                {{ $kT->city_name }}
+                                            </option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
@@ -353,11 +368,13 @@
                                 <div class="mb-3">
                                     <label class="form-label">Kecamatan:</label>
                                     <select data-placeholder="Pilih Kecamatan" class="form-control select"
-                                        name="kecamatan">
+                                        name="kecamatan" id="kecamatan" required>
                                         <option></option>
-                                        <option value="1">Sumatera Utara</option>
-                                        <option value="2">DKI Jakarta</option>
-                                        <option value="3">NTB</option>
+                                        @foreach ($kecamatan as $kC)
+                                            <option value="{{ $kC->dis_id }}" {{  $kC->dis_id === $registrasiJemaat->dis_id ? 'selected' : '' }}>
+                                                {{ $kC->dis_name }}
+                                            </option>
+                                        @endforeach
                                     </select>
                                 </div>
                             </div>
@@ -367,11 +384,13 @@
                                     <div class="col-lg-12">
                                         <div class="input-group">
                                             <select data-placeholder="Pilih Kelurahan/Desa" class="form-control select"
-                                                name="kelurahanDesa">
+                                                name="kelurahan" id="kelurahan" required>
                                                 <option></option>
-                                                <option value="1">Sumatera Utara</option>
-                                                <option value="2">DKI Jakarta</option>
-                                                <option value="3">NTB</option>
+                                                @foreach ($kelurahan as $kL)
+                                                    <option value="{{ $kL->subdis_id }}" {{  $kL->subdis_id === $registrasiJemaat->subdis_id ? 'selected' : '' }}>
+                                                        {{ $kL->subdis_name }}
+                                                    </option>
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>
@@ -383,14 +402,23 @@
                             <div class="col-lg-12">
                                 <div class="mb-3">
                                     <label class="form-label">Alamat: <span class="text-danger">*</span></label>
-                                    <textarea rows="3" cols="3" name="keteranganModal" class="form-control"
-                                        placeholder="Masukkan Alamat"></textarea>
+                                    <textarea rows="3" cols="3" name="alamat" class="form-control"
+                                        placeholder="Masukkan Alamat">{{ $registrasiJemaat->alamat }}</textarea>
                                 </div>
                             </div>
                         </div>
 
                         <div class="row">
-                            <div class="col-lg-12">
+                            <div class="col-lg-4">
+                                <div class="mb-3">
+                                    <label class="form-label">Nomor Telepon: <span class="text-danger">*</span></label>
+                                    <input type="text" name="nomorTelepon" class="form-control" id="nomorTelepon"
+                                        value="{{ $registrasiJemaat->no_telepon }}" placeholder="Masukkan Nomor Telepon"
+                                        required>
+                                    <div class="invalid-feedback">Nama Keluarga Tidak Boleh Kosong.</div>
+                                </div>
+                            </div>
+                            <div class="col-lg-8">
                                 <div class="mb-3">
                                     <label class="form-label">Tanggal Diwartakan: <span
                                             class="text-danger">*</span></label>
@@ -399,6 +427,7 @@
                                             <i class="ph-calendar"></i>
                                         </span>
                                         <input type="text" class="form-control datepicker-autohide2"
+                                            value="{{ $registrasiJemaat->tgl_warta }}"
                                             placeholder="Pilih Tanggal Diwartakan">
                                     </div>
                                 </div>
@@ -443,51 +472,72 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        <a href="user_pages_profile_tabbed.html" class="d-block me-3">
-                                            <img src="{{ asset('admin_resources/assets/images/demo/users/face1.jpg') }}"
-                                                width="40" height="40" class="rounded-circle" alt="">
-                                        </a>
+                            @if (isset($anggotaJemaat) && count($anggotaJemaat) > 0)
+                                @foreach ($anggotaJemaat as $aT)
+                                    <tr>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <a href="user_pages_profile_tabbed.html" class="d-block me-3">
+                                                    <img src="{{ asset('admin_resources/assets/images/demo/users/face1.jpg') }}"
+                                                        width="40" height="40" class="rounded-circle" alt="">
+                                                </a>
 
-                                        <div class="flex-fill">
-                                            <a href="user_pages_profile_tabbed.html" class="fw-semibold">James
-                                                Alexander</a>
-                                            <div class="fs-sm text-muted">
-                                                Laki-laki - Suami
+                                                <div class="flex-fill">
+                                                    <a href="user_pages_profile_tabbed.html"
+                                                        class="fw-semibold">{{ $aT->namaLengkap }}</a>
+                                                    <div class="fs-sm text-muted">
+                                                        @if($aT->jenis_kelamin == 'L')
+                                                            Laki-laki - {{ $aT->nama_hub_keluarga }}
+                                                        @else
+                                                            Perempuan - {{ $aT->nama_hub_keluarga }}
+                                                        @endif
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td>Tanggal Lahir</td>
-                                <td>Umur</td>
-                                <td>Baptis</td>
-                                <td>Sidi</td>
-                                <td class="text-center">
-                                    <div class="d-inline-flex">
-                                        <div class="dropdown">
-                                            <a href="#" class="text-body" data-bs-toggle="dropdown">
-                                                <i class="ph-list"></i>
-                                            </a>
-                                            <div class="dropdown-menu dropdown-menu-end">
-                                                <button type="button" value=""
-                                                    class="dropdown-item text-info detailBtn">
-                                                    <i class="ph-list me-2"></i>Detail
-                                                </button>
-                                                <button type="button" value="" class="dropdown-item text-secondary">
-                                                    <a href="{{ route('Jemaat.editAnggota', 0) }}" style="color:inherit"><i class="ph-pencil me-2"></i>
-                                                        Edit</a>
-                                                </button>
-                                                <button type="button" value=""
-                                                    class="dropdown-item text-danger deleteBtn">
-                                                    <i class="ph-trash me-2"></i>Hapus
-                                                </button>
+                                        </td>
+                                        <td>{{ date('d F Y', strtotime($aT->tanggal_lahir)) }}</td>
+                                        <td>{{ $aT->umur }}</td>
+                                        <td>
+                                            @if($aT->isBaptis === 1)
+                                                <i class="ph-check text-success"></i>
+                                            @else
+                                                <i class="ph-x text-danger"></i>
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @if($aT->isSidi === 1)
+                                                <i class="ph-check text-success"></i>
+                                            @else
+                                                <i class="ph-x text-danger"></i>
+                                            @endif
+                                        </td>
+                                        <td class="text-center">
+                                            <div class="d-inline-flex">
+                                                <div class="dropdown">
+                                                    <a href="#" class="text-body" data-bs-toggle="dropdown">
+                                                        <i class="ph-list"></i>
+                                                    </a>
+                                                    <div class="dropdown-menu dropdown-menu-end">
+                                                        <button type="button" value=""
+                                                            class="dropdown-item text-info detailBtn">
+                                                            <i class="ph-list me-2"></i>Detail
+                                                        </button>
+                                                        <button type="button" value="" class="dropdown-item text-secondary">
+                                                            <a href="{{ route('Jemaat.editAnggota', 0) }}"
+                                                                style="color:inherit"><i class="ph-pencil me-2"></i>
+                                                                Edit</a>
+                                                        </button>
+                                                        <button type="button" value=""
+                                                            class="dropdown-item text-danger deleteBtn">
+                                                            <i class="ph-trash me-2"></i>Hapus
+                                                        </button>
+                                                    </div>
+                                                </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            @endif
                         </tbody>
                     </table>
                 </div>

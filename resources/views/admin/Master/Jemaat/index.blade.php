@@ -264,8 +264,9 @@
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-end">
                                             <button type="button" value="{{ $jT->id_registrasi }}"
-                                                class="dropdown-item text-info detailBtn">
-                                                <i class="ph-list me-2"></i>Detail
+                                                class="dropdown-item text-info">
+                                                <a href="{{ route('Jemaat.edit', $jT->id_registrasi) }}" style="color:inherit">
+                                                <i class="ph-list me-2"></i>Detail</a>
                                             </button>
                                             <button type="button" value="{{ $jT->id_registrasi }}"
                                                 class="dropdown-item text-secondary">

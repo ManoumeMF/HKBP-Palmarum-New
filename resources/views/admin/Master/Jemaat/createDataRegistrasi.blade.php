@@ -412,7 +412,7 @@
         </div>
         </form>
     </div>
-    <!-- /Data Pribadi Anggota Jemaat -->
+    <!-- Data Pribadi Anggota Jemaat -->
 </div>
-<!-- /content area -->
+<!-- content area -->
 @endsection
