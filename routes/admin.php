@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\admin\DashboardController;
 use App\Http\Controllers\admin\BidangPendidikanController;
 use App\Http\Controllers\admin\PendidikanController;
 use App\Http\Controllers\admin\JenisKegiatanController;
@@ -18,6 +19,8 @@ use App\Http\Controllers\admin\GerejaController;
 use App\Http\Controllers\admin\GolonganDarahController;
 use App\Http\Controllers\admin\JemaatController;
 use App\Http\Controllers\admin\MajelisController;
+use App\Http\Controllers\admin\KegiatanController;
+use App\Http\Controllers\admin\JemaatLahirController;
 use App\Http\Controllers\admin\DropdownLokasiContoller;
 
 //use Illuminate\Routing\Route;
@@ -33,9 +36,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+/*Route::get('/', function () {
     return view('welcome');
-});
+});*/
+
+// Route untuk dashboard
+Route::get("/dashboard", [DashboardController::class, 'index'])->name('Dashboard.index');
+
+
 
 // Route untuk Bidang Pendidikan
 Route::get("/bidang-pendidikan", [BidangPendidikanController::class, 'index'])->name('BidangPendidikan.index');
@@ -209,6 +217,21 @@ Route::get("/majelis/edit/{id}", [MajelisController::class, 'edit'])->name('Maje
 Route::post("/majelis/update/{id}", [MajelisController::class, 'update'])->name('Majelis.update');
 Route::get("/majelis/detail", [MajelisController::class, 'detail'])->name('Majelis.detail');
 
+//Route untuk Kegiatan
+Route::get("/kegiatan", [KegiatanController::class, 'index'])->name('Kegiatan.index');
+Route::get("/kegiatan/tambah", [KegiatanController::class, 'create'])->name('Kegiatan.create');
+Route::post("/kegiatan/simpan", [KegiatanController::class, 'store'])->name('Kegiatan.store');
+Route::get("/kegiatan/edit/{id}", [KegiatanController::class, 'edit'])->name('Kegiatan.edit');
+Route::post("/kegiatan/update/{id}", [KegiatanController::class, 'update'])->name('Kegiatan.update');
+Route::get("/kegiatan/detail", [KegiatanController::class, 'detail'])->name('Kegiatan.detail');
+
+//Route untuk Jemaat Lahir
+Route::get("/jemaat-lahir", [JemaatLahirController::class, 'index'])->name('JemaatLahir.index');
+Route::get("/jemaat-lahir/tambah", [JemaatLahirController::class, 'create'])->name('JemaatLahir.create');
+Route::post("/jemaat-lahir/simpan", [JemaatLahirController::class, 'store'])->name('JemaatLahir.store');
+Route::get("/jemaat-lahir/edit/{id}", [JemaatLahirController::class, 'edit'])->name('JemaatLahir.edit');
+Route::post("/jemaat-lahir/update/{id}", [JemaatLahirController::class, 'update'])->name('JemaatLahir.update');
+Route::get("/jemaat-lahir/detail", [JemaatLahirController::class, 'detail'])->name('JemaatLahir.detail');
 
 //Route untuk DropdownLokasi
 Route::get("/kota", [DropdownLokasiContoller::class, 'kota'])->name('DropdownLokasi.kota');
