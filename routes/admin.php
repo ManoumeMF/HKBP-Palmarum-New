@@ -22,6 +22,8 @@ use App\Http\Controllers\admin\MajelisController;
 use App\Http\Controllers\admin\KegiatanController;
 use App\Http\Controllers\admin\JemaatLahirController;
 use App\Http\Controllers\admin\DropdownLokasiContoller;
+use App\Http\Controllers\admin\RoleController;
+use App\Http\Controllers\admin\PermissionController;
 
 //use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\Route;
@@ -39,6 +41,21 @@ use Illuminate\Support\Facades\Route;
 /*Route::get('/', function () {
     return view('welcome');
 });*/
+
+Route::group(['middleware' => ['role:super-admin|admin']], function() {
+
+    Route::resource('permissions', PermissionController::class);
+    Route::get('permissions/{permissionId}/delete', [PermissionController::class, 'destroy']);
+
+    Route::resource('roles', RoleController::class);
+    Route::get('roles/{roleId}/delete', [RoleController::class, 'destroy']);
+    Route::get('roles/{roleId}/give-permissions', [RoleController::class, 'addPermissionToRole']);
+    Route::put('roles/{roleId}/give-permissions', [RoleController::class, 'givePermissionToRole']);
+
+    Route::resource('users', App\Http\Controllers\UserController::class);
+    Route::get('users/{userId}/delete', [App\Http\Controllers\UserController::class, 'destroy']);
+
+});
 
 // Route untuk dashboard
 Route::get("/dashboard", [DashboardController::class, 'index'])->name('Dashboard.index');
