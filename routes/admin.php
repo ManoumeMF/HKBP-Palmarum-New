@@ -1,5 +1,5 @@
 <?php
-
+use App\Http\Controllers\admin\AuthController;
 use App\Http\Controllers\admin\DashboardController;
 use App\Http\Controllers\admin\BidangPendidikanController;
 use App\Http\Controllers\admin\PendidikanController;
@@ -24,6 +24,7 @@ use App\Http\Controllers\admin\JemaatLahirController;
 use App\Http\Controllers\admin\DropdownLokasiContoller;
 use App\Http\Controllers\admin\RoleController;
 use App\Http\Controllers\admin\PermissionController;
+use App\Http\Controllers\admin\UserController;
 
 //use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\Route;
@@ -52,13 +53,23 @@ Route::group(['middleware' => ['role:super-admin|admin']], function() {
     Route::get('roles/{roleId}/give-permissions', [RoleController::class, 'addPermissionToRole']);
     Route::put('roles/{roleId}/give-permissions', [RoleController::class, 'givePermissionToRole']);
 
-    Route::resource('users', App\Http\Controllers\UserController::class);
-    Route::get('users/{userId}/delete', [App\Http\Controllers\UserController::class, 'destroy']);
+    Route::resource('users', UserController::class);
+    Route::get('users/{userId}/delete', [UserController::class, 'destroy']);
 
+});
+
+Route::controller(AuthController::class)->group(function(){
+    Route::get('/registration','registration')->middleware('alreadyLoggedIn');
+    Route::post('/registration-user','registerUser')->name('register-user');
+    Route::get('/login','login')->middleware('alreadyLoggedIn');
+    Route::post('/login-user','loginUser')->name('login-user');
+    Route::get('/dashboard','dashboard')->middleware('isLoggedIn');
+    Route::get('/logout','logout');
 });
 
 // Route untuk dashboard
 Route::get("/dashboard", [DashboardController::class, 'index'])->name('Dashboard.index');
+//Route::get("/login", [AuthController::class, 'login'])->name('Auth.login');
 
 
 
