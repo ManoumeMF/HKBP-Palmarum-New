@@ -10,23 +10,26 @@ use Illuminate\Support\Facades\DB;
 
 class RoleController extends Controller
 {
+    protected $guard;
     public function __construct()
     {
         $this->middleware('permission:view role', ['only' => ['index']]);
         $this->middleware('permission:create role', ['only' => ['create','store','addPermissionToRole','givePermissionToRole']]);
         $this->middleware('permission:update role', ['only' => ['update','edit']]);
         $this->middleware('permission:delete role', ['only' => ['destroy']]);
+
+        $this->guard = "admin";
     }
 
     public function index()
     {
         $roles = Role::get();
-        return view('role-permission.role.index', ['roles' => $roles]);
+        return view('admin.RolePermission.Role.index', ['roles' => $roles]);
     }
 
     public function create()
     {
-        return view('role-permission.role.create');
+        return view('admin.RolePermission.Role.create');
     }
 
     public function store(Request $request)
@@ -39,33 +42,47 @@ class RoleController extends Controller
             ]
         ]);
 
-        Role::create([
-            'name' => $request->name
+        $Role = json_encode([
+            'NamaRole' => $request->name,
+            'NamaGuard'  => $this->guard
         ]);
 
-        return redirect('roles')->with('status','Role Created Successfully');
+        //dd($BidangPekerjaan);
+
+        $response = DB::statement('CALL insert_Role(:dataRole)', ['dataRole' => $Role]);
+
+        if ($response) {
+            return redirect()->route('Role.index')->with('success', 'Role Berhasil Disimpan!');
+        } else {
+            return redirect()->route('Role.create')->with('error', 'Role Gagal Disimpan!');
+        }
     }
 
-    public function edit(Role $role)
+    public function edit($id)
     {
-        return view('role-permission.role.edit',[
-            'role' => $role
-        ]);
+        $RoleData = DB::select('CALL view_role_byId(' . $id . ')');
+        $Role = $RoleData[0];
+
+        if ($RoleData) {
+           return view('admin.RolePermission.Role.edit', compact('Role'));
+        } else {
+            return redirect()->route('Role.index')->with('error', 'Role Tidak Ditemukan!');
+        }
     }
 
-    public function update(Request $request, Role $role)
+    public function update(Request $request, string $id)
     {
         $request->validate([
             'name' => [
                 'required',
                 'string',
-                'unique:roles,name,'.$role->id
+                'unique:roles,name,'.$id
             ]
         ]);
 
-        $role->update([
+        /*$role->update([
             'name' => $request->name
-        ]);
+        ]);*/
 
         return redirect('roles')->with('status','Role Updated Successfully');
     }
@@ -86,7 +103,7 @@ class RoleController extends Controller
                                 ->pluck('role_has_permissions.permission_id','role_has_permissions.permission_id')
                                 ->all();
 
-        return view('role-permission.role.add-permissions', [
+        return view('admin.RolePermission.Role.addPermission', [
             'role' => $role,
             'permissions' => $permissions,
             'rolePermissions' => $rolePermissions

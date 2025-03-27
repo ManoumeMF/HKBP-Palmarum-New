@@ -229,22 +229,20 @@
             <div class="card-header d-flex">
                 <h5 class="mb-0">Daftar Role</h5>
                 <div class="ms-auto">
-                    <a class="btn btn-primary" href="{{ url('roles/create') }}"><i class="ph-plus-circle"></i><span
+                    <a class="btn btn-primary" href="{{ route('Role.create') }}"><i class="ph-plus-circle"></i><span
                             class="d-none d-lg-inline-block ms-2">Tambah Role</span></a>
                 </div>
             </div>
             <table id="bankTable" class="table datatable-basic table-striped">
                 <thead>
                     <tr>
-                        <th>Id</th>
                         <th>Nama Role</th>
-                        <th class="text-center">Tindakan</th>
+                        <th class="text-center" style="width: 100px;">Tindakan</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($roles as $role)
                         <tr>
-                            <td>{{ $role->id }}</td>
                             <td>{{ $role->name }}</td>
                             <td class="text-center">
                                 <div class="d-inline-flex">
@@ -254,12 +252,8 @@
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-end">
                                             <button type="button" value="{{ $role->id }}"
-                                                class="dropdown-item text-info detailBtn">
-                                                <i class="ph-list me-2"></i>Detail
-                                            </button>
-                                            <button type="button" value="{{ $role->id }}"
                                                 class="dropdown-item text-secondary">
-                                                <a href="{{ url('roles/'.$role->id.'/edit') }}" style="color:inherit"><i
+                                                <a href="{{ route('Role.edit', $role->id) }}" style="color:inherit"><i
                                                         class="ph-pencil me-2"></i> Edit</a>
                                             </button>
                                             <button type="button" value="{{ $role->id }}"

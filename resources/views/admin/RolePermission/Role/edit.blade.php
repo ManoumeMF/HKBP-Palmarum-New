@@ -45,7 +45,7 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-lg-9 offset-lg-1">
-                    <form action="{{ url('roles'.$role->id) }}" method="post" class="needs-validation"
+                    <form action="{{ route('Role.update', $Role->id) }}" method="post" class="needs-validation"
                         novalidate>
                         @csrf
                         @method('PUT')
@@ -54,7 +54,7 @@
                                     class="text-danger">*</span></label>
                             <div class="col-lg-9">
                                 <input type="text" class="form-control" placeholder="Masukkan Nama Role"
-                                    required name="name" value="{{ $role->name }}">
+                                    required name="name" value="{{ $Role->name }}">
                                 <div class="invalid-feedback">Nama Role Tidak Boleh Kosong.</div>
                                 <!--<div class="valid-feedback">Valid feedback</div>-->
                             </div>

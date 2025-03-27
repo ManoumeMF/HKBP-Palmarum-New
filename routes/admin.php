@@ -43,12 +43,16 @@ use Illuminate\Support\Facades\Route;
     return view('welcome');
 });*/
 
-Route::group(['middleware' => ['role:super-admin|admin']], function() {
+Route::group(['middleware' => 'auth'], function() {
 
     Route::resource('permissions', PermissionController::class);
     Route::get('permissions/{permissionId}/delete', [PermissionController::class, 'destroy']);
 
-    Route::resource('roles', RoleController::class);
+    Route::get('roles', [RoleController::class, 'index'])->name('Role.index');
+    Route::get("/roles/tambah", [RoleController::class, 'create'])->name('Role.create');
+    Route::post("/roles/simpan", [RoleController::class, 'store'])->name('Role.store');
+    Route::get("/roles/edit/{id}", [RoleController::class, 'edit'])->name('Role.edit');
+    Route::post("/roles/update/{id}", [RoleController::class, 'update'])->name('Role.update');
     Route::get('roles/{roleId}/delete', [RoleController::class, 'destroy']);
     Route::get('roles/{roleId}/give-permissions', [RoleController::class, 'addPermissionToRole']);
     Route::put('roles/{roleId}/give-permissions', [RoleController::class, 'givePermissionToRole']);
@@ -62,8 +66,9 @@ Route::controller(AuthController::class)->group(function(){
     Route::get('/registration','registration')->middleware('alreadyLoggedIn');
     Route::post('/registration-user','registerUser')->name('register-user');
     Route::get('/login','login')->middleware('alreadyLoggedIn');
+    Route::get('/login','login')->name('login');
     Route::post('/login-user','loginUser')->name('login-user');
-    Route::get('/dashboard','dashboard')->middleware('isLoggedIn');
+    //Route::get('/dashboard','dashboard')->middleware('isLoggedIn');
     Route::get('/logout','logout');
 });
 

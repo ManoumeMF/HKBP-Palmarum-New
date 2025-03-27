@@ -5,6 +5,7 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 
@@ -44,12 +45,12 @@ class AuthController extends Controller
     {
         //dd($request->all());
 
-        $request->validate([            
+        $credentials = $request->validate([            
             'email'=>'required|email:users',
             'password'=>'required|min:8|max:12'
         ]);
 
-        $user = User::where('email','=',$request->email)->first();
+        /*$user = User::where('email','=',$request->email)->first();
         if($user){
             if(Hash::check($request->password, $user->password)){
                 $request->session()->put('loginId', $user->id);
@@ -61,7 +62,20 @@ class AuthController extends Controller
             }
         } else {
             return back()->with('fail','This email is not register.');
-        }        
+        } */
+
+        if(Auth::attempt($credentials))
+        {
+            $request->session()->regenerate();
+            return redirect()->route('Dashboard.index')
+                ->withSuccess('You have successfully logged in!');
+        }
+
+        return back()->withErrors([
+            'email' => 'Your provided credentials do not match in our records.',
+        ])->onlyInput('email');
+       
+        
     }
     //// Dashboard
     public function dashboard()

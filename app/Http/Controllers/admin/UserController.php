@@ -21,7 +21,7 @@ class UserController extends Controller
     public function index()
     {
         $users = User::get();
-        return view('role-permission.user.index', ['users' => $users]);
+        return view('admin.RolePermission.User.index', ['users' => $users]);
     }
 
     public function create()

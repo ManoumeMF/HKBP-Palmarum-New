@@ -45,7 +45,7 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-lg-9 offset-lg-1">
-                    <form action="{{ url('roles') }}" method="post" class="needs-validation"
+                    <form action="{{ route('Role.store') }}" method="post" class="needs-validation"
                         novalidate>
                         {{ csrf_field() }}
                         <div class="row mb-3">

@@ -20,12 +20,12 @@ class PermissionController extends Controller
     public function index()
     {
         $permissions = Permission::get();
-        return view('role-permission.permission.index', ['permissions' => $permissions]);
+        return view('admin.RolePermission.Permission.index', ['permissions' => $permissions]);
     }
 
     public function create()
     {
-        return view('role-permission.permission.create');
+        return view('admin.RolePermission.Permission.create');
     }
 
     public function store(Request $request)
