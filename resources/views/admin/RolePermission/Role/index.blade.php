@@ -14,7 +14,7 @@
                     columnDefs: [{
                         orderable: false,
                         width: 100,
-                        targets: [2]
+                        targets: [1]
                     }],
                     dom: '<"datatable-header"fl><"datatable-scroll"t><"datatable-footer"ip>',
                     language: {
@@ -225,7 +225,7 @@
                             class="d-none d-lg-inline-block ms-2">Tambah Role</span></a>
                 </div>
             </div>
-            <table id="bankTable" class="table datatable-basic table-striped">
+            <table id="roleTable" class="table datatable-basic table-striped">
                 <thead>
                     <tr>
                         <th>Nama Role</th>

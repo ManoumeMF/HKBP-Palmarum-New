@@ -14,7 +14,7 @@
                     columnDefs: [{
                         orderable: false,
                         width: 100,
-                        targets: [2]
+                        targets: [1]
                     }],
                     dom: '<"datatable-header"fl><"datatable-scroll"t><"datatable-footer"ip>',
                     language: {
@@ -134,13 +134,13 @@
         //-------------------------------------------------------------------------------------------------
         //Ajax Delete Data
         //-------------------------------------------------------------------------------------------------
-        $(document).on('click', '.delete_bank', function (e) {
+        $(document).on('click', '.delete_permission', function (e) {
             e.preventDefault();
 
             var id = $('#deleting_id').val();
 
             var data = {
-                'idBank': id,
+                'idPermission': id,
             }
 
             $.ajaxSetup({
@@ -152,30 +152,22 @@
             console.log(id);
 
             $.ajax({
-                type: "DELETE",
-                url: "{{ route('Bank.delete') }}",
+                type: "POST",
+                url: "{{ route('Permission.delete') }}",
                 data: data,
                 dataType: "json",
                 success: function (response) {
                     if (response.status == 400) {
-                        //$('#save_msgList').html("");
-                        //$('#save_msgList').addClass('alert alert-danger');
                         $.each(response.errors, function (key, err_value) {
-                            //$('#save_msgList').append('<li>' + err_value + '</li>');
                             new Noty({
                                 text: err_value,
                                 type: 'error',
                                 modal: true
                             }).show();
                         });
-                        $('.delete_bank').text('Hapus');
+                        $('.delete_permission').text('Hapus');
                     } else {
-                        //$('#save_msgList').html("");
-                        //$('#success_message').addClass('alert alert-success');
-                        //$('#success_message').text(response.message);
-
-                        //$('#deleteModal').find('input', 'textarea').val('');
-                        $('.delete_bank').text('Hapus');
+                        $('.delete_permission').text('Hapus');
                         $('#deleteModal').modal('hide');
 
                         new Noty({
@@ -184,7 +176,7 @@
                             modal: true
                         }).show();
 
-                        setTimeout("window.location='{{ route('Bank.index') }}'", 1500);
+                        setTimeout("window.location='{{ route('Permission.index') }}'", 1500);
                     }
                 }
             });
@@ -209,7 +201,7 @@
                 <div class="breadcrumb py-2">
                     <a href="index.html" class="breadcrumb-item"><i class="ph-house"></i></a>
                     <a href="#" class="breadcrumb-item">Home</a>
-                    <span class="breadcrumb-item active">Role</span>
+                    <span class="breadcrumb-item active">Permission</span>
                 </div>
                 <a href="#breadcrumb_elements"
                     class="btn btn-light align-self-center collapsed d-lg-none border-transparent rounded-pill p-0 ms-auto"
@@ -227,24 +219,22 @@
     <div class="content">
         <div class="card">
             <div class="card-header d-flex">
-                <h5 class="mb-0">Daftar Role</h5>
+                <h5 class="mb-0">Daftar Permission</h5>
                 <div class="ms-auto">
-                    <a class="btn btn-primary" href="{{ url('permissions/create') }}"><i class="ph-plus-circle"></i><span
-                            class="d-none d-lg-inline-block ms-2">Tambah Role</span></a>
+                    <a class="btn btn-primary" href="{{ route('Permission.create') }}"><i class="ph-plus-circle"></i><span
+                            class="d-none d-lg-inline-block ms-2">Tambah Permission</span></a>
                 </div>
             </div>
             <table id="permissionTable" class="table datatable-basic table-striped">
                 <thead>
                     <tr>
-                        <th>Id</th>
                         <th>Nama Permisson</th>
-                        <th class="text-center">Tindakan</th>
+                        <th class="text-center" style="width: 100px;">Tindakan</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($permissions  as $permission)
                         <tr>
-                            <td>{{ $permission->id }}</td>
                             <td>{{ $permission->name }}</td>
                             <td class="text-center">
                                 <div class="d-inline-flex">
@@ -254,12 +244,8 @@
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-end">
                                             <button type="button" value="{{ $permission->id }}"
-                                                class="dropdown-item text-info detailBtn">
-                                                <i class="ph-list me-2"></i>Detail
-                                            </button>
-                                            <button type="button" value="{{ $permission->id }}"
                                                 class="dropdown-item text-secondary">
-                                                <a href="{{ url('roles/'.$permission->id.'/edit') }}" style="color:inherit"><i
+                                                <a href="{{ route('Permission.edit', $permission->id) }}" style="color:inherit"><i
                                                         class="ph-pencil me-2"></i> Edit</a>
                                             </button>
                                             <button type="button" value="{{ $permission->id }}"
@@ -316,7 +302,7 @@
                         <h5 class="modal-title">Hapus Data Bank</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                     </div>
-                    <form id="deleteBankForm">
+                    <form id="deletePermissionForm">
                         @csrf
                         <div class="modal-body">
                             <h4>Konfirmasi untuk Menghapus Data?</h4>
@@ -324,7 +310,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary delete_bank">Hapus</button>
+                            <button type="submit" class="btn btn-primary delete_permission">Hapus</button>
                         </div>
                     </form>
                 </div>

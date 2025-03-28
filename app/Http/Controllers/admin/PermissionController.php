@@ -5,9 +5,12 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Permission;
+use Illuminate\Support\Facades\DB;
 
 class PermissionController extends Controller
 {
+    protected $guard;
+
     public function __construct()
     {
 
@@ -15,12 +18,14 @@ class PermissionController extends Controller
         $this->middleware('permission:create permission', ['only' => ['create','store']]);
         $this->middleware('permission:update permission', ['only' => ['update','edit']]);
         $this->middleware('permission:delete permission', ['only' => ['destroy']]);
+
+        $this->guard = "admin";
     }
 
     public function index()
     {
-        $permissions = Permission::get();
-        return view('admin.RolePermission.Permission.index', ['permissions' => $permissions]);
+        $permissions = DB::select('CALL viewAll_permission()'); 
+        return view('admin.RolePermission.Permission.index', compact('permissions'));
     }
 
     public function create()
@@ -39,39 +44,78 @@ class PermissionController extends Controller
             ]
         ]);
 
-        Permission::create([
-            'name' => $request->name
+        $Permission = json_encode([
+            'NamaPermission' => $request->name,
+            'NamaGuard'  => $this->guard
         ]);
 
-        return redirect('permissions')->with('status','Permission Created Successfully');
+        $response = DB::statement('CALL insert_permission(:dataPermission)', ['dataPermission' => $Permission]);
+
+        if ($response) {
+            return redirect()->route('Permission.index')->with('success', 'Permission Berhasil Disimpan!');
+        } else {
+            return redirect()->route('Permission.create')->with('error', 'Permission Gagal Disimpan!');
+        }
     }
 
-    public function edit(Permission $permission)
+    public function edit($id)
     {
-        return view('role-permission.permission.edit', ['permission' => $permission]);
+        $PermissionData = DB::select('CALL view_permission_byId(' . $id . ')');
+        $Permission = $PermissionData[0];
+
+        if ($Permission) {
+           return view('admin.RolePermission.Permission.edit', compact('Permission'));
+        } else {
+            return redirect()->route('Permission.index')->with('error', 'Permission Tidak Ditemukan!');
+        }
     }
 
-    public function update(Request $request, Permission $permission)
+    public function update(Request $request, string $id)
     {
         $request->validate([
             'name' => [
                 'required',
                 'string',
-                'unique:permissions,name,'.$permission->id
+                'unique:permissions,name,'.$id
             ]
         ]);
 
-        $permission->update([
-            'name' => $request->name
+        $Permission = json_encode([
+            'IdPermission' => $id,
+            'NamaPermission' => $request->name,
+            'NamaGuard'  => $this->guard
         ]);
 
-        return redirect('permissions')->with('status','Permission Updated Successfully');
+        //dd($BidangPekerjaan);
+
+        $response = DB::statement('CALL update_permission(:dataPermission)', ['dataPermission' => $Permission]);
+
+        if ($response) {
+            return redirect()->route('Permission.index')->with('success', 'Permission Berhasil Diupdate!');
+        } else {
+            return redirect()->route('Permission.edit')->with('error', 'Permission Gagal Diupdate!');
+        }
     }
 
-    public function destroy($permissionId)
+    public function delete(Request $request)
     {
-        $permission = Permission::find($permissionId);
-        $permission->delete();
-        return redirect('permissions')->with('status','Permission Deleted Successfully');
+        $PermissionData = DB::select('CALL view_permission_byId(' . $request -> get('idPermission') . ')');
+        $Permission = $PermissionData[0];
+
+        if ($Permission) {
+            $id = $request -> get('idPermission');
+
+            $response = DB::select('CALL delete_permission(?)', [$id]);
+            
+            return response()->json([
+                'status' => 200,
+                'message'=> 'Data Permission Berhasil Dihapus.'
+            ]);
+        }else{
+            return response()->json([
+                'status'=> 404,
+                'message' => 'Data Permission Tidak Ditemukan.'
+            ]);
+        }
     }
 }

@@ -45,7 +45,13 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['middleware' => 'auth'], function() {
 
-    Route::resource('permissions', PermissionController::class);
+    Route::get('permissions', [PermissionController::class, 'index'])->name('Permission.index');
+    Route::get("/permissions/tambah", [PermissionController::class, 'create'])->name('Permission.create');
+    Route::post("/permissions/simpan", [PermissionController::class, 'store'])->name('Permission.store');
+    Route::get("/permissions/edit/{id}", [PermissionController::class, 'edit'])->name('Permission.edit');
+    Route::put("/permissions/update/{id}", [PermissionController::class, 'update'])->name('Permission.update');
+    Route::post('/permissions/hapus', [PermissionController::class, 'delete'])->name('Permission.delete');
+    //Route::resource('permissions', PermissionController::class);
     Route::get('permissions/{permissionId}/delete', [PermissionController::class, 'destroy']);
 
     Route::get('roles', [RoleController::class, 'index'])->name('Role.index');
@@ -54,6 +60,7 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get("/roles/edit/{id}", [RoleController::class, 'edit'])->name('Role.edit');
     Route::put("/roles/update/{id}", [RoleController::class, 'update'])->name('Role.update');
     Route::post('/roles/hapus', [RoleController::class, 'delete'])->name('Role.delete');
+    Route::get('/roles/hak-akses', [RoleController::class, 'addPermissionToRole'])->name('Role.addPermissionToRole');
     //Route::get('roles/{roleId}/delete', [RoleController::class, 'destroy']);
     Route::get('roles/{roleId}/give-permissions', [RoleController::class, 'addPermissionToRole']);
     Route::put('roles/{roleId}/give-permissions', [RoleController::class, 'givePermissionToRole']);

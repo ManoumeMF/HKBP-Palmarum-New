@@ -64,7 +64,7 @@ class RoleController extends Controller
         $RoleData = DB::select('CALL view_role_byId(' . $id . ')');
         $Role = $RoleData[0];
 
-        if ($RoleData) {
+        if ($Role) {
            return view('admin.RolePermission.Role.edit', compact('Role'));
         } else {
             return redirect()->route('Role.index')->with('error', 'Role Tidak Ditemukan!');
@@ -121,12 +121,14 @@ class RoleController extends Controller
         }
     }
 
-    public function addPermissionToRole($roleId)
+    public function addPermissionToRole()
     {
+        //$roleId = 1;
         $permissions = Permission::get();
-        $role = Role::findOrFail($roleId);
+        $role = Role::get();
+        //dd($role);
         $rolePermissions = DB::table('role_has_permissions')
-                                ->where('role_has_permissions.role_id', $role->id)
+                                ->where('role_has_permissions.role_id', 1)
                                 ->pluck('role_has_permissions.permission_id','role_has_permissions.permission_id')
                                 ->all();
 
