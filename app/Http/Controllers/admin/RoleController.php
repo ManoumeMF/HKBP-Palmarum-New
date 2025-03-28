@@ -23,8 +23,9 @@ class RoleController extends Controller
 
     public function index()
     {
-        $roles = Role::get();
-        return view('admin.RolePermission.Role.index', ['roles' => $roles]);
+        //$roles = Role::get();
+        $roles = DB::select('CALL viewAll_role()'); 
+        return view('admin.RolePermission.Role.index', compact('roles'));
     }
 
     public function create()
@@ -80,18 +81,44 @@ class RoleController extends Controller
             ]
         ]);
 
-        /*$role->update([
-            'name' => $request->name
-        ]);*/
+        $Role = json_encode([
+            'IdRole' => $id,
+            'NamaRole' => $request->name,
+            'NamaGuard'  => $this->guard
+        ]);
 
-        return redirect('roles')->with('status','Role Updated Successfully');
+        //dd($BidangPekerjaan);
+
+        $response = DB::statement('CALL update_role(:dataRole)', ['dataRole' => $Role]);
+
+        if ($response) {
+            return redirect()->route('Role.index')->with('success', 'Role Berhasil Diupdate!');
+        } else {
+            return redirect()->route('Role.edit')->with('error', 'Role Gagal Diupdate!');
+        }
+
     }
 
-    public function destroy($roleId)
+    public function delete(Request $request)
     {
-        $role = Role::find($roleId);
-        $role->delete();
-        return redirect('roles')->with('status','Role Deleted Successfully');
+        $roleData = DB::select('CALL view_role_byId(' . $request -> get('idRole') . ')');
+        $Role = $roleData[0];
+
+        if ($Role) {
+            $id = $request -> get('idRole');
+
+            $response = DB::select('CALL delete_role(?)', [$id]);
+            
+            return response()->json([
+                'status' => 200,
+                'message'=> 'Data Role Berhasil Dihapus.'
+            ]);
+        }else{
+            return response()->json([
+                'status'=> 404,
+                'message' => 'Data Role Tidak Ditemukan.'
+            ]);
+        }
     }
 
     public function addPermissionToRole($roleId)

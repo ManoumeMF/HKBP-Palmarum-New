@@ -134,13 +134,13 @@
         //-------------------------------------------------------------------------------------------------
         //Ajax Delete Data
         //-------------------------------------------------------------------------------------------------
-        $(document).on('click', '.delete_bank', function (e) {
+        $(document).on('click', '.delete_role', function (e) {
             e.preventDefault();
 
             var id = $('#deleting_id').val();
 
             var data = {
-                'idBank': id,
+                'idRole': id,
             }
 
             $.ajaxSetup({
@@ -152,30 +152,22 @@
             console.log(id);
 
             $.ajax({
-                type: "DELETE",
-                url: "{{ route('Bank.delete') }}",
+                type: "POST",
+                url: "{{ route('Role.delete') }}",
                 data: data,
                 dataType: "json",
                 success: function (response) {
                     if (response.status == 400) {
-                        //$('#save_msgList').html("");
-                        //$('#save_msgList').addClass('alert alert-danger');
                         $.each(response.errors, function (key, err_value) {
-                            //$('#save_msgList').append('<li>' + err_value + '</li>');
                             new Noty({
                                 text: err_value,
                                 type: 'error',
                                 modal: true
                             }).show();
                         });
-                        $('.delete_bank').text('Hapus');
+                        $('.delete_role').text('Hapus');
                     } else {
-                        //$('#save_msgList').html("");
-                        //$('#success_message').addClass('alert alert-success');
-                        //$('#success_message').text(response.message);
-
-                        //$('#deleteModal').find('input', 'textarea').val('');
-                        $('.delete_bank').text('Hapus');
+                        $('.delete_role').text('Hapus');
                         $('#deleteModal').modal('hide');
 
                         new Noty({
@@ -184,7 +176,7 @@
                             modal: true
                         }).show();
 
-                        setTimeout("window.location='{{ route('Bank.index') }}'", 1500);
+                        setTimeout("window.location='{{ route('Role.index') }}'", 1500);
                     }
                 }
             });
@@ -307,10 +299,10 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Hapus Data Bank</h5>
+                        <h5 class="modal-title">Hapus Data Role</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                     </div>
-                    <form id="deleteBankForm">
+                    <form id="deleteRoleForm">
                         @csrf
                         <div class="modal-body">
                             <h4>Konfirmasi untuk Menghapus Data?</h4>
@@ -318,7 +310,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary delete_bank">Hapus</button>
+                            <button type="submit" class="btn btn-primary delete_role">Hapus</button>
                         </div>
                     </form>
                 </div>

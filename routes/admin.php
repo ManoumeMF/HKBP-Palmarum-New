@@ -52,8 +52,9 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get("/roles/tambah", [RoleController::class, 'create'])->name('Role.create');
     Route::post("/roles/simpan", [RoleController::class, 'store'])->name('Role.store');
     Route::get("/roles/edit/{id}", [RoleController::class, 'edit'])->name('Role.edit');
-    Route::post("/roles/update/{id}", [RoleController::class, 'update'])->name('Role.update');
-    Route::get('roles/{roleId}/delete', [RoleController::class, 'destroy']);
+    Route::put("/roles/update/{id}", [RoleController::class, 'update'])->name('Role.update');
+    Route::post('/roles/hapus', [RoleController::class, 'delete'])->name('Role.delete');
+    //Route::get('roles/{roleId}/delete', [RoleController::class, 'destroy']);
     Route::get('roles/{roleId}/give-permissions', [RoleController::class, 'addPermissionToRole']);
     Route::put('roles/{roleId}/give-permissions', [RoleController::class, 'givePermissionToRole']);
 
