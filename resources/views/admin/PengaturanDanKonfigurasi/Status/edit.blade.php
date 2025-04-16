@@ -89,7 +89,7 @@ $(document).on('click', '.tambah_jenisStatus', function(e) {
     <!-- Basic layout -->
     <div class="card" style="height:100%;">
         <div class="card-header">
-            <h5 class="mb-0">Tambah Status</h5>
+            <h5 class="mb-0">Edit Status</h5>
         </div>
         <div class="card-body">
             <div class="row">
@@ -104,7 +104,7 @@ $(document).on('click', '.tambah_jenisStatus', function(e) {
                                 <div class="input-group">
                                     <select data-placeholder="Pilih Jenis Status" class="form-control select" data-width="1%" name="jenisStatus" required>
                                         <option></option>
-                                        @foreach ($statusType as $sT)
+                                        @foreach ($statusTypeCombo as $sT)
                                             <option value="{{$sT->id_jenis_status}}" {{ $sT->id_jenis_status === $status -> id_jenis_status ? 'selected' : '' }}>{{$sT->jenis_status}}</option>
                                         @endforeach
                                     </select>

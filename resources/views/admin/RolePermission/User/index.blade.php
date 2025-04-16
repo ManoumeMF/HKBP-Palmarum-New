@@ -209,7 +209,7 @@
                 <div class="breadcrumb py-2">
                     <a href="index.html" class="breadcrumb-item"><i class="ph-house"></i></a>
                     <a href="#" class="breadcrumb-item">Home</a>
-                    <span class="breadcrumb-item active">Role</span>
+                    <span class="breadcrumb-item active">User</span>
                 </div>
                 <a href="#breadcrumb_elements"
                     class="btn btn-light align-self-center collapsed d-lg-none border-transparent rounded-pill p-0 ms-auto"
@@ -229,30 +229,32 @@
             <div class="card-header d-flex">
                 <h5 class="mb-0">Daftar User</h5>
                 <div class="ms-auto">
-                    <a class="btn btn-primary" href="{{ url('users/create') }}"><i class="ph-plus-circle"></i><span
+                    <a class="btn btn-primary" href="{{ route('User.create') }}"><i class="ph-plus-circle"></i><span
                             class="d-none d-lg-inline-block ms-2">Tambah User</span></a>
                 </div>
             </div>
             <table id="permissionTable" class="table datatable-basic table-striped">
                 <thead>
                     <tr>
-                        <th>Id</th>
-                        <th>Nama User</th>
+                        <th>Jenis User</th>
+                        <th>Nama Lengkap User</th>
+                        <th>Username</th>
                         <th>Email</th>
                         <th>Roles</th>
-                        <th class="text-center">Tindakan</th>
+                        <th class="text-center" style="width: 100px;">Tindakan</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($users as $user)
+                    @foreach ($dataArray as $user)
                         <tr>
-                            <td>{{ $user->id }}</td>
-                            <td>{{ $user->name }}</td>
-                            <td>{{ $user->email }}</td>
+                            <td>{{ $user['jenisuser'] }}</td>
+                            <td></td>
+                            <td>{{ $user['username'] }}</td>
+                            <td>{{ $user['email'] }}</td>
                             <td>
-                                @if (!empty($user->getRoleNames()))
-                                    @foreach ($user->getRoleNames() as $rolename)
-                                        <label class="badge bg-primary mx-1">{{ $rolename }}</label>
+                                @if (!empty($user['roles']))
+                                    @foreach ($user['roles'] as $rolename)
+                                        <label class="badge bg-primary mx-1">{{ $rolename['rolename'] }}</label>
                                     @endforeach
                                 @endif
                             </td>
@@ -263,16 +265,16 @@
                                             <i class="ph-list"></i>
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-end">
-                                            <button type="button" value="{{ $user->id }}"
+                                            <button type="button" value="{{ $user['id'] }}"
                                                 class="dropdown-item text-info detailBtn">
                                                 <i class="ph-list me-2"></i>Detail
                                             </button>
-                                            <button type="button" value="{{ $user->id }}"
+                                            <button type="button" value="{{ $user['id'] }}"
                                                 class="dropdown-item text-secondary">
-                                                <a href="{{ url('users/' . $user->id . '/edit') }}"
+                                                <a href="{{ url('users/' . $user['id'] . '/edit') }}"
                                                     style="color:inherit"><i class="ph-pencil me-2"></i> Edit</a>
                                             </button>
-                                            <button type="button" value="{{ $user->id }}"
+                                            <button type="button" value="{{ $user['id'] }}"
                                                 class="dropdown-item text-danger deleteBtn">
                                                 <i class="ph-trash me-2"></i>Hapus
                                             </button>

@@ -230,8 +230,7 @@
             <h5 class="mb-0">Daftar Majelis</h5>
             <div class="ms-auto">
                 <a class="btn btn-primary" href="{{ route('Majelis.create') }}"><i
-                        class="ph-plus-circle"></i><span class="d-none d-lg-inline-block ms-2">Tambah Majelis
-                        Baru</span></a>
+                        class="ph-plus-circle"></i><span class="d-none d-lg-inline-block ms-2">Tambah Baru</span></a>
             </div>
         </div>
         <table id="bankTable" class="table datatable-basic table-striped">
@@ -246,14 +245,19 @@
                 </tr>
             </thead>
             <tbody>
-                @if (isset($majelis) && count($majelis) > 0)
-                    @foreach ($majelis as $mJ)
+                    @foreach ($dataArray as $majelis)
                         <tr>
-                            <td>{{ $mJ->namaLengkap }}</td>
-                            <td>{{ $mJ->nama_pelayan }}</td>
-                            <td>{{ $mJ->tgl_tahbis }}</td>
-                            <td>{{ $mJ->tgl_akhir_jawatan }}</td>
-                            <td> </td>
+                            <td>{{ $majelis['namaLengkap'] }}</td>
+                            <td>{{ $majelis['nama_pelayan'] }}</td>
+                            <td>{{ $majelis['tgl_tahbis'] }}</td>
+                            <td>{{ $majelis['tgl_akhir_jawatan'] }}</td>
+                            <td> 
+                            @if (!empty($majelis['wijk']))
+                                    @foreach ($majelis['wijk'] as $wijkname)
+                                        <label class="badge bg-primary mx-1">{{ $wijkname['namaWijk'] }}</label>
+                                    @endforeach
+                                @endif
+                            </td>
                             <td class="text-center">
                                 <div class="d-inline-flex">
                                     <div class="dropdown">
@@ -261,16 +265,16 @@
                                             <i class="ph-list"></i>
                                         </a>
                                         <div class="dropdown-menu dropdown-menu-end">
-                                            <button type="button" value="{{ $mJ->id_majelis }}"
+                                            <button type="button" value="{{ $majelis['id_majelis'] }}"
                                                 class="dropdown-item text-info detailBtn">
                                                 <i class="ph-list me-2"></i>Detail
                                             </button>
-                                            <button type="button" value="{{ $mJ->id_majelis }}"
+                                            <button type="button" value="{{ $majelis['id_majelis'] }}"
                                                 class="dropdown-item text-secondary">
-                                                <a href="{{ route('Jemaat.edit', $mJ->id_majelis) }}" style="color:inherit"><i
+                                                <a href="{{ route('Jemaat.edit', $majelis['id_majelis']) }}" style="color:inherit"><i
                                                         class="ph-pencil me-2"></i> Edit</a>
                                             </button>
-                                            <button type="button" value="{{ $mJ->id_majelis }}"
+                                            <button type="button" value="{{ $majelis['id_majelis'] }}"
                                                 class="dropdown-item text-danger deleteBtn">
                                                 <i class="ph-trash me-2"></i>Hapus
                                             </button>
@@ -280,7 +284,6 @@
                             </td>
                         </tr>
                     @endforeach
-                @endif
             </tbody>
         </table>
     </div>

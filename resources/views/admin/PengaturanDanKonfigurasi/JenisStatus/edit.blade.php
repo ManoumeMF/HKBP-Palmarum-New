@@ -6,7 +6,7 @@
     <div class="page-header-content d-lg-flex">
         <div class="d-flex">
             <h4 class="page-title mb-0">
-                Pengaturan dan Konfigurasi - <span class="fw-normal">Bank</span>
+                Pengaturan dan Konfigurasi - <span class="fw-normal">Jenis Status</span>
             </h4>
             <a href="#page_header"
                 class="btn btn-light align-self-center collapsed d-lg-none border-transparent rounded-pill p-0 ms-auto"
@@ -19,9 +19,9 @@
         <div class="d-flex">
             <div class="breadcrumb py-2">
             <a href="{{ route('Dashboard.index') }}" class="breadcrumb-item"><i class="ph-house"></i></a>
-                <span class="breadcrumb-item">Pengaturan dan Konfigurasi</span>
-                <span class="breadcrumb-item">General</span>
-                <a href="{{ route('Bank.index') }}" class="breadcrumb-item active">Bank</a>
+                    <span class="breadcrumb-item">Pengaturan dan Konfigurasi</span>
+                    <span class="breadcrumb-item">General</span>
+                    <a href="{{ route('JenisStatus.index') }}" class="breadcrumb-item active">Jenis Status</a>
             </div>
             <a href="#breadcrumb_elements"
                 class="btn btn-light align-self-center collapsed d-lg-none border-transparent rounded-pill p-0 ms-auto"
@@ -41,23 +41,23 @@
     <!-- Basic layout -->
     <div class="card" style="height:100%;">
         <div class="card-header">
-            <h5 class="mb-0">Edit Bank</h5>
+            <h5 class="mb-0">Edit Jenis Status</h5>
         </div>
         <div class="card-body">
             <div class="row">
                 <div class="col-lg-9 offset-lg-1">
-                    @if (isset($fieldBank))
-                    <form action="{{ route('Bank.update', $fieldBank -> id_bank)}}"
+                    @if (isset($statusType))
+                    <form action="{{ route('JenisStatus.update', $statusType -> id_jenis_status)}}"
                         method="post" class="needs-validation" novalidate>
                         @csrf
                         <div class="row mb-3">
-                            <label class="col-lg-3 col-form-label">Bank<span
+                            <label class="col-lg-3 col-form-label">Jenis Status<span
                                     class="text-danger">*</span></label>
                             <div class="col-lg-9">
-                                <input type="text" class="form-control" placeholder="Masukkan Bank"
-                                    required value="{{ $fieldBank -> nama_bank }}"
-                                    name="bank">
-                                <div class="invalid-feedback">Bank Tidak Boleh Kosong.</div>
+                                <input type="text" class="form-control" placeholder="Masukkan Jenis Status"
+                                    required value="{{ $statusType -> jenis_status }}"
+                                    name="jenisStatus">
+                                <div class="invalid-feedback">Jenis Status Tidak Boleh Kosong.</div>
                                 <!--<div class="valid-feedback">Valid feedback</div>-->
                             </div>
                         </div>
@@ -65,11 +65,11 @@
                             <label class="col-lg-3 col-form-label">Keterangan:</label>
                             <div class="col-lg-9">
                                 <textarea rows="3" cols="3" class="form-control" placeholder="Masukkan Keterangan"
-                                    name="keterangan">{{ $fieldBank -> keterangan }}</textarea>
+                                    name="keterangan">{{ $statusType -> keterangan }}</textarea>
                             </div>
                         </div>
                         <div class="text-end">
-                            <a href="{{route('Bank.index')}}">
+                            <a href="{{route('Pekerjaan.index')}}">
                                 <button type="submit" class="btn btn-primary">Simpan<i
                                         class="ph-check-circle ms-2"></i></button>
                             </a>

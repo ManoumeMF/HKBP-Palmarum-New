@@ -21,11 +21,11 @@
 
             if (id) {
                 var data = {
-                    'idJemaat': id,
+                    'idRegistrasi': id,
                 }
 
                 $.ajax({
-                    url: "{{ route('DropdownLokasi.jemaat_combobox') }}",
+                    url: "{{ route('Majelis.getCboJemaat') }}",
                     type: "GET",
                     data: data,
                     dataType: "json",
@@ -35,7 +35,7 @@
                             $('#jemaat').prop('disabled', false);
                             $('#jemaat').append('<option hidden>Pilih Jemaat</option>');
                             $.each(data, function (key, jemaat) {
-                                $('#jemaat').append('<option value="' + jemaat.id_jemaat + '">' + jemaat.namaLengkap + '</option>');
+                                $('#jemaat').append('<option value="' + jemaat.idJemaat + '">' + jemaat.namaLengkap + '</option>');
                             });
                         } else {
                             $('#jemaat').empty();
@@ -253,7 +253,7 @@
                                     <div class="input-group">
                                         <select data-placeholder="Pilih Lingkungan/Lunggu/Wijk"
                                             class="form-control select" data-width="1%" name="wijk[]" id="wijk"
-                                            multiple="multiple" data-maximum-selection-length="3" required>
+                                            multiple="multiple" data-maximum-selection-length="3">
                                             <option></option>
                                             @foreach ($wijk as $wK)
                                                 <option value="{{ $wK->id_wijk }}">
@@ -264,7 +264,6 @@
                                         <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                                             data-bs-target="#addModalJenis"><i class="ph-plus-circle"></i>
                                         </button>
-                                        <div class="invalid-feedback">Silahkan Pilih Lingkungan/Lunggu/Wijk.</div>
                                     </div>
                                 </div>
                             </div>

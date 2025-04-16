@@ -5,12 +5,16 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Http;
-use App\Helpers\ApiFormatter;
-use Illuminate\Support\Facades\Validator;
 
 class PendidikanController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:view pendidikan', ['only' => ['index']]);
+        $this->middleware('permission:create pendidikan', ['only' => ['create','store']]);
+        $this->middleware('permission:update pendidikan', ['only' => ['update','edit']]);
+        $this->middleware('permission:delete pendidikan', ['only' => ['delete']]);
+    }
     protected $rules = array(
         'pendidikan'=> 'required'
     );

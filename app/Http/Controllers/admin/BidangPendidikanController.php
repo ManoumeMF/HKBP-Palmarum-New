@@ -5,12 +5,17 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Http;
-use App\Helpers\ApiFormatter;
-use Illuminate\Support\Facades\Validator;
 
 class BidangPendidikanController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:view bidang-pendidikan', ['only' => ['index']]);
+        $this->middleware('permission:create bidang-pendidikan', ['only' => ['create','store']]);
+        $this->middleware('permission:update bidang-pendidikan', ['only' => ['update','edit']]);
+        $this->middleware('permission:delete bidang-pendidikan', ['only' => ['delete']]);
+    }
+
     protected $rules = array(
         'bidangPendidikan'=> 'required'
     );

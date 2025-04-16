@@ -10,6 +10,13 @@ use Illuminate\Support\Facades\Validator;
 
 class StatusController extends Controller
 {
+    public function __construct()
+    {
+        /*$this->middleware('permission:view status', ['only' => ['index']]);
+        $this->middleware('permission:create status', ['only' => ['create','store']]);
+        $this->middleware('permission:update status', ['only' => ['update','edit']]);
+        $this->middleware('permission:delete status', ['only' => ['delete']]);*/
+    }
     protected $rules = array(
         'jenisStatus'=> 'required',
         'namaStatus'=> 'required'
@@ -61,7 +68,7 @@ class StatusController extends Controller
         $status = $statusData[0];
 
         if ($status) {
-            return view('admin.PengaturanDanKonfigurasi.Status.edit', ['statusType' => $statusTypeCombo], ['status' => $status]);
+            return view('admin.PengaturanDanKonfigurasi.Status.edit', compact('statusTypeCombo', 'status'));
          } else {
              return redirect()->route('Status.index')->with('error', 'Status Tidak Ditemukan!');
          }

@@ -195,7 +195,7 @@ $(document).on('click', '.delete_bank', function(e) {
     <div class="page-header-content d-lg-flex">
         <div class="d-flex">
             <h4 class="page-title mb-0">
-                Home - <span class="fw-normal">Dashboard</span>
+                Pengaturan dan Konfigurasi - <span class="fw-normal">Bank</span>
             </h4>
             <a href="#page_header"
                 class="btn btn-light align-self-center collapsed d-lg-none border-transparent rounded-pill p-0 ms-auto"
@@ -207,9 +207,10 @@ $(document).on('click', '.delete_bank', function(e) {
     <div class="page-header-content d-lg-flex border-top">
         <div class="d-flex">
             <div class="breadcrumb py-2">
-                <a href="index.html" class="breadcrumb-item"><i class="ph-house"></i></a>
-                <a href="#" class="breadcrumb-item">Home</a>
-                <span class="breadcrumb-item active">Dashboard</span>
+            <a href="{{ route('Dashboard.index') }}" class="breadcrumb-item"><i class="ph-house"></i></a>
+                <span class="breadcrumb-item">Pengaturan dan Konfigurasi</span>
+                <span class="breadcrumb-item">General</span>
+                <a href="{{ route('Bank.index') }}" class="breadcrumb-item active">Bank</a>
             </div>
             <a href="#breadcrumb_elements"
                 class="btn btn-light align-self-center collapsed d-lg-none border-transparent rounded-pill p-0 ms-auto"

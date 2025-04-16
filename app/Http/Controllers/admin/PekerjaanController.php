@@ -5,12 +5,17 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Http;
-use App\Helpers\ApiFormatter;
-use Illuminate\Support\Facades\Validator;
 
 class PekerjaanController extends Controller
 {
+    public function __construct()
+    {
+        /*$this->middleware('permission:view pekerjaan', ['only' => ['index']]);
+        $this->middleware('permission:create pekerjaan', ['only' => ['create','store']]);
+        $this->middleware('permission:update pekerjaan', ['only' => ['update','edit']]);
+        $this->middleware('permission:delete pekerjaan', ['only' => ['delete']]);*/
+    }
+
     protected $rules = array(
         'Pekerjaan'=> 'required'
     );

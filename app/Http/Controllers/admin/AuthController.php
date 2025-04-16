@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class AuthController extends Controller
 {
@@ -66,7 +67,13 @@ class AuthController extends Controller
 
         if(Auth::attempt($credentials))
         {
-            $request->session()->regenerate();
+            //dd(Auth::check());
+            $user = Auth::user();
+
+            $userData = DB::select('CALL view_userSessionById(?, ?)', [$user->id, $user->idJenisUser]);
+            //dd($userData[0]->results);
+            $request->session()->put('userSession', $userData[0]->results);
+
             return redirect()->route('Dashboard.index')
                 ->withSuccess('You have successfully logged in!');
         }
@@ -90,10 +97,14 @@ class AuthController extends Controller
     ///Logout
     public function logout()
     {
-        $data = array();
+        Auth::logout(); // user must logout before redirect them
+        session()->flush();
+        return redirect()->route('login');
+
+        /*$data = array();
         if(Session::has('loginId')){
             Session::pull('loginId');
             return view('admin.Auth.login');
-        }
+        }*/
     }
 }

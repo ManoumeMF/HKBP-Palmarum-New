@@ -5,12 +5,19 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Http;
-use App\Helpers\ApiFormatter;
-use Illuminate\Support\Facades\Validator;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 
 class BankController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('permission:view bank', ['only' => ['index']]);
+        $this->middleware('permission:create bank', ['only' => ['create','store']]);
+        $this->middleware('permission:update bank', ['only' => ['update','edit']]);
+        $this->middleware('permission:delete bank', ['only' => ['delete']]);
+    }
+
     protected $rules = array(
         'bank'=> 'required'
     );

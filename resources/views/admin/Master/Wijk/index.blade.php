@@ -14,7 +14,7 @@
                     columnDefs: [{
                         orderable: false,
                         width: 100,
-                        targets: [2]
+                        targets: [3]
                     }],
                     dom: '<"datatable-header"fl><"datatable-scroll"t><"datatable-footer"ip>',
                     language: {
@@ -91,15 +91,15 @@
         $(document).on('click', '.detailBtn', function (e) {
             e.preventDefault();
 
-            var fp_id = $(this).val();
+            var fe_id = $(this).val();
 
             $("#detailModal").modal('show');
 
             $.ajax({
                 method: "GET",
-                url: "{{ route('Pendidikan.detail') }}",
+                url: "{{ route('Wijk.detail') }}",
                 data: {
-                    id: fp_id
+                    id: fe_id
                 },
                 success: function (response) {
                     //console.log(response);
@@ -109,11 +109,11 @@
                             type: 'warning',
                             modal: true
                         }).show();
-                        $('#editModal').modal('hide');
+                        $('#detailModal').modal('hide');
                     } else {
-                        //console.log(response.fieldEducation.nama_bidang_pendidikan)
-                        $('#detail_pendidikan').text(response.fieldPendidikan.pendidikan);
-                        $('#detail_keterangan').text(response.fieldPendidikan.keterangan);
+                        $('#detail_nama_gereja').text(response.wijk.nama_gereja);
+                        $('#detail_nama_wijk').text(response.wijk.nama_wijk);
+                        $('#detail_keterangan').text(response.wijk.keterangan);
                     }
                 }
             });
@@ -124,22 +124,22 @@
         //Ajax Form Delete Data
         //-------------------------------------------------------------------------------------------------
         $(document).on('click', '.deleteBtn', function (e) {
-            var fp_id = $(this).val();
+            var fe_id = $(this).val();
 
             $('#deleteModal').modal('show');
-            $('#deleting_id').val(fp_id);
+            $('#deleting_id').val(fe_id);
         });
 
         //-------------------------------------------------------------------------------------------------
         //Ajax Delete Data
         //-------------------------------------------------------------------------------------------------
-        $(document).on('click', '.delete_Pendidikan', function (e) {
+        $(document).on('click', '.delete_wijk', function (e) {
             e.preventDefault();
 
             var id = $('#deleting_id').val();
 
             var data = {
-                'idPendidikan': id,
+                'idWijk': id,
             }
 
             $.ajaxSetup({
@@ -151,8 +151,8 @@
             console.log(id);
 
             $.ajax({
-                type: "POST",
-                url: "{{ route('Pendidikan.delete') }}",
+                type: "DELETE",
+                url: "{{ route('Wijk.delete') }}",
                 data: data,
                 dataType: "json",
                 success: function (response) {
@@ -164,9 +164,9 @@
                                 modal: true
                             }).show();
                         });
-                        $('.delete_Pendidikan').text('Hapus');
+                        $('.delete_wijk').text('Hapus');
                     } else {
-                        $('.delete_Pendidikan').text('Hapus');
+                        $('.delete_wijk').text('Hapus');
                         $('#deleteModal').modal('hide');
 
                         new Noty({
@@ -175,7 +175,7 @@
                             modal: true
                         }).show();
 
-                        setTimeout("window.location='{{ route('Pendidikan.index') }}'", 1500);
+                        setTimeout("window.location='{{ route('Wijk.index') }}'", 1500);
                     }
                 }
             });
@@ -186,7 +186,7 @@
         <div class="page-header-content d-lg-flex">
             <div class="d-flex">
                 <h4 class="page-title mb-0">
-                    Pengaturan dan Konfigurasi - <span class="fw-normal">Pendidikan</span>
+                    Home - <span class="fw-normal">Dashboard</span>
                 </h4>
                 <a href="#page_header"
                     class="btn btn-light align-self-center collapsed d-lg-none border-transparent rounded-pill p-0 ms-auto"
@@ -198,10 +198,9 @@
         <div class="page-header-content d-lg-flex border-top">
             <div class="d-flex">
                 <div class="breadcrumb py-2">
-                    <a href="{{ route('Dashboard.index') }}" class="breadcrumb-item"><i class="ph-house"></i></a>
-                    <span class="breadcrumb-item">Pengaturan dan Konfigurasi</span>
-                    <span class="breadcrumb-item">General</span>
-                    <a href="{{ route('Pendidikan.index') }}" class="breadcrumb-item active">Pendidikan</a>
+                    <a href="index.html" class="breadcrumb-item"><i class="ph-house"></i></a>
+                    <a href="#" class="breadcrumb-item">Home</a>
+                    <span class="breadcrumb-item active">Dashboard</span>
                 </div>
                 <a href="#breadcrumb_elements"
                     class="btn btn-light align-self-center collapsed d-lg-none border-transparent rounded-pill p-0 ms-auto"
@@ -219,26 +218,29 @@
     <div class="content">
         <div class="card">
             <div class="card-header d-flex">
-                <h5 class="mb-0">Daftar Pendidikan</h5>
+                <h5 class="mb-0">Daftar Lingkungan/Wijk/Lunggu</h5>
                 <div class="ms-auto">
-                    <a class="btn btn-primary" href="{{ route('Pendidikan.create') }}"><i class="ph-plus-circle"></i><span
+                    <a class="btn btn-primary" href="{{ route('Wijk.create') }}"><i class="ph-plus-circle"></i><span
                             class="d-none d-lg-inline-block ms-2">Tambah Baru</span></a>
                 </div>
             </div>
-            <table id="bidangPendidikanTable" class="table datatable-basic table-striped">
+            <table id="bankTable" class="table datatable-basic table-striped">
                 <thead>
                     <tr>
-                        <th>Pendidikan</th>
+                    <tr>
+                        <th>Nama Gereja</th>
+                        <th>Nama Lingkungan/Wijk/Lunggu</th>
                         <th>Keterangan</th>
                         <th class="text-center">Tindakan</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @if (isset($fieldPendidikan) && count($fieldPendidikan) > 0)
-                        @foreach ($fieldPendidikan as $fP)
+                    @if (isset($Wijk) && count($Wijk) > 0)
+                        @foreach ($Wijk as $wJ)
                             <tr>
-                                <td>{{ $fP->pendidikan }}</td>
-                                <td>{{ $fP->keterangan }}</td>
+                                <td>{{ $wJ->nama_gereja }}</td>
+                                <td>{{ $wJ->nama_wijk }}</td>
+                                <td>{{ $wJ->keterangan }}</td>
                                 <td class="text-center">
                                     <div class="d-inline-flex">
                                         <div class="dropdown">
@@ -246,16 +248,16 @@
                                                 <i class="ph-list"></i>
                                             </a>
                                             <div class="dropdown-menu dropdown-menu-end">
-                                                <button type="button" value="{{ $fP->id_pendidikan }}"
+                                                <button type="button" value="{{ $wJ->id_wijk }}"
                                                     class="dropdown-item text-info detailBtn">
                                                     <i class="ph-list me-2"></i>Detail
                                                 </button>
-                                                <button type="button" value="{{ $fP->id_pendidikan }}"
+                                                <button type="button" value="{{ $wJ->id_wijk }}"
                                                     class="dropdown-item text-secondary">
-                                                    <a href="{{ route('Pendidikan.edit', $fP->id_pendidikan) }}"
-                                                        style="color:inherit"><i class="ph-pencil me-2"></i> Edit</a>
+                                                    <a href="{{ route('Wijk.edit', $wJ->id_wijk) }}" style="color:inherit"><i
+                                                            class="ph-pencil me-2"></i> Edit</a>
                                                 </button>
-                                                <button type="button" value="{{ $fP->id_pendidikan }}"
+                                                <button type="button" value="{{ $wJ->id_wijk }}"
                                                     class="dropdown-item text-danger deleteBtn">
                                                     <i class="ph-trash me-2"></i>Hapus
                                                 </button>
@@ -275,15 +277,23 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Detail Pendidikan</h5>
+                        <h5 class="modal-title">Detail Wijk</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                     </div>
                     <div class="modal-body">
                         <div class="container">
                             <div class="row mb-2">
-                                <label for="detail_pendidikan" class="col-lg-4 col-form-label">Pendidikan:</label>
+                                <label for="detail_nama_gereja" class="col-lg-4 col-form-label">
+                                    Nama Gereja:</label>
                                 <div class="col-lg-7">
-                                    <label id="detail_pendidikan" class="col-form-label"></label>
+                                    <label id="detail_nama_gereja" class="col-form-label"></label>
+                                </div>
+                            </div>
+                            <div class="row mb-2">
+                                <label for="detail_nama_wijk" class="col-lg-4 col-form-label">
+                                    Lingkungan/Wick/Lunggu:</label>
+                                <div class="col-lg-7">
+                                    <label id="detail_nama_wijk" class="col-form-label"></label>
                                 </div>
                             </div>
                             <div class="row mb-2">
@@ -306,10 +316,10 @@
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Hapus Data Pendidikan</h5>
+                        <h5 class="modal-title">Hapus Data Wijk</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                     </div>
-                    <form id="deletePendidikanForm">
+                    <form id="deleteWijkForm">
                         @csrf
                         <div class="modal-body">
                             <h4>Konfirmasi untuk Menghapus Data?</h4>
@@ -317,7 +327,7 @@
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
-                            <button type="submit" class="btn btn-primary delete_Pendidikan">Hapus</button>
+                            <button type="submit" class="btn btn-primary delete_wijk">Hapus</button>
                         </div>
                     </form>
                 </div>

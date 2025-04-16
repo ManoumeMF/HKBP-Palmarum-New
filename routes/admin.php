@@ -21,6 +21,7 @@ use App\Http\Controllers\admin\JemaatController;
 use App\Http\Controllers\admin\MajelisController;
 use App\Http\Controllers\admin\KegiatanController;
 use App\Http\Controllers\admin\JemaatLahirController;
+use App\Http\Controllers\admin\WijkController;
 use App\Http\Controllers\admin\DropdownLokasiContoller;
 use App\Http\Controllers\admin\RoleController;
 use App\Http\Controllers\admin\PermissionController;
@@ -45,6 +46,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::group(['middleware' => 'auth'], function() {
 
+    Route::get("/dashboard", [DashboardController::class, 'index'])->name('Dashboard.index');
+
     Route::get('permissions', [PermissionController::class, 'index'])->name('Permission.index');
     Route::get("/permissions/tambah", [PermissionController::class, 'create'])->name('Permission.create');
     Route::post("/permissions/simpan", [PermissionController::class, 'store'])->name('Permission.store');
@@ -65,8 +68,11 @@ Route::group(['middleware' => 'auth'], function() {
     Route::get('roles/{roleId}/give-permissions', [RoleController::class, 'addPermissionToRole']);
     Route::put('roles/{roleId}/give-permissions', [RoleController::class, 'givePermissionToRole']);
 
-    Route::resource('users', UserController::class);
-    Route::get('users/{userId}/delete', [UserController::class, 'destroy']);
+    Route::get('users', [UserController::class, 'index'])->name('User.index');
+    Route::get("/users/tambah", [UserController::class, 'create'])->name('User.create');
+    Route::post("/users/simpan", [UserController::class, 'store'])->name('User.store');
+    //Route::get('users/{userId}/delete', [UserController::class, 'destroy']);
+    Route::get('users/nama-lengkap', [UserController::class, 'getNamaLengkap'])->name('User.getNamaLengkap');
 
 });
 
@@ -77,11 +83,10 @@ Route::controller(AuthController::class)->group(function(){
     Route::get('/login','login')->name('login');
     Route::post('/login-user','loginUser')->name('login-user');
     //Route::get('/dashboard','dashboard')->middleware('isLoggedIn');
-    Route::get('/logout','logout');
+    Route::get('/logout','logout')->name('logout');
 });
 
 // Route untuk dashboard
-Route::get("/dashboard", [DashboardController::class, 'index'])->name('Dashboard.index');
 //Route::get("/login", [AuthController::class, 'login'])->name('Auth.login');
 
 
@@ -101,16 +106,17 @@ Route::post("/pendidikan/simpan", [PendidikanController::class, 'store'])->name(
 Route::get("/pendidikan/tambah", [PendidikanController::class, 'create'])->name('Pendidikan.create');
 Route::get("/pendidikan/edit/{id}", [PendidikanController::class, 'edit'])->name('Pendidikan.edit');
 Route::post("/pendidikan/update/{id}", [PendidikanController::class, 'update'])->name('Pendidikan.update');
-Route::delete('/pendidikan/hapus', [PendidikanController::class, 'delete'])->name('Pendidikan.delete');
+Route::post('/pendidikan/hapus', [PendidikanController::class, 'delete'])->name('Pendidikan.delete');
 Route::get('/pendidikan/detail',[PendidikanController::class, 'detail'])->name('Pendidikan.detail');
 
 // Route untuk Jenis Status
 Route::get("/jenis-status", [JenisStatusController::class, 'index'])->name('JenisStatus.index');
+Route::get("/jenis-status/tambah", [JenisStatusController::class, 'create'])->name('JenisStatus.create');
 Route::post("/jenis-status/simpan", [JenisStatusController::class, 'store'])->name('JenisStatus.store');
-Route::get("/jenis-status/edit", [JenisStatusController::class, 'edit'])->name('JenisStatus.edit');
-Route::put("/jenis-status/update", [JenisStatusController::class, 'update'])->name('JenisStatus.update');
+Route::get("/jenis-status/edit/{id}", [JenisStatusController::class, 'edit'])->name('JenisStatus.edit');
+Route::post("/jenis-status/update/{id}", [JenisStatusController::class, 'update'])->name('JenisStatus.update');
 Route::get("/jenis-status/detail", [JenisStatusController::class, 'detail'])->name('JenisStatus.detail');
-Route::delete("/jenis-status/hapus", [JenisStatusController::class, 'delete'])->name('JenisStatus.delete');
+Route::post("/jenis-status/hapus", [JenisStatusController::class, 'delete'])->name('JenisStatus.delete');
 
 // Route untuk Status
 Route::get("/status", [StatusController::class, 'index'])->name('Status.index');
@@ -133,13 +139,13 @@ Route::delete('/pekerjaan/hapus', [PekerjaanController::class, 'delete'])->name(
 Route::get('/pekerjaan/detail',[PekerjaanController::class, 'detail'])->name('Pekerjaan.detail');
 
 // Route untuk Hubungan Keluarga
-Route::get("/hubunganKeluarga", [HubunganKeluargaController::class, 'index'])->name('Hubungan-Keluarga.index');
-Route::post("/hubunganKeluarga/simpan", [HubunganKeluargaController::class, 'store'])->name('Hubungan-Keluarga.store');
-Route::get("/hubunganKeluarga/tambah", [HubunganKeluargaController::class, 'create'])->name('Hubungan-Keluarga.create');
-Route::get("/hubunganKeluarga/edit/{id}", [HubunganKeluargaController::class, 'edit'])->name('Hubungan-Keluarga.edit');
-Route::post("/hubunganKeluarga/update/{id}", [HubunganKeluargaController::class, 'update'])->name('Hubungan-Keluarga.update');
-Route::delete('/hubunganKeluarga/hapus', [HubunganKeluargaController::class, 'delete'])->name('Hubungan-Keluarga.delete');
-Route::get('/hubunganKeluarga/detail',[HubunganKeluargaController::class, 'detail'])->name('Hubungan-Keluarga.detail');
+Route::get("/hubungan-keluarga", [HubunganKeluargaController::class, 'index'])->name('HubunganKeluarga.index');
+Route::post("/hubungan-keluarga/simpan", [HubunganKeluargaController::class, 'store'])->name('HubunganKeluarga.store');
+Route::get("/hubungan-keluarga/tambah", [HubunganKeluargaController::class, 'create'])->name('HubunganKeluarga.create');
+Route::get("/hubungan-keluarga/edit/{id}", [HubunganKeluargaController::class, 'edit'])->name('HubunganKeluarga.edit');
+Route::post("/hubungan-keluarga/update/{id}", [HubunganKeluargaController::class, 'update'])->name('HubunganKeluarga.update');
+Route::delete('/hubungan-keluarga/hapus', [HubunganKeluargaController::class, 'delete'])->name('HubunganKeluarga.delete');
+Route::get('/hubungan-keluarga/detail',[HubunganKeluargaController::class, 'detail'])->name('HubunganKeluarga.detail');
 
 // Route untuk Bank
 Route::get("/bank", [BankController::class, 'index'])->name('Bank.index');
@@ -257,6 +263,7 @@ Route::post("/majelis/simpan", [MajelisController::class, 'store'])->name('Majel
 Route::get("/majelis/edit/{id}", [MajelisController::class, 'edit'])->name('Majelis.edit');
 Route::post("/majelis/update/{id}", [MajelisController::class, 'update'])->name('Majelis.update');
 Route::get("/majelis/detail", [MajelisController::class, 'detail'])->name('Majelis.detail');
+Route::get("/majelis/jemaat-combobox", [MajelisController::class, 'getCboJemaat'])->name('Majelis.getCboJemaat');	
 
 //Route untuk Kegiatan
 Route::get("/kegiatan", [KegiatanController::class, 'index'])->name('Kegiatan.index');
@@ -265,6 +272,15 @@ Route::post("/kegiatan/simpan", [KegiatanController::class, 'store'])->name('Keg
 Route::get("/kegiatan/edit/{id}", [KegiatanController::class, 'edit'])->name('Kegiatan.edit');
 Route::post("/kegiatan/update/{id}", [KegiatanController::class, 'update'])->name('Kegiatan.update');
 Route::get("/kegiatan/detail", [KegiatanController::class, 'detail'])->name('Kegiatan.detail');
+
+//Route untuk Wijk
+Route::get("/lingkungan", [WijkController::class, 'index'])->name('Wijk.index');
+Route::get("/lingkungan/tambah", [WijkController::class, 'create'])->name('Wijk.create');
+Route::post("/lingkungan/simpan", [WijkController::class, 'store'])->name('Wijk.store');
+Route::get("/lingkungan/detail", [WijkController::class, 'detail'])->name('Wijk.detail');
+Route::get("/lingkungan/edit/{id}", [WijkController::class, 'edit'])->name('Wijk.edit');
+Route::post("/lingkungan/update/{id}", [WijkController::class, 'update'])->name('Wijk.update');
+Route::delete("/lingkungan/hapus", [WijkController::class, 'delete'])->name('Wijk.delete');
 
 //Route untuk Jemaat Lahir
 Route::get("/jemaat-lahir", [JemaatLahirController::class, 'index'])->name('JemaatLahir.index');

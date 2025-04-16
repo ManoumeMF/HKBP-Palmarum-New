@@ -32,15 +32,17 @@
     <script src="{{ asset('admin_resources/assets/js/vendor/ui/fullcalendar/main.min.js') }}"></script>
     <script src="{{ asset('admin_resources/assets/demo/pages/fullcalendar_styling.js') }}"></script>
     <script src="{{ asset('admin_resources/assets/demo/pages/form_validation_styles.js') }}"></script>
-	<script src="{{ asset('admin_resources/assets/js/vendor/notifications/noty.min.js') }}"></script>
-	<script src="{{ asset('admin_resources/assets/js/vendor/forms/wizards/steps.min.js') }}"></script>
-	<script src="{{ asset('admin_resources/assets/js/vendor/forms/validation/validate.min.js') }}"></script>
-	<script src="{{ asset('admin_resources/assets/js/vendor/pickers/daterangepicker.js') }}"></script>
-	<script src="{{ asset('admin_resources/assets/js/vendor/pickers/datepicker.min.js') }}"></script>
-	<script src="{{ asset('admin_resources/assets/js/vendor/uploaders/dropzone.min.js') }}"></script>
+    <script src="{{ asset('admin_resources/assets/js/vendor/notifications/noty.min.js') }}"></script>
+    <script src="{{ asset('admin_resources/assets/js/vendor/forms/wizards/steps.min.js') }}"></script>
+    <script src="{{ asset('admin_resources/assets/js/vendor/forms/validation/validate.min.js') }}"></script>
+    <script src="{{ asset('admin_resources/assets/js/vendor/pickers/daterangepicker.js') }}"></script>
+    <script src="{{ asset('admin_resources/assets/js/vendor/pickers/datepicker.min.js') }}"></script>
+    <script src="{{ asset('admin_resources/assets/js/vendor/uploaders/dropzone.min.js') }}"></script>
     <script src="{{ asset('admin_resources/assets/js/vendor/tables/datatables/datatables.min.js') }}"></script>
-    <script src="{{ asset('admin_resources/assets/js/vendor/tables/datatables/extensions/row_reorder.min.js') }}"></script>
-    <script src="{{ asset('admin_resources/assets/js/vendor/tables/datatables/extensions/responsive.min.js') }}"></script>
+    <script
+        src="{{ asset('admin_resources/assets/js/vendor/tables/datatables/extensions/row_reorder.min.js') }}"></script>
+    <script
+        src="{{ asset('admin_resources/assets/js/vendor/tables/datatables/extensions/responsive.min.js') }}"></script>
     <script src="{{ asset('admin_resources/assets/js/vendor/ui/moment/moment.min.js') }}"></script>
     <script src="{{ asset('admin_resources/assets/js/vendor/pickers/datepicker.min.js') }}"></script>
     <script src="{{ asset('admin_resources/assets/js/vendor/notifications/bootbox.min.js') }}"></script>
@@ -48,7 +50,7 @@
     <script src="{{ asset('admin_resources/assets/js/vendor/forms/selects/select2.min.js') }}"></script>
     <script src="{{ asset('admin_resources/assets/js/vendor/forms/selects/bootstrap_multiselect.js') }}"></script>
     <script src="{{ asset('admin_resources/assets/js/vendor/notifications/noty.min.js') }}"></script>
-    
+
     <script src="{{ asset('admin_resources/assets/demo/pages/extra_sweetalert.js') }}"></script>
     <script src="{{ asset('admin_resources/assets/js/delete_alert.js') }}"></script>
     <script src="{{ asset('admin_resources/assets/demo/pages/components_modals.js') }}"></script>
@@ -56,11 +58,18 @@
     <!--<script src="{{ asset('admin_resources/assets/demo/pages/form_wizard.js') }}"></script>-->
     <script src="{{ asset('admin_resources/assets/demo/pages/form_layouts.js') }}"></script>
     <script src="{{ asset('admin_resources/assets/demo/pages/extra_noty.js') }}"></script>
+    <script src="{{ asset('admin_resources/assets/demo/pages/form_select2.js') }}"></script>
 
     <!-- /theme JS files -->
 </head>
 
 <body>
+    <script>
+        $(document).ready(function () {
+            var userSession = {!! Session::get('userSession') !!};
+            $("#namaLengkap").text(userSession[0]["namaLengkap"]);
+        });
+    </script>
     <!-- Main navbar -->
     <div class="navbar navbar-dark navbar-expand-lg navbar-static border-bottom border-bottom-white border-opacity-10">
         <div class="container-fluid">
@@ -440,7 +449,7 @@
                                 class="w-32px h-32px rounded-pill" alt="">
                             <span class="status-indicator bg-success"></span>
                         </div>
-                        <span class="d-none d-lg-inline-block mx-lg-2">Victoria</span>
+                        <span class="d-none d-lg-inline-block mx-lg-2" id="namaLengkap"></span>
                     </a>
 
                     <div class="dropdown-menu dropdown-menu-end">
@@ -462,11 +471,10 @@
                             <span class="badge bg-primary rounded-pill ms-auto">26</span>
                         </a>
                         <div class="dropdown-divider"></div>
-                        <a href="#" class="dropdown-item">
-                            <i class="ph-gear me-2"></i>
-                            Account settings
-                        </a>
-                        <a href="#" class="dropdown-item">
+                        <span class="dropdown-item">
+                            Role: 
+                        </span>
+                        <a href="{{ route('logout') }}" class="dropdown-item">
                             <i class="ph-sign-out me-2"></i>
                             Logout
                         </a>
@@ -510,7 +518,7 @@
                     <ul class="nav nav-sidebar" data-nav-type="accordion">
                         <li class="nav-item-divider"></li>
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
+                            <a href="{{ route('Dashboard.index') }}" class="nav-link">
                                 <i class="ph-house"></i>
                                 <span>
                                     Dashboard
@@ -526,17 +534,15 @@
                                 <li class="nav-item nav-item-submenu">
                                     <a href="#" class="nav-link">General</a>
                                     <ul class="nav-group-sub collapse">
-                                        <li class="nav-item"><a href="{{ route('BidangPendidikan.index') }}" class="nav-link">Bidang Pendidikan</a></li>
-                                        {{-- {{ route('Pendidikan.index') }} --}}
-                                        <li class="nav-item"><a href="" class="nav-link">Pendidikan</a></li>
-                                        {{-- {{ route('Pekerjaan.index') }} --}}
-                                        <li class="nav-item"><a href="" class="nav-link">Pekerjaan</a></li>
+                                        <li class="nav-item"><a href="{{ route('BidangPendidikan.index') }}"
+                                                class="nav-link">Bidang Pendidikan</a></li>
+                                        <li class="nav-item"><a href="{{ route('Pendidikan.index') }}" class="nav-link">Pendidikan</a></li>
+                                        <li class="nav-item"><a href="{{ route('Pekerjaan.index') }}" class="nav-link">Pekerjaan</a></li>
                                         <li class="nav-item"><a href="{{ route('JenisStatus.index') }}" class="nav-link">Jenis Status</a></li>
-                                        <li class="nav-item"><a href="" class="nav-link">Status</a></li>
-                                        {{-- {{ route('Hubungan-Keluarga.index') }} --}}
-                                        <li class="nav-item"><a href="" class="nav-link">Hubungan Keluarga</a></li>
+                                        <li class="nav-item"><a href="{{ route('Status.index') }}" class="nav-link">Status</a></li>
+                                        <li class="nav-item"><a href="{{ route('HubunganKeluarga.index') }}" class="nav-link">Hubungan Keluarga</a></li>
                                         {{-- {{ route('Bank.index') }} --}}
-                                        <li class="nav-item"><a href="" class="nav-link">Bank</a></li>
+                                        <li class="nav-item"><a href="{{ route('Bank.index') }}" class="nav-link">Bank</a></li>
                                         {{-- {{ route('Golongan-Darah.index') }} --}}
                                         <li class="nav-item"><a href="" class="nav-link">Golongan Darah</a></li>
                                     </ul>
@@ -557,13 +563,17 @@
                                         </li>
                                         <li class="nav-item"><a href="" class="nav-link">Pelayanan Ibadah</a>
                                         </li>
-                                        <li class="nav-item"><a href="{{ route('JenisKegiatan.index') }}" class="nav-link">Jenis Kegiatan</a>
+                                        <li class="nav-item"><a href="{{ route('JenisKegiatan.index') }}"
+                                                class="nav-link">Jenis Kegiatan</a>
                                         </li>
-                                        <li class="nav-item"><a href="{{ route('JenisMinggu.index') }}" class="nav-link">Jenis Minggu</a>
+                                        <li class="nav-item"><a href="{{ route('JenisMinggu.index') }}"
+                                                class="nav-link">Jenis Minggu</a>
                                         </li>
-                                        <li class="nav-item"><a href="{{ route('JenisRegistrasi.index') }}" class="nav-link">Jenis Registrasi</a>
+                                        <li class="nav-item"><a href="{{ route('JenisRegistrasi.index') }}"
+                                                class="nav-link">Jenis Registrasi</a>
                                         </li>
-                                        <li class="nav-item"><a href="{{ route('JenisRpp.index') }}" class="nav-link">Jenis RPP</a>
+                                        <li class="nav-item"><a href="{{ route('JenisRpp.index') }}"
+                                                class="nav-link">Jenis RPP</a>
                                         </li>
                                     </ul>
                                 </li>
@@ -585,9 +595,11 @@
                                 <span>Data Master</span>
                             </a>
                             <ul class="nav-group-sub collapse">
-                                <li class="nav-item"><a href="{{ route('Jemaat.index') }}" class="nav-link">Jemaat</a></li>
-                                <li class="nav-item"><a href="" class="nav-link">Majelis/Sintua</a></li>
+                                <li class="nav-item"><a href="{{ route('Jemaat.index') }}" class="nav-link">Jemaat</a>
+                                </li>
+                                <li class="nav-item"><a href="{{ route('Majelis.index') }}" class="nav-link">Majelis</a></li>
                                 <li class="nav-item"><a href="" class="nav-link">Kegiatan</a></li>
+                                <li class="nav-item"><a href="{{ route('Wijk.index') }}" class="nav-link">Lingkungan/Wijk/Lunggu</a></li>
                             </ul>
                         </li>
                         <li class="nav-item nav-item-submenu">
@@ -640,9 +652,9 @@
             <div class="content-inner">
 
 
-                    @include('flash_message')
+                @include('flash_message')
 
-                    @yield('content')
+                @yield('content')
 
 
 
